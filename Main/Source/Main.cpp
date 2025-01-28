@@ -1,28 +1,42 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Event.hpp>
+#include "Main.hpp"
 
 std::int32_t main()
 {
-    sf::RenderWindow window(sf::VideoMode(sf::Vector2u(640, 480)), "SFML Window");
-    sf::RectangleShape rectangle(sf::Vector2f(100.f, 100.f));
-    rectangle.setPosition(sf::Vector2f(320.f, 240.f) - rectangle.getSize() / 2.f);
-    rectangle.setFillColor(sf::Color::Green);
-
-    while (window.isOpen())
-    {
-        while (const std::optional<sf::Event> event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
-                window.close();
-            }
-        }
-
-        window.clear();
-        window.draw(rectangle);
-        window.display();
-    }
-
+    Main main;
+    main.run();
     return 0;
+}
+
+Main::Main()
+    : m_window(sf::VideoMode(sf::Vector2u(640, 480)), "SFML Window")
+    , m_environment(m_window)
+    , m_script(new Script)
+{
+    m_script->m_environment = &m_environment;
+    m_script->create();
+}
+
+void Main::run()
+{
+    m_script->step();
+    while (m_window.isOpen()) { loop(); }
+}
+
+void Main::loop()
+{
+    pollEvents();
+    m_window.clear();
+    m_script->step();
+    m_window.display();
+}
+
+void Main::pollEvents()
+{
+    while (const std::optional<sf::Event> event = m_window.pollEvent())
+    {
+        if (event->is<sf::Event::Closed>())
+        {
+            m_window.close();
+        }
+    }
 }

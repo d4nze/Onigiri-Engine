@@ -21,10 +21,17 @@ project "Main"
     }
     
     includedirs {
-		"Source"
+		"Source",
+		"../Core/Source",
+		"../ScriptingEnvironment/Source"
 	}
 	libdirs {}
-    links {}
+    links { "Core" }
+	
+	postbuildcommands {
+		copyFile("%{wks.location}Core\\Build\\bin\\%{outputdir}\\Core.dll"),
+		copyFile("%{wks.location}ScriptingEnvironment\\Build\\bin\\%{outputdir}\\ScriptingEnvironment.dll")
+	}
 	
 	filter "platforms:Win32"
 		architecture "x86"

@@ -1,4 +1,4 @@
-workspace "Script Engine"
+workspace "Sandbox Engine"
     startproject "Main"
 	configurations {
 		"Debug",
@@ -11,4 +11,6 @@ workspace "Script Engine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
 
+include "Core"
 include "Main"
+include "ScriptingEnvironment"
