@@ -1,4 +1,7 @@
 #include "Main.hpp"
+#include "Instance.hpp"
+#include "PlayerController.hpp"
+#include "PlayerRenderer.hpp"
 
 std::int32_t main()
 {
@@ -9,24 +12,30 @@ std::int32_t main()
 
 Main::Main()
     : m_window(sf::VideoMode(sf::Vector2u(640, 480)), "SFML Window")
-    , m_environment(m_window)
-    , m_script(new Script)
+    , m_scene(m_window)
 {
-    m_script->m_environment = &m_environment;
-    m_script->create();
+    m_window.setFramerateLimit(60);
+    initScene();
 }
 
 void Main::run()
 {
-    m_script->step();
     while (m_window.isOpen()) { loop(); }
+}
+
+void Main::initScene()
+{
+    Instance* player = m_scene.createInstance("Player");
+    player->addComponent<Position>();
+    player->addComponent<PlayerRenderer>();
+    player->addComponent<PlayerController>();
 }
 
 void Main::loop()
 {
     pollEvents();
     m_window.clear();
-    m_script->step();
+    m_scene.step();
     m_window.display();
 }
 

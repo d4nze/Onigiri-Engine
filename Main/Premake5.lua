@@ -23,7 +23,7 @@ project "Main"
     includedirs {
 		"Source",
 		"../Core/Source",
-		"../ScriptingEnvironment/Source"
+		"../Dependencies/JSON"
 	}
 	libdirs {}
     links { "Core" }

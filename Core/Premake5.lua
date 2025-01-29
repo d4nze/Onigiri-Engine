@@ -17,7 +17,8 @@ project "Core"
     }
     
     includedirs {
-		"Source"
+		"Source",
+		"../Dependencies/JSON"
 	}
 	libdirs {}
     links {}

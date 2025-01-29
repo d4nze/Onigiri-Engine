@@ -1,8 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-#include "Environment.hpp"
-#include "Script.hpp"
+#include "Scene.hpp"
 
 std::int32_t main();
 
@@ -16,11 +14,12 @@ public:
 	void run();
 
 private:
+	void initScene();
+
 	void loop();
 	void pollEvents();
 
 private:
 	sf::RenderWindow m_window;
-	Environment m_environment;
-	Script* m_script;
+	Scene m_scene;
 };

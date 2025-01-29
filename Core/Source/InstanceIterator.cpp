@@ -1,0 +1,77 @@
+#include "InstanceIterator.hpp"
+#include "Instance.hpp"
+
+InstanceIterator::InstanceIterator(const Instance* parent, const std::vector<Instance*>& instances, std::int32_t startingPoint)
+    : m_parent(parent)
+    , m_instances(instances)
+    , m_index(startingPoint)
+{
+    if (m_index < m_instances.size())
+    {
+        moveToNextComponent();
+    }
+}
+
+Instance* InstanceIterator::operator*()
+{
+    return m_instances[m_index];
+}
+
+const Instance* InstanceIterator::operator*() const
+{
+    return m_instances[m_index + 1];
+}
+
+InstanceIterator& InstanceIterator::operator++()
+{
+    m_index++;
+    moveToNextComponent();
+    return *this;
+}
+
+const InstanceIterator& InstanceIterator::operator++() const
+{
+    m_index++;
+    moveToNextComponent();
+    return *this;
+}
+
+InstanceIterator& InstanceIterator::operator--()
+{
+    if (m_index != -1)
+    {
+        m_index--;
+        moveToPreviusComponent();
+    }
+    return *this;
+}
+
+const InstanceIterator& InstanceIterator::operator--() const
+{
+    if (m_index != -1)
+    {
+        m_index--;
+        moveToPreviusComponent();
+    }
+    return *this;
+}
+
+bool InstanceIterator::operator==(const InstanceIterator& other) const
+{
+    return m_index == other.m_index;
+}
+
+bool InstanceIterator::operator!=(const InstanceIterator& other) const
+{
+    return m_index != other.m_index;
+}
+
+void InstanceIterator::moveToNextComponent() const
+{
+    for (; m_index < m_instances.size() && m_instances[m_index]->getParent() != m_parent; m_index++);
+}
+
+void InstanceIterator::moveToPreviusComponent() const
+{
+    for (; m_instances[m_index]->getParent() != m_parent && m_index > 0; m_index--);
+}

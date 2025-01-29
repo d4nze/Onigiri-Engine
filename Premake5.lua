@@ -13,4 +13,3 @@ outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
 
 include "Core"
 include "Main"
-include "ScriptingEnvironment"
