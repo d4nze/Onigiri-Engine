@@ -6,4 +6,5 @@
 *.vcxproj.user
 
 # Build files
+Core/Build/
 Main/Build/
