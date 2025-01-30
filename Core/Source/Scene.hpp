@@ -18,7 +18,7 @@ public:
 	sf::RenderTarget& getRenderTarget();
 	const sf::RenderTarget& getRenderTarget() const;
 
-	Instance* createInstance(const std::string& instanceName, Instance* instanceParent = nullptr);
+	Instance* createInstance(const std::string& instanceName);
 	Instance* getInstance(const std::string& instanceName, std::uint32_t depth = 0);
 	const Instance* getInstance(const std::string& instanceName, std::uint32_t depth = 0) const;
 	bool destroyInstance(Instance* instance);
@@ -29,6 +29,7 @@ public:
 	const InstanceIterator end() const;
 
 private:
+	Instance* createInstance(const std::string& instanceName, Instance* instanceParent);
 	Instance* getInstance(const std::string& instanceName, Instance* startingPoint, std::uint32_t depth = 0) const;
 	void step();
 

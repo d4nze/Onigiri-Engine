@@ -21,6 +21,11 @@ public:
 	void setParent(Instance* parent);
 	Instance* getParent() const;
 
+	Instance* createInstance(const std::string& instanceName);
+	Instance* getInstance(const std::string& instanceName, std::uint32_t depth);
+	const Instance* getInstance(const std::string& instanceName, std::uint32_t depth = 0) const;
+	bool destroyInstance(Instance* instance);
+
 	template<class TComponent>
 	TComponent* addComponent();
 	template<class TComponent>

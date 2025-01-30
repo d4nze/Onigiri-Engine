@@ -59,6 +59,26 @@ Instance* Instance::getParent() const
 	return m_parent;
 }
 
+Instance* Instance::createInstance(const std::string& instanceName)
+{
+	return m_scene.createInstance(instanceName, this);
+}
+
+Instance* Instance::getInstance(const std::string& instanceName, std::uint32_t depth)
+{
+	return m_scene.getInstance(instanceName, depth);
+}
+
+const Instance* Instance::getInstance(const std::string& instanceName, std::uint32_t depth) const
+{
+	return m_scene.getInstance(instanceName, depth);
+}
+
+bool Instance::destroyInstance(Instance* instance)
+{
+	return m_scene.destroyInstance(instance);
+}
+
 InstanceIterator Instance::begin()
 {
 	return m_scene.begin(this);

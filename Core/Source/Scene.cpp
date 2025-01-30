@@ -27,11 +27,9 @@ const sf::RenderTarget& Scene::getRenderTarget() const
     return m_renderTarget;
 }
 
-Instance* Scene::createInstance(const std::string& instanceName, Instance* instanceParent)
+Instance* Scene::createInstance(const std::string& instanceName)
 {
-    Instance* instance = new Instance(*this, instanceName, instanceParent);
-    m_instances.push_back(instance);
-    return instance;
+    return createInstance(instanceName, nullptr);
 }
 
 Instance* Scene::getInstance(const std::string& instanceName, std::uint32_t depth)
@@ -78,10 +76,17 @@ const InstanceIterator Scene::end() const
     return end(nullptr);
 }
 
+Instance* Scene::createInstance(const std::string& instanceName, Instance* instanceParent)
+{
+    Instance* instance = new Instance(*this, instanceName, instanceParent);
+    m_instances.push_back(instance);
+    return instance;
+}
+
 Instance* Scene::getInstance(const std::string& instanceName, Instance* startingPoint, std::uint32_t depth) const
 {
     std::vector<Instance*> instances = m_instances;
-    for (std::uint32_t i = 0; i < depth; i++)
+    for (std::uint32_t i = 0; i <= depth && !instances.empty(); i++)
     {
         std::vector<Instance*> nextDepth;
         for (Instance* instance : instances)

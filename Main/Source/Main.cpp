@@ -13,8 +13,8 @@ std::int32_t main()
 Main::Main()
     : m_window(sf::VideoMode(sf::Vector2u(640, 480)), "SFML Window")
     , m_scene(m_window)
-{
-    m_window.setFramerateLimit(60);
+    {
+        m_window.setFramerateLimit(60);
     initScene();
 }
 
