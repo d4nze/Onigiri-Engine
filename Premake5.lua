@@ -9,7 +9,8 @@ workspace "Sandbox Engine"
 		"Win64"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
+config = "%{cfg.buildcfg}-%{cfg.platform}"
+outputdir = "..//Build/%{config}"
 
 include "Core"
 include "ImGui"

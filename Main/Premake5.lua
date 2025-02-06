@@ -1,5 +1,5 @@
 function copyFile(sourcePath)
-    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}\\Main\\Build\\bin\\%%{outputdir}\"", sourcePath)
+    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\\Main\"", sourcePath)
 end
 
 project "Main"
@@ -8,8 +8,8 @@ project "Main"
     cppdialect "C++17"
     
 	location "Source/"
-	targetdir "Build/bin/%{outputdir}"
-    objdir "Build/obj/%{outputdir}"
+	targetdir "%{outputdir}/%{prj.name}"
+	objdir "%{outputdir}/%{prj.name}/obj"
 	
 	files {
 		"Source/**.hpp",
@@ -30,8 +30,7 @@ project "Main"
     links { "Core", "ImGui" }
 	
 	postbuildcommands {
-		copyFile("%{wks.location}Core\\Build\\bin\\%{outputdir}\\Core.dll"),
-		copyFile("%{wks.location}ScriptingEnvironment\\Build\\bin\\%{outputdir}\\ScriptingEnvironment.dll")
+		copyFile("%{wks.location}Build\\%{config}\\Core\\Core.dll")
 	}
 	
 	filter "platforms:Win32"
