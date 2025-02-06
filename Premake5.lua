@@ -13,5 +13,4 @@ config = "%{cfg.buildcfg}-%{cfg.platform}"
 outputdir = "..//Build/%{config}"
 
 include "Core"
-include "ImGui"
 include "Main"

@@ -27,10 +27,10 @@ project "Core"
 		architecture "x86"
         defines "WIN32"
 		includedirs { 
-			"../Dependencies/SFML/x86/include"
+			"../Dependencies/SFML/Win32/include"
 		}
 		libdirs { 
-			"../Dependencies/SFML/x86/lib"
+			"../Dependencies/SFML/Win32/lib"
 		}
 		links {
 			"sfml-audio.lib",
@@ -43,10 +43,10 @@ project "Core"
 		architecture "x86_64"
         defines "WIN64"
 		includedirs { 
-			"../Dependencies/SFML/x64/include"
+			"../Dependencies/SFML/Win64/include"
 		}
 		libdirs { 
-			"../Dependencies/SFML/x64/lib"
+			"../Dependencies/SFML/Win64/lib"
 		}
 		links {
 			"sfml-audio.lib",

@@ -6,5 +6,4 @@
 *.vcxproj.user
 
 # Build files
-ImGui/
-Build/
+Build
