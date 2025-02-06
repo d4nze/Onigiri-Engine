@@ -12,4 +12,5 @@ workspace "Sandbox Engine"
 outputdir = "%{cfg.buildcfg}-%{cfg.platform}"
 
 include "Core"
+include "ImGui"
 include "Main"

@@ -23,10 +23,11 @@ project "Main"
     includedirs {
 		"Source",
 		"../Core/Source",
+		"../ImGui/Source",
 		"../Dependencies/JSON"
 	}
 	libdirs {}
-    links { "Core" }
+    links { "Core", "ImGui" }
 	
 	postbuildcommands {
 		copyFile("%{wks.location}Core\\Build\\bin\\%{outputdir}\\Core.dll"),

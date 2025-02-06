@@ -7,4 +7,5 @@
 
 # Build files
 Core/Build/
+ImGui
 Main/Build/
