@@ -9,7 +9,14 @@
 std::int32_t main()
 {
     Main main;
-    main.run();
+    try
+    {
+        main.run();
+    }
+    catch (std::exception exception)
+    {
+        return -1;
+    }
     return 0;
 }
 
@@ -19,7 +26,10 @@ Main::Main()
     , m_scene(m_window)
 {
     m_window.setFramerateLimit(60);
-    ImGui::SFML::Init(m_window);
+    if (!ImGui::SFML::Init(m_window))
+    {
+        throw std::exception();
+    }
     ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     initScene();
 }
