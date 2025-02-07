@@ -47,5 +47,5 @@ private:
 	std::queue<Component*> m_destroyComponents;
 
 	friend class Instance;
-	friend class Main;
+	friend class MainApplication;
 };

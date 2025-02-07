@@ -1,6 +1,6 @@
-project "Main"
+project "Application"
 	language "C++"
-	kind "ConsoleApp"
+	kind "SharedLib"
     cppdialect "C++17"
     
 	location "Source/"
@@ -18,13 +18,10 @@ project "Main"
     
     includedirs {
 		"Source",
-		"../Core/Source",
-		"../Application/Source",
-		"../Dependencies/JSON",
 		"../Dependencies/ImGui/include"
 	}
 	libdirs {}
-    links { "Core", "Application", "opengl32.lib" }
+    links { "opengl32.lib" }
 	
 	filter "platforms:Win32"
 		architecture "x86"
@@ -76,3 +73,5 @@ project "Main"
 	filter { "platforms:Win64", "configurations:Release" }
 		libdirs "../Dependencies/ImGui/lib/Release/Win64"
 		links "ImGui.lib"
+	filter {}
+		defines "APPLICATION_EXPORTS"
