@@ -23,10 +23,11 @@ project "Main"
     includedirs {
 		"Source",
 		"../Core/Source",
-		"../Dependencies/JSON"
+		"../Dependencies/JSON",
+		"../Dependencies/ImGui/include"
 	}
 	libdirs {}
-    links { "Core" }
+    links { "Core", "opengl32.lib" }
 	
 	postbuildcommands {
 		copyFile("%{wks.location}Build\\%{config}\\Core\\Core.dll")
@@ -36,20 +37,17 @@ project "Main"
 		architecture "x86"
         defines "WIN32"
 		includedirs { 
-			"../Dependencies/SFML/Win32/include",
-			"../Dependencies/ImGui/Win32/include"
+			"../Dependencies/SFML/Win32/include"
 		}
 		libdirs { 
-			"../Dependencies/SFML/Win32/lib",
-			"../Dependencies/ImGui/Win32/lib"
+			"../Dependencies/SFML/Win32/lib"
 		}
 		links {
 			"sfml-audio.lib",
 			"sfml-graphics.lib",
 			"sfml-network.lib",
 			"sfml-system.lib",
-			"sfml-window.lib",
-			"ImGui.lib"
+			"sfml-window.lib"
 		}
 		postbuildcommands {
 			copyFile("%{wks.location}Dependencies\\SFML\\Win32\\bin\\sfml-audio-3.dll"),
@@ -66,20 +64,17 @@ project "Main"
 		architecture "x86_64"
         defines "WIN64"
 		includedirs { 
-			"../Dependencies/SFML/Win64/include",
-			"../Dependencies/ImGui/Win64/include"
+			"../Dependencies/SFML/Win64/include"
 		}
 		libdirs { 
-			"../Dependencies/SFML/Win64/lib",
-			"../Dependencies/ImGui/Win64/lib"
+			"../Dependencies/SFML/Win64/lib"
 		}
 		links {
 			"sfml-audio.lib",
 			"sfml-graphics.lib",
 			"sfml-network.lib",
 			"sfml-system.lib",
-			"sfml-window.lib",
-			"ImGui.lib"
+			"sfml-window.lib"
 		}
 		postbuildcommands {
 			copyFile("%{wks.location}Dependencies\\SFML\\Win64\\bin\\sfml-audio-3.dll"),
@@ -98,3 +93,15 @@ project "Main"
 	filter "configurations:Release"
         optimize "On"
         defines "RELEASE"
+	filter { "platforms:Win32", "configurations:Debug" }
+		libdirs "../Dependencies/ImGui/lib/Debug/Win32"
+		links "ImGui.lib"
+	filter { "platforms:Win64", "configurations:Debug" }
+		libdirs "../Dependencies/ImGui/lib/Debug/Win64"
+		links "ImGui.lib"
+	filter { "platforms:Win32", "configurations:Release" }
+		libdirs "../Dependencies/ImGui/lib/Release/Win32"
+		links "ImGui.lib"
+	filter { "platforms:Win64", "configurations:Release" }
+		libdirs "../Dependencies/ImGui/lib/Release/Win64"
+		links "ImGui.lib"
