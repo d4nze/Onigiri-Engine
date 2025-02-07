@@ -12,5 +12,8 @@ workspace "Sandbox Engine"
 config = "%{cfg.buildcfg}-%{cfg.platform}"
 outputdir = "..//Build/%{config}"
 
-include "Core"
-include "Main"
+group "Linkers"
+	include "SFMLLinker"z	
+group ""
+	include "Core"
+	include "Main"

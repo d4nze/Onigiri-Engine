@@ -21,7 +21,7 @@ project "Core"
 		"../Dependencies/JSON"
 	}
 	libdirs {}
-    links {}
+	dependson { "SFMLLinker" }
 	
 	filter "platforms:Win32"
 		architecture "x86"
