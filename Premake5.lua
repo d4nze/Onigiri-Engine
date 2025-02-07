@@ -13,7 +13,7 @@ config = "%{cfg.buildcfg}-%{cfg.platform}"
 outputdir = "..//Build/%{config}"
 
 group "Linkers"
-	include "SFMLLinker"z	
+	include "SFMLLinker"
 group ""
 	include "Core"
 	include "Main"
