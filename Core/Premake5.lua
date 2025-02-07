@@ -4,8 +4,8 @@ project "Core"
     cppdialect "C++17"
     
 	location "Source/"
-	targetdir "%{outputdir}/%{prj.name}"
-	objdir "%{outputdir}/%{prj.name}/obj"
+	targetdir "%{outputdir}"
+	objdir "%{outputdir}/obj"
 	
 	files {
 		"Source/**.hpp",

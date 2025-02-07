@@ -1,5 +1,5 @@
 function copyFile(sourcePath)
-    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\\Main\"", sourcePath)
+    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\"", sourcePath)
 end
 
 project "Main"
@@ -8,8 +8,8 @@ project "Main"
     cppdialect "C++17"
     
 	location "Source/"
-	targetdir "%{outputdir}/%{prj.name}"
-	objdir "%{outputdir}/%{prj.name}/obj"
+	targetdir "%{outputdir}"
+	objdir "%{outputdir}/obj"
 	
 	files {
 		"Source/**.hpp",
