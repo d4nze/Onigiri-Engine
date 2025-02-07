@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Clock.hpp>
-#include "Scene.hpp"
+#include "Core/Scene.hpp"
 
 std::int32_t main();
 

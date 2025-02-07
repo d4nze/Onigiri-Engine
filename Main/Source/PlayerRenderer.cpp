@@ -1,6 +1,6 @@
 #include "PlayerRenderer.hpp"
-#include "Instance.hpp"
-#include "Scene.hpp"
+#include "Core/Instance.hpp"
+#include "Core/Scene.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
 
 PlayerRenderer::PlayerRenderer()

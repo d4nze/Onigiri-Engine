@@ -1,5 +1,5 @@
 #pragma once
-#include "StepComponent.hpp"
+#include "Core/StepComponent.hpp"
 #include "Position.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.hpp"
+#include "Core/Component.hpp"
 #include <SFML/System/Vector2.hpp>
 
 class Position : public Component
