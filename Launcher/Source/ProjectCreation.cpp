@@ -70,5 +70,7 @@ void ProjectCreation::update()
 
 void ProjectCreation::reset()
 {
+    m_step.setStep<ProjectNameConfiguration>();
     m_nameConfiguration.reset();
+    m_pathConfiguration.reset();
 }
