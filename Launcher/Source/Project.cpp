@@ -9,6 +9,10 @@ Project::Project(const std::string& name, const std::string& path)
 void Project::update()
 {
     if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)));
+    if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
+    {
+        ImGui::OpenPopup(("ProjectMenuPopup"));
+    }
     ImGui::SameLine();
     const float x = ImGui::GetCursorPosX();
     ImGui::TextUnformatted(m_name.c_str());

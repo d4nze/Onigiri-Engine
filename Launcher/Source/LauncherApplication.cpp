@@ -25,7 +25,7 @@ void LauncherApplication::update()
     if (ImGui::Button("New Project"));
     ImGui::SameLine();
     if (ImGui::Button("Import Project"));
-    ImGui::Separator();
+    // ImGui::Separator();
 
     m_projectsHolder.update();
 

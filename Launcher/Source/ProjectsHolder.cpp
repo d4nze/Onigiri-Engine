@@ -51,11 +51,26 @@ void ProjectsHolder::update()
 	}
 
 	static ImGuiIO& io = ImGui::GetIO();
-	ImGui::BeginChild("Project List", ImVec2(0, io.DisplaySize.y - 50), true);
+	ImGui::BeginChild("Project List", ImVec2(0, io.DisplaySize.y - 40), true);
 	for (std::size_t i = 0; i < m_projects.size(); i++)
 	{
 		ImGui::PushID(i);
 		m_projects[i].update();
+		if (ImGui::BeginPopup(("ProjectMenuPopup")))
+		{
+			if (ImGui::MenuItem("Delete"))
+			{
+				// add delete folder functional
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::MenuItem("Remove from list"))
+			{
+				m_projects.erase(m_projects.begin() + i);
+				i--;
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
 		ImGui::PopID();
 	}
 	ImGui::EndChild();
