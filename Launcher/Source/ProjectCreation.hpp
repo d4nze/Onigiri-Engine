@@ -1,5 +1,5 @@
 #pragma once
-#include "ProjectNameConfiguration.hpp"
+#include "ProjectCreationStep.hpp"
 
 class LauncherGUI;
 
@@ -12,7 +12,10 @@ public:
 	void update();
 	void reset();
 
+	ProjectCreationStep& getStepManager();
+
 private:
 	LauncherGUI& m_launcherGUI;
+	ProjectCreationStep m_step;
 	ProjectNameConfiguration m_nameConfiguration;
 };

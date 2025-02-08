@@ -6,6 +6,7 @@
 
 ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI)
     : m_launcherGUI(launcherGUI)
+    , m_step(typeid(ProjectNameConfiguration))
     , m_nameConfiguration(*this)
 {}
 
@@ -25,10 +26,15 @@ void ProjectCreation::update()
         m_launcherGUI.getStateManager().setState<ProjectSelection>();
         reset();
     }
+
     ImGui::SameLine(windowWidth - totalButtonsWidth - ImGui::GetStyle().ItemSpacing.x);
-    ImGui::BeginDisabled();
+    if (m_step.is<ProjectNameConfiguration>())
+    {
+        ImGui::BeginDisabled();
+    }
     if (ImGui::Button("Back", ImVec2(buttonWidth, 0)));
     ImGui::EndDisabled();
+
     ImGui::SameLine();
     if (ImGui::Button("Next", ImVec2(buttonWidth, 0)));
 }
