@@ -1,5 +1,5 @@
 workspace "Sandbox Engine"
-    startproject "Main"
+    startproject "Launcher"
 	configurations {
 		"Debug",
 		"Release"
@@ -17,5 +17,4 @@ group "Linkers"
 group ""
 	include "Core"
 	include "Application"
-	include "Main"
 	include "Launcher"
