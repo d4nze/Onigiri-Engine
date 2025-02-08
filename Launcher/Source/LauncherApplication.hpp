@@ -1,9 +1,8 @@
 #pragma once
 #include "Application/Application.hpp"
-#include "Project.hpp"
+#include "ProjectsHolder.hpp"
 
 #include <imgui.h>
-#include <vector>
 
 class LauncherApplication : public Application
 {
@@ -15,5 +14,5 @@ private:
 
 private:
 	ImGuiIO& m_imGuiIO;
-	std::vector<Project> m_projects;
+	ProjectsHolder m_projectsHolder;
 };

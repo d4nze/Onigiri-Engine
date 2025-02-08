@@ -7,7 +7,7 @@ public:
 	Project(const std::string& name, const std::string& path);
 
 public:
-	void Update();
+	void update();
 
 	void setName(const std::string& name);
 	void setPath(const std::string& path);

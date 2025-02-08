@@ -9,12 +9,6 @@ LauncherApplication::LauncherApplication()
 {
     m_imGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     m_imGuiIO.IniFilename = "Launcher.ini";
-
-    m_projects = {
-        { "Project Alpha",  "C:/Projects/Alpha" },
-        { "Project Beta",   "C:/Projects/Beta" },
-        { "Project Gamma",  "C:/Projects/Gamma" },
-    };
 }
 
 void LauncherApplication::update()
@@ -33,15 +27,7 @@ void LauncherApplication::update()
     if (ImGui::Button("Import Project"));
     ImGui::Separator();
 
-    float listHeight = windowSize.y - 50;
-    ImGui::BeginChild("Project List", ImVec2(0, listHeight), true);
-    for (size_t i = 0; i < m_projects.size(); i++)
-    {
-        ImGui::PushID(i);
-        m_projects[i].Update();
-        ImGui::PopID();
-    }
-    ImGui::EndChild();
+    m_projectsHolder.update();
 
     ImGui::End();
 }

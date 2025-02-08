@@ -6,7 +6,7 @@ Project::Project(const std::string& name, const std::string& path)
 	, m_path(path)
 {}
 
-void Project::Update()
+void Project::update()
 {
     if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)));
     ImGui::SameLine();
