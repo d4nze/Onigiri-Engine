@@ -1,7 +1,10 @@
 #include "ProjectSelection.hpp"
 #include <imgui.h>
 
-ProjectSelection::ProjectSelection() : m_projectsHolder() {}
+ProjectSelection::ProjectSelection(LauncherGUI& launcherGUI)
+    : m_launcherGUI(launcherGUI)
+    , m_projectsHolder()
+{}
 
 void ProjectSelection::update()
 {

@@ -1,10 +1,12 @@
 #pragma once
 #include "ProjectsHolder.hpp"
 
+class LauncherGUI;
+
 class ProjectSelection
 {
 public:
-	ProjectSelection();
+	ProjectSelection(LauncherGUI& launcherGUI);
 
 public:
 	void update();
@@ -13,5 +15,6 @@ public:
 	const ProjectsHolder& getProjectsHolder() const;
 
 private:
+	LauncherGUI& m_launcherGUI;
 	ProjectsHolder m_projectsHolder;
 };

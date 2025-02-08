@@ -1,6 +1,6 @@
 #pragma once
 #include "Application/Application.hpp"
-#include "ProjectSelection.hpp"
+#include "LauncherGUI.hpp"
 
 #include <imgui.h>
 
@@ -14,5 +14,5 @@ private:
 
 private:
 	ImGuiIO& m_imGuiIO;
-	ProjectSelection m_projectSelection;
+	LauncherGUI m_gui;
 };

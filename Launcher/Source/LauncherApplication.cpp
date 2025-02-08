@@ -6,7 +6,7 @@
 LauncherApplication::LauncherApplication()
     : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
     , m_imGuiIO(ImGui::GetIO())
-    , m_projectSelection()
+    , m_gui()
 {
     m_imGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     m_imGuiIO.IniFilename = "Launcher.ini";
@@ -23,7 +23,7 @@ void LauncherApplication::update()
                  ImGuiWindowFlags_NoMove |
                  ImGuiWindowFlags_NoTitleBar);
 
-    m_projectSelection.update();
+    m_gui.update();
 
     ImGui::End();
 }
