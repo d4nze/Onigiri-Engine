@@ -3,27 +3,25 @@
 #include <imgui.h>
 #include <vector>
 
-LauncherApplication::LauncherApplication() : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
+LauncherApplication::LauncherApplication()
+    : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
+    , m_imGuiIO(ImGui::GetIO())
 {
-    ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    io.IniFilename = "Launcher.ini";
-}
+    m_imGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    m_imGuiIO.IniFilename = "Launcher.ini";
 
-static std::vector<std::pair<std::string, std::string>> projects = {
-    { "Project Alpha",  "C:/Projects/Alpha" },
-    { "Project Beta",   "C:/Projects/Beta" },
-    { "Project Gamma",  "C:/Projects/Gamma" },
-};
+    m_projects = {
+        { "Project Alpha",  "C:/Projects/Alpha" },
+        { "Project Beta",   "C:/Projects/Beta" },
+        { "Project Gamma",  "C:/Projects/Gamma" },
+    };
+}
 
 void LauncherApplication::update()
 {
-    ImGuiIO& io = ImGui::GetIO();
-    ImVec2 windowSize = io.DisplaySize;
-
+    ImVec2 windowSize = m_imGuiIO.DisplaySize;
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(windowSize);
-
     ImGui::Begin("Launcher", nullptr,
                  ImGuiWindowFlags_NoCollapse |
                  ImGuiWindowFlags_NoResize |
@@ -37,21 +35,11 @@ void LauncherApplication::update()
 
     float listHeight = windowSize.y - 50;
     ImGui::BeginChild("Project List", ImVec2(0, listHeight), true);
-    for (size_t i = 0; i < projects.size(); i++)
+    for (size_t i = 0; i < m_projects.size(); i++)
     {
         ImGui::PushID(i);
-        if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)));
+        m_projects[i].Update();
         ImGui::PopID();
-
-        ImGui::SameLine();
-        const float x = ImGui::GetCursorPosX();
-        ImGui::TextUnformatted(projects[i].first.c_str());
-        ImGui::SetCursorPosX(x);
-        ImGui::SetCursorPosY(ImGui::GetCursorPosY() - 20);
-        ImGui::BeginDisabled();
-        ImGui::TextUnformatted(projects[i].second.c_str());
-        ImGui::EndDisabled();
-        ImGui::Separator();
     }
     ImGui::EndChild();
 
