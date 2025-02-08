@@ -7,7 +7,7 @@
 class APPLICATION_API Application
 {
 public:
-	Application(const sf::VideoMode& windowResolution);
+	Application(const sf::VideoMode& windowResolution, const std::string& windowTitle);
 	~Application();
 
 public:

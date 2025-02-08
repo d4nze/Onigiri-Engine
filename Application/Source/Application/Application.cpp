@@ -2,8 +2,8 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 
-Application::Application(const sf::VideoMode& windowResolution)
-	: m_window(windowResolution, "Application")
+Application::Application(const sf::VideoMode& windowResolution, const std::string& windowTitle)
+	: m_window(windowResolution, windowTitle.c_str())
 	, m_deltaClock()
 {
 	if (!ImGui::SFML::Init(m_window))

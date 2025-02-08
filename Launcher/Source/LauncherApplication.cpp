@@ -3,7 +3,7 @@
 #include <imgui.h>
 #include <vector>
 
-LauncherApplication::LauncherApplication() : Application(sf::VideoMode(sf::Vector2u(800, 600)))
+LauncherApplication::LauncherApplication() : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
 {
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
