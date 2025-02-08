@@ -4,11 +4,16 @@
 
 #include <imgui.h>
 
-ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI) : m_launcherGUI(launcherGUI) {}
+ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI)
+    : m_launcherGUI(launcherGUI)
+    , m_nameConfiguration(*this)
+{}
 
 void ProjectCreation::update()
 {
-	ImGui::Dummy(ImVec2(0, ImGui::GetContentRegionAvail().y - 25));
+    ImGui::BeginChild("Project List", ImVec2(0, ImGui::GetContentRegionAvail().y - 25), true);
+    m_nameConfiguration.update();
+    ImGui::EndChild();
 
     float buttonWidth = 80.0f;
     float spacing = 10.0f;
@@ -18,6 +23,7 @@ void ProjectCreation::update()
     if (ImGui::Button("Cancel", ImVec2(buttonWidth, 0)))
     {
         m_launcherGUI.getStateManager().setState<ProjectSelection>();
+        reset();
     }
     ImGui::SameLine(windowWidth - totalButtonsWidth - ImGui::GetStyle().ItemSpacing.x);
     ImGui::BeginDisabled();
@@ -25,4 +31,9 @@ void ProjectCreation::update()
     ImGui::EndDisabled();
     ImGui::SameLine();
     if (ImGui::Button("Next", ImVec2(buttonWidth, 0)));
+}
+
+void ProjectCreation::reset()
+{
+    m_nameConfiguration.reset();
 }

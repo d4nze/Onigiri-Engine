@@ -1,5 +1,5 @@
 #pragma once
-#include "ProjectsHolder.hpp"
+#include "ProjectNameConfiguration.hpp"
 
 class LauncherGUI;
 
@@ -10,7 +10,9 @@ public:
 
 public:
 	void update();
+	void reset();
 
 private:
 	LauncherGUI& m_launcherGUI;
+	ProjectNameConfiguration m_nameConfiguration;
 };
