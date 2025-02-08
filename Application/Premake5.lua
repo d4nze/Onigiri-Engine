@@ -1,6 +1,6 @@
 project "Application"
 	language "C++"
-	kind "SharedLib"
+	kind "StaticLib"
     cppdialect "C++17"
     
 	location "Source/"

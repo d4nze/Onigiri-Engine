@@ -22,7 +22,7 @@ void Application::run()
 	while (m_window.isOpen())
 	{
 		for (; const std::optional<sf::Event> event = m_window.pollEvent(); handleEvent(event));
-		ImGui::SFML::Update(m_window, m_deltaClock.reset());
+		ImGui::SFML::Update(m_window, m_deltaClock.restart());
 		m_window.clear();
 		update();
 		ImGui::SFML::Render(m_window);
