@@ -6,6 +6,7 @@ class ProjectsHolder
 {
 public:
 	ProjectsHolder();
+	~ProjectsHolder();
 
 public:
 	void update();

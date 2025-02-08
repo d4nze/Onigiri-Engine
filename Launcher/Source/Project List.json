@@ -1,0 +1,20 @@
+{
+    "projects": [
+        {
+            "name": "Project Alpha",
+            "path": "C:/Projects/Alpha"
+        },
+        {
+            "name": "Project Beta",
+            "path": "C:/Projects/Beta"
+        },
+        {
+            "name": "Project Gamma",
+            "path": "C:/Projects/Gamma"
+        },
+        {
+            "name": "Project Delta",
+            "path": "C:/Projects/Delta"
+        }
+    ]
+}

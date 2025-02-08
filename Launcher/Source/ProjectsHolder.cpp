@@ -1,17 +1,55 @@
 #include "ProjectsHolder.hpp"
 #include <imgui.h>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 ProjectsHolder::ProjectsHolder()
 {
-	m_projects = {
-		{ "Project Alpha",  "C:/Projects/Alpha" },
-		{ "Project Beta",   "C:/Projects/Beta" },
-		{ "Project Gamma",  "C:/Projects/Gamma" },
-	};
+	std::ifstream file("Project List.json");
+	if (file.is_open())
+	{
+		nlohmann::json projectsData;
+		file >> projectsData;
+		file.close();
+
+		for (const nlohmann::json& projectData : projectsData["projects"])
+		{
+			m_projects.push_back(Project(projectData["name"], projectData["path"]));
+		}
+	}
+}
+
+ProjectsHolder::~ProjectsHolder()
+{
+	std::ofstream file("Project List.json");
+	if (file.is_open())
+	{
+		nlohmann::json projectsData;
+		projectsData["projects"] = nlohmann::json::array();
+		for (const Project& project : m_projects)
+		{
+			projectsData["projects"].push_back({ { "name", project.getName() }, { "path", project.getPath() } });
+		}
+		file << projectsData.dump(4);
+		file.close();
+	}
 }
 
 void ProjectsHolder::update()
 {
+	if (m_projects.empty())
+	{
+		ImVec2 childSize = ImGui::GetWindowSize();
+		ImVec2 textSize = ImGui::CalcTextSize("No projects");
+		ImVec2 textPos = ImVec2((childSize.x - textSize.x) / 2.f, (childSize.y - textSize.y) / 2.f);
+
+		ImGui::SetCursorPos(textPos);
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.7f, 0.7f, 1.0f));
+		ImGui::TextUnformatted("No projects");
+		ImGui::PopStyleColor();
+		return;
+	}
+
 	static ImGuiIO& io = ImGui::GetIO();
 	ImGui::BeginChild("Project List", ImVec2(0, io.DisplaySize.y - 50), true);
 	for (std::size_t i = 0; i < m_projects.size(); i++)
