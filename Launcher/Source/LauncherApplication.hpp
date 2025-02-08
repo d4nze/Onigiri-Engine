@@ -1,6 +1,6 @@
 #pragma once
 #include "Application/Application.hpp"
-#include "ProjectsHolder.hpp"
+#include "ProjectSelection.hpp"
 
 #include <imgui.h>
 
@@ -14,5 +14,5 @@ private:
 
 private:
 	ImGuiIO& m_imGuiIO;
-	ProjectsHolder m_projectsHolder;
+	ProjectSelection m_projectSelection;
 };
