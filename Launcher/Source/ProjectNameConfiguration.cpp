@@ -11,8 +11,8 @@ ProjectNameConfiguration::ProjectNameConfiguration(ProjectCreation& projectCreat
 
 void ProjectNameConfiguration::update()
 {
-	ImGui::TextUnformatted("Project name:");
-	ImGui::InputText("Project Name Input", m_nameBuffer, m_bufferSize);
+	ImGui::TextUnformatted("Enter project's name");
+	ImGui::InputText("##Project Name Input", m_nameBuffer, m_bufferSize);
 }
 
 void ProjectNameConfiguration::reset()

@@ -1,5 +1,6 @@
 #pragma once
 #include "ProjectNameConfiguration.hpp"
+#include "ProjectPathConfiguration.hpp"
 
 #include <typeindex>
 
@@ -19,5 +20,6 @@ private:
 };
 
 template void ProjectCreationStep::setStep<ProjectNameConfiguration>();
+template void ProjectCreationStep::setStep<ProjectPathConfiguration>();
 
 #include "ProjectCreationStep.inl"

@@ -12,10 +12,9 @@ public:
 	void update();
 	void reset();
 
-	ProjectCreationStep& getStepManager();
-
 private:
 	LauncherGUI& m_launcherGUI;
 	ProjectCreationStep m_step;
 	ProjectNameConfiguration m_nameConfiguration;
+	ProjectPathConfiguration m_pathConfiguration;
 };

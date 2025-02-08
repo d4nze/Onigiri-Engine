@@ -8,12 +8,20 @@ ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI)
     : m_launcherGUI(launcherGUI)
     , m_step(typeid(ProjectNameConfiguration))
     , m_nameConfiguration(*this)
+    , m_pathConfiguration(*this)
 {}
 
 void ProjectCreation::update()
 {
     ImGui::BeginChild("Project List", ImVec2(0, ImGui::GetContentRegionAvail().y - 25), true);
-    m_nameConfiguration.update();
+    if (m_step.is<ProjectNameConfiguration>())
+    {
+        m_nameConfiguration.update();
+    }
+    else if (m_step.is<ProjectPathConfiguration>())
+    {
+        m_pathConfiguration.update();
+    }
     ImGui::EndChild();
 
     float buttonWidth = 80.0f;
@@ -27,16 +35,37 @@ void ProjectCreation::update()
         reset();
     }
 
+    bool isDisabled = m_step.is<ProjectNameConfiguration>();
     ImGui::SameLine(windowWidth - totalButtonsWidth - ImGui::GetStyle().ItemSpacing.x);
-    if (m_step.is<ProjectNameConfiguration>())
+    if (isDisabled)
     {
         ImGui::BeginDisabled();
     }
-    if (ImGui::Button("Back", ImVec2(buttonWidth, 0)));
-    ImGui::EndDisabled();
+    if (ImGui::Button("Back", ImVec2(buttonWidth, 0)))
+    {
+        if (m_step.is<ProjectPathConfiguration>())
+        {
+            m_step.setStep<ProjectNameConfiguration>();
+        }
+    }
+    if (isDisabled)
+    {
+        ImGui::EndDisabled();
+    }
 
     ImGui::SameLine();
-    if (ImGui::Button("Next", ImVec2(buttonWidth, 0)));
+    const char* nextStepText = "Next";
+    if (m_step.is<ProjectPathConfiguration>())
+    {
+        nextStepText = "Finish";
+    }
+    if (ImGui::Button(nextStepText, ImVec2(buttonWidth, 0)))
+    {
+        if (m_step.is<ProjectNameConfiguration>())
+        {
+            m_step.setStep<ProjectPathConfiguration>();
+        }
+    }
 }
 
 void ProjectCreation::reset()
