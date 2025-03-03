@@ -1,7 +1,3 @@
-function copyFile(sourcePath)
-    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\"", sourcePath)
-end
-
 project "SFMLLinker"
 	language "C++"
 	kind "StaticLib"

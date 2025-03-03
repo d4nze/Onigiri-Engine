@@ -25,6 +25,9 @@ project "Launcher"
 	}
 	libdirs {}
     links { "Core", "Application", "opengl32.lib" }
+	postbuildcommands {
+		copyFile("%{wks.location}Launcher\\Source\\vcrosdmonorus_vhsicons.ttf")
+	}
 	
 	filter "platforms:Win32"
 		architecture "x86"

@@ -1,5 +1,6 @@
 #pragma once
 #include "LauncherState.hpp"
+#include <imgui.h>
 
 class LauncherGUI
 {
@@ -16,4 +17,5 @@ private:
 	LauncherState m_state;
 	ProjectSelection m_projectSelection;
 	ProjectCreation m_projectCreation;
+	ImFont* m_mainFont;
 };

@@ -12,6 +12,10 @@ workspace "Sandbox Engine"
 config = "%{cfg.buildcfg}-%{cfg.platform}"
 outputdir = "..//Build/%{config}"
 
+function copyFile(sourcePath)
+    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\"", sourcePath)
+end
+
 group "Linkers"
 	include "SFMLLinker"
 group ""
