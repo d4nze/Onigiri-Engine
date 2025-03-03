@@ -6,7 +6,7 @@
 LauncherApplication::LauncherApplication()
     : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
     , m_imGuiIO(ImGui::GetIO())
-    , m_gui()
+    , m_gui(*this)
 {
     m_imGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     m_imGuiIO.IniFilename = "Launcher.ini";

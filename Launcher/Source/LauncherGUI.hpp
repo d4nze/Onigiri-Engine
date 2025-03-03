@@ -2,18 +2,24 @@
 #include "LauncherState.hpp"
 #include <imgui.h>
 
+class LauncherApplication;
+
 class LauncherGUI
 {
 public:
-	LauncherGUI();
+	LauncherGUI(LauncherApplication& application);
 
 public:
 	void update();
+
+	LauncherApplication& getApplication();
+	const LauncherApplication& getApplication() const;
 
 	LauncherState& getStateManager();
 	const LauncherState& getStateManager() const;
 
 private:
+	LauncherApplication& m_application;
 	LauncherState m_state;
 	ProjectSelection m_projectSelection;
 	ProjectCreation m_projectCreation;
