@@ -13,6 +13,9 @@ public:
 public:
 	void run();
 
+	sf::RenderWindow& getWindow();
+	const sf::RenderWindow& getWindow() const;
+
 protected:
 	virtual void update() = 0;
 	virtual void handleEvent(const std::optional<sf::Event> event);

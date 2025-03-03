@@ -30,6 +30,16 @@ void Application::run()
 	}
 }
 
+sf::RenderWindow& Application::getWindow()
+{
+	return m_window;
+}
+
+const sf::RenderWindow& Application::getWindow() const
+{
+	return m_window;
+}
+
 void Application::handleEvent(const std::optional<sf::Event> event)
 {
 	ImGui::SFML::ProcessEvent(m_window, *event);
