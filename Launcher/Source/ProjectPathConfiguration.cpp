@@ -1,6 +1,8 @@
 #include "ProjectPathConfiguration.hpp"
 #include "Application/BrowseWindow.hpp"
 #include "ProjectCreation.hpp"
+#include "LauncherGUI.hpp"
+#include "LauncherApplication.hpp"
 
 #include <imgui.h>
 
@@ -8,7 +10,9 @@ ProjectPathConfiguration::ProjectPathConfiguration(ProjectCreation& projectCreat
 	: m_projectCreation(projectCreation)
 	, m_bufferSize(256)
 	, m_pathBuffer("\0")
-{}
+{
+	reset();
+}
 
 void ProjectPathConfiguration::update()
 {
@@ -28,7 +32,16 @@ void ProjectPathConfiguration::update()
 
 void ProjectPathConfiguration::reset()
 {
-	std::strncpy(m_pathBuffer, "\0", m_bufferSize);
+	static ProjectsHolder& projects = m_projectCreation.getGUI().getProjectSelection().getProjectsHolder();
+	if (projects.begin() != projects.end())
+	{
+		Project lastProject = *projects.begin();
+		std::strncpy(m_pathBuffer, lastProject.getPath().c_str(), m_bufferSize);
+	}
+	else
+	{
+		std::strncpy(m_pathBuffer, "\0", m_bufferSize);
+	}
 }
 
 std::string ProjectPathConfiguration::getName()
