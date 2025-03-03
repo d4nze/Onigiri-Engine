@@ -1,6 +1,8 @@
 #include "ProjectSelection.hpp"
 #include "LauncherGUI.hpp"
 #include "ProjectCreation.hpp"
+#include "Application/BrowseWindow.hpp"
+#include "LauncherApplication.hpp"
 
 #include <imgui.h>
 
@@ -16,7 +18,14 @@ void ProjectSelection::update()
         m_gui.getStateManager().setState<ProjectCreation>();
     }
     ImGui::SameLine();
-    if (ImGui::Button("Import Project"));
+    if (ImGui::Button("Import Project"))
+    {
+        std::filesystem::path path = BrowseWindow::selectFolder();
+        if (!path.empty())
+        {
+            m_gui.getApplication().getWindow().close();
+        }
+    }
     m_projectsHolder.update();
 }
 
