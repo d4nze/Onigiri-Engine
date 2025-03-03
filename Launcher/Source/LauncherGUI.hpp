@@ -18,6 +18,12 @@ public:
 	LauncherState& getStateManager();
 	const LauncherState& getStateManager() const;
 
+	ProjectSelection& getProjectSelection();
+	const ProjectSelection& getProjectSelection() const;
+
+	ProjectCreation& getProjectCreation();
+	const ProjectCreation& getProjectCreation() const;
+
 private:
 	LauncherApplication& m_application;
 	LauncherState m_state;

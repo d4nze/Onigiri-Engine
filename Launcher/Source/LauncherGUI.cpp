@@ -58,3 +58,23 @@ const LauncherState& LauncherGUI::getStateManager() const
 {
 	return m_state;
 }
+
+ProjectSelection& LauncherGUI::getProjectSelection()
+{
+	return m_projectSelection;
+}
+
+const ProjectSelection& LauncherGUI::getProjectSelection() const
+{
+	return m_projectSelection;
+}
+
+ProjectCreation& LauncherGUI::getProjectCreation()
+{
+	return m_projectCreation;
+}
+
+const ProjectCreation& LauncherGUI::getProjectCreation() const
+{
+	return m_projectCreation;
+}
