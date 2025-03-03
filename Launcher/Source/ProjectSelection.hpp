@@ -15,6 +15,6 @@ public:
 	const ProjectsHolder& getProjectsHolder() const;
 
 private:
-	LauncherGUI& m_launcherGUI;
+	LauncherGUI& m_gui;
 	ProjectsHolder m_projectsHolder;
 };

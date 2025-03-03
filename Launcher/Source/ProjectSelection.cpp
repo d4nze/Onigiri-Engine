@@ -5,7 +5,7 @@
 #include <imgui.h>
 
 ProjectSelection::ProjectSelection(LauncherGUI& launcherGUI)
-    : m_launcherGUI(launcherGUI)
+    : m_gui(launcherGUI)
     , m_projectsHolder()
 {}
 
@@ -13,7 +13,7 @@ void ProjectSelection::update()
 {
     if (ImGui::Button("New Project"))
     {
-        m_launcherGUI.getStateManager().setState<ProjectCreation>();
+        m_gui.getStateManager().setState<ProjectCreation>();
     }
     ImGui::SameLine();
     if (ImGui::Button("Import Project"));

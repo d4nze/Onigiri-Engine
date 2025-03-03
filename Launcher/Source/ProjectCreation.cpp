@@ -6,7 +6,7 @@
 #include <imgui.h>
 
 ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI)
-    : m_launcherGUI(launcherGUI)
+    : m_gui(launcherGUI)
     , m_step(typeid(ProjectNameConfiguration))
     , m_nameConfiguration(*this)
     , m_pathConfiguration(*this)
@@ -32,7 +32,7 @@ void ProjectCreation::update()
 
     if (ImGui::Button("Cancel", ImVec2(buttonWidth, 0)))
     {
-        m_launcherGUI.getStateManager().setState<ProjectSelection>();
+        m_gui.getStateManager().setState<ProjectSelection>();
         reset();
     }
 
@@ -68,7 +68,7 @@ void ProjectCreation::update()
         }
         else
         {
-            m_launcherGUI.getApplication().getWindow().close();
+            m_gui.getApplication().getWindow().close();
         }
     }
 }

@@ -13,7 +13,7 @@ public:
 	void reset();
 
 private:
-	LauncherGUI& m_launcherGUI;
+	LauncherGUI& m_gui;
 	ProjectCreationStep m_step;
 	ProjectNameConfiguration m_nameConfiguration;
 	ProjectPathConfiguration m_pathConfiguration;
