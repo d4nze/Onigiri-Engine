@@ -1,6 +1,7 @@
 #include "ProjectCreation.hpp"
 #include "LauncherGUI.hpp"
 #include "ProjectSelection.hpp"
+#include "LauncherApplication.hpp"
 
 #include <imgui.h>
 
@@ -64,6 +65,10 @@ void ProjectCreation::update()
         if (m_step.is<ProjectNameConfiguration>())
         {
             m_step.setStep<ProjectPathConfiguration>();
+        }
+        else
+        {
+            m_launcherGUI.getApplication().getWindow().close();
         }
     }
 }
