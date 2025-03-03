@@ -79,3 +79,13 @@ void ProjectCreation::reset()
     m_nameConfiguration.reset();
     m_pathConfiguration.reset();
 }
+
+LauncherGUI& ProjectCreation::getGUI()
+{
+    return m_gui;
+}
+
+const LauncherGUI& ProjectCreation::getGUI() const
+{
+    return m_gui;
+}

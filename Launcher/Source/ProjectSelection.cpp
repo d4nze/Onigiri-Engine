@@ -20,6 +20,16 @@ void ProjectSelection::update()
     m_projectsHolder.update();
 }
 
+LauncherGUI& ProjectSelection::getGUI()
+{
+    return m_gui;
+}
+
+const LauncherGUI& ProjectSelection::getGUI() const
+{
+    return m_gui;
+}
+
 ProjectsHolder& ProjectSelection::getProjectsHolder()
 {
     return m_projectsHolder;

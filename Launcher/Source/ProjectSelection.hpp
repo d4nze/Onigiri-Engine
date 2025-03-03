@@ -11,6 +11,9 @@ public:
 public:
 	void update();
 
+	LauncherGUI& getGUI();
+	const LauncherGUI& getGUI() const;
+
 	ProjectsHolder& getProjectsHolder();
 	const ProjectsHolder& getProjectsHolder() const;
 

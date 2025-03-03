@@ -12,6 +12,9 @@ public:
 	void update();
 	void reset();
 
+	LauncherGUI& getGUI();
+	const LauncherGUI& getGUI() const;
+
 private:
 	LauncherGUI& m_gui;
 	ProjectCreationStep m_step;
