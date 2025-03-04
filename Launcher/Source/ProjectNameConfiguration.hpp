@@ -17,6 +17,17 @@ public:
 	bool hasError() const;
 
 private:
+	class ErrorVariation
+	{
+	public:
+		static const char* noError;
+		static const char* empty;
+		static const char* firstLetter;
+		static const char* space;
+		static const char* unsupportedCharacter;
+	};
+
+private:
 	ProjectCreation& m_projectCreation;
 	std::string m_error;
 	const std::int32_t m_bufferSize;
