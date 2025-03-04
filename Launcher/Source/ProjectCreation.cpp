@@ -56,9 +56,14 @@ void ProjectCreation::update()
 
     ImGui::SameLine();
     const char* nextStepText = "Next";
+    bool nextStepDisabled = m_nameConfiguration.hasError();
     if (m_step.is<ProjectPathConfiguration>())
     {
         nextStepText = "Finish";
+    }
+    if (nextStepDisabled)
+    {
+        ImGui::BeginDisabled();
     }
     if (ImGui::Button(nextStepText, ImVec2(buttonWidth, 0)))
     {
@@ -70,6 +75,10 @@ void ProjectCreation::update()
         {
             m_gui.getApplication().getWindow().close();
         }
+    }
+    if (nextStepDisabled)
+    {
+        ImGui::EndDisabled();
     }
 }
 
