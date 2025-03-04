@@ -28,6 +28,7 @@ void ProjectNameConfiguration::update()
 void ProjectNameConfiguration::reset()
 {
 	std::strncpy(m_nameBuffer, "MyProject", m_bufferSize);
+	m_error = "";
 }
 
 void ProjectNameConfiguration::updateErrorLog()
