@@ -24,7 +24,7 @@ void ProjectNameConfiguration::update()
 	{
 		updateErrorLog();
 	}
-	if (!m_error.empty())
+	if (m_error != ErrorVariation::noError)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 0.f, 0.f, 1.f));
 		ImGui::Text(m_error.c_str());
