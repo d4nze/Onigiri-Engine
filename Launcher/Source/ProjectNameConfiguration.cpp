@@ -75,3 +75,8 @@ std::string ProjectNameConfiguration::getName()
 {
 	return std::string(m_nameBuffer);
 }
+
+bool ProjectNameConfiguration::hasError() const
+{
+	return m_error != "";
+}

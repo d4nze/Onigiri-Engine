@@ -14,6 +14,7 @@ public:
 	void updateErrorLog();
 
 	std::string getName();
+	bool hasError() const;
 
 private:
 	ProjectCreation& m_projectCreation;
