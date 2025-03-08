@@ -3,7 +3,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-ProjectsHolder::ProjectsHolder()
+ProjectsHolder::ProjectsHolder(ProjectSelection& projectSelection) : m_projectSelection(projectSelection)
 {
 	std::ifstream file("Project List.json");
 	if (file.is_open())
@@ -74,6 +74,16 @@ void ProjectsHolder::update()
 		ImGui::PopID();
 	}
 	ImGui::EndChild();
+}
+
+ProjectSelection& ProjectsHolder::getProjectSelection()
+{
+	return m_projectSelection;
+}
+
+const ProjectSelection& ProjectsHolder::getProjectSelection() const
+{
+	return m_projectSelection;
 }
 
 std::vector<Project>::iterator ProjectsHolder::begin()

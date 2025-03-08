@@ -2,14 +2,19 @@
 #include "Project.hpp"
 #include <vector>
 
+class ProjectSelection;
+
 class ProjectsHolder
 {
 public:
-	ProjectsHolder();
+	ProjectsHolder(ProjectSelection& projectSelection);
 	~ProjectsHolder();
 
 public:
 	void update();
+
+	ProjectSelection& getProjectSelection();
+	const ProjectSelection& getProjectSelection() const;
 
 	std::vector<Project>::iterator begin();
 	std::vector<Project>::iterator end();
@@ -17,5 +22,6 @@ public:
 	std::vector<Project>::const_iterator end() const;
 
 private:
+	ProjectSelection& m_projectSelection;
 	std::vector<Project> m_projects;
 };

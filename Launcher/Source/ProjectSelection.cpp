@@ -8,7 +8,7 @@
 
 ProjectSelection::ProjectSelection(LauncherGUI& launcherGUI)
     : m_gui(launcherGUI)
-    , m_projectsHolder()
+    , m_projectsHolder(*this)
 {}
 
 void ProjectSelection::update()
