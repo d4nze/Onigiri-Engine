@@ -4,10 +4,10 @@
 
 class Application;
 
-class LauncherGUI
+class GUI
 {
 public:
-	LauncherGUI(Application& application);
+	GUI(Application& application);
 
 public:
 	void update();

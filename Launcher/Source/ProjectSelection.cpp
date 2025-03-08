@@ -1,12 +1,12 @@
 #include "ProjectSelection.hpp"
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 #include "ProjectCreation.hpp"
 #include "ApplicationCore/BrowseWindow.hpp"
 #include "Application.hpp"
 
 #include <imgui.h>
 
-ProjectSelection::ProjectSelection(LauncherGUI& launcherGUI)
+ProjectSelection::ProjectSelection(GUI& launcherGUI)
     : m_gui(launcherGUI)
     , m_projectsHolder(*this)
 {}
@@ -25,12 +25,12 @@ void ProjectSelection::update()
     m_projectsHolder.update();
 }
 
-LauncherGUI& ProjectSelection::getGUI()
+GUI& ProjectSelection::getGUI()
 {
     return m_gui;
 }
 
-const LauncherGUI& ProjectSelection::getGUI() const
+const GUI& ProjectSelection::getGUI() const
 {
     return m_gui;
 }

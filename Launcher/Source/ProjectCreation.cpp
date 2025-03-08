@@ -1,11 +1,11 @@
 #include "ProjectCreation.hpp"
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 #include "ProjectSelection.hpp"
 #include "Application.hpp"
 
 #include <imgui.h>
 
-ProjectCreation::ProjectCreation(LauncherGUI& launcherGUI)
+ProjectCreation::ProjectCreation(GUI& launcherGUI)
     : m_gui(launcherGUI)
     , m_step(typeid(ProjectNameConfiguration))
     , m_nameConfiguration(*this)
@@ -102,12 +102,12 @@ void ProjectCreation::reset()
     m_pathConfiguration.reset();
 }
 
-LauncherGUI& ProjectCreation::getGUI()
+GUI& ProjectCreation::getGUI()
 {
     return m_gui;
 }
 
-const LauncherGUI& ProjectCreation::getGUI() const
+const GUI& ProjectCreation::getGUI() const
 {
     return m_gui;
 }

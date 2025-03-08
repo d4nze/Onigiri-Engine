@@ -1,23 +1,23 @@
 #pragma once
 #include "ProjectsHolder.hpp"
 
-class LauncherGUI;
+class GUI;
 
 class ProjectSelection
 {
 public:
-	ProjectSelection(LauncherGUI& launcherGUI);
+	ProjectSelection(GUI& launcherGUI);
 
 public:
 	void update();
 
-	LauncherGUI& getGUI();
-	const LauncherGUI& getGUI() const;
+	GUI& getGUI();
+	const GUI& getGUI() const;
 
 	ProjectsHolder& getProjectsHolder();
 	const ProjectsHolder& getProjectsHolder() const;
 
 private:
-	LauncherGUI& m_gui;
+	GUI& m_gui;
 	ProjectsHolder m_projectsHolder;
 };

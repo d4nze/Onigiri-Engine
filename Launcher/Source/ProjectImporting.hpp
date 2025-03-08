@@ -1,18 +1,18 @@
 #pragma once
-class LauncherGUI;
+class GUI;
 
 class ProjectImporting
 {
 public:
-	ProjectImporting(LauncherGUI& launcherGUI);
+	ProjectImporting(GUI& launcherGUI);
 
 public:
 	void update();
 	void reset();
 
-	LauncherGUI& getGUI();
-	const LauncherGUI& getGUI() const;
+	GUI& getGUI();
+	const GUI& getGUI() const;
 
 private:
-	LauncherGUI& m_gui;
+	GUI& m_gui;
 };

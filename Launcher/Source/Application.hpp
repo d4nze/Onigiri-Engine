@@ -1,6 +1,6 @@
 #pragma once
 #include "ApplicationCore/Application.hpp"
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 
 #include <imgui.h>
 
@@ -14,5 +14,5 @@ private:
 
 private:
 	ImGuiIO& m_imGuiIO;
-	LauncherGUI m_gui;
+	GUI m_gui;
 };

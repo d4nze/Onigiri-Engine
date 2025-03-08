@@ -1,7 +1,7 @@
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 #include <imgui-sfml.h>
 
-LauncherGUI::LauncherGUI(Application& application)
+GUI::GUI(Application& application)
 	: m_application(application)
 	, m_state(typeid(ProjectSelection))
 	, m_projectSelection(*this)
@@ -28,7 +28,7 @@ LauncherGUI::LauncherGUI(Application& application)
 	}
 }
 
-void LauncherGUI::update()
+void GUI::update()
 {
 	if (m_state.is<ProjectSelection>())
 	{
@@ -44,42 +44,42 @@ void LauncherGUI::update()
 	}
 }
 
-Application& LauncherGUI::getApplication()
+Application& GUI::getApplication()
 {
 	return m_application;
 }
 
-const Application& LauncherGUI::getApplication() const
+const Application& GUI::getApplication() const
 {
 	return m_application;
 }
 
-LauncherState& LauncherGUI::getStateManager()
+LauncherState& GUI::getStateManager()
 {
 	return m_state;
 }
 
-const LauncherState& LauncherGUI::getStateManager() const
+const LauncherState& GUI::getStateManager() const
 {
 	return m_state;
 }
 
-ProjectSelection& LauncherGUI::getProjectSelection()
+ProjectSelection& GUI::getProjectSelection()
 {
 	return m_projectSelection;
 }
 
-const ProjectSelection& LauncherGUI::getProjectSelection() const
+const ProjectSelection& GUI::getProjectSelection() const
 {
 	return m_projectSelection;
 }
 
-ProjectCreation& LauncherGUI::getProjectCreation()
+ProjectCreation& GUI::getProjectCreation()
 {
 	return m_projectCreation;
 }
 
-const ProjectCreation& LauncherGUI::getProjectCreation() const
+const ProjectCreation& GUI::getProjectCreation() const
 {
 	return m_projectCreation;
 }

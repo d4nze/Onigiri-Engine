@@ -2,7 +2,7 @@
 #include "ApplicationCore/MessageWindow.hpp"
 #include "ProjectsHolder.hpp"
 #include "ProjectSelection.hpp"
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 #include "Application.hpp"
 
 #include <filesystem>

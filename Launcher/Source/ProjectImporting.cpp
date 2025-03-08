@@ -1,9 +1,9 @@
 #include "ProjectImporting.hpp"
-#include "LauncherGUI.hpp"
+#include "GUI.hpp"
 
 #include <imgui.h>
 
-ProjectImporting::ProjectImporting(LauncherGUI& launcherGUI) : m_gui(launcherGUI) {}
+ProjectImporting::ProjectImporting(GUI& launcherGUI) : m_gui(launcherGUI) {}
 
 void ProjectImporting::update()
 {
@@ -30,12 +30,12 @@ void ProjectImporting::update()
 
 void ProjectImporting::reset() {}
 
-LauncherGUI& ProjectImporting::getGUI()
+GUI& ProjectImporting::getGUI()
 {
 	return m_gui;
 }
 
-const LauncherGUI& ProjectImporting::getGUI() const
+const GUI& ProjectImporting::getGUI() const
 {
 	return m_gui;
 }

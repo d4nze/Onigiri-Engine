@@ -1,19 +1,19 @@
 #pragma once
 #include "ProjectCreationStep.hpp"
 
-class LauncherGUI;
+class GUI;
 
 class ProjectCreation
 {
 public:
-	ProjectCreation(LauncherGUI& launcherGUI);
+	ProjectCreation(GUI& launcherGUI);
 
 public:
 	void update();
 	void reset();
 
-	LauncherGUI& getGUI();
-	const LauncherGUI& getGUI() const;
+	GUI& getGUI();
+	const GUI& getGUI() const;
 
 	ProjectNameConfiguration& getNameConfiguration();
 	ProjectPathConfiguration& getPathConfiguration();
@@ -21,7 +21,7 @@ public:
 	const ProjectPathConfiguration& getPathConfiguration() const;
 
 private:
-	LauncherGUI& m_gui;
+	GUI& m_gui;
 	ProjectCreationStep m_step;
 	ProjectNameConfiguration m_nameConfiguration;
 	ProjectPathConfiguration m_pathConfiguration;
