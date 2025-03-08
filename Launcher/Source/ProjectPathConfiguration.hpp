@@ -13,7 +13,7 @@ public:
 	void reset();
 	void updateErrorLog();
 
-	std::string getName();
+	std::string getPath();
 	bool hasError() const;
 
 private:

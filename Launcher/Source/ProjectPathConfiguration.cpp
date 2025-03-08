@@ -82,7 +82,7 @@ void ProjectPathConfiguration::updateErrorLog()
 	// else if (std::filesystem::exists(m_projectCreation.getName())) { ... }
 }
 
-std::string ProjectPathConfiguration::getName()
+std::string ProjectPathConfiguration::getPath()
 {
 	return std::string(m_pathBuffer);
 }
