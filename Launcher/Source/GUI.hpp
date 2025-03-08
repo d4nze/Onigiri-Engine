@@ -1,5 +1,5 @@
 #pragma once
-#include "LauncherState.hpp"
+#include "GUIState.hpp"
 #include <imgui.h>
 
 class Application;
@@ -15,8 +15,8 @@ public:
 	Application& getApplication();
 	const Application& getApplication() const;
 
-	LauncherState& getStateManager();
-	const LauncherState& getStateManager() const;
+	GUIState& getStateManager();
+	const GUIState& getStateManager() const;
 
 	ProjectSelection& getProjectSelection();
 	const ProjectSelection& getProjectSelection() const;
@@ -26,7 +26,7 @@ public:
 
 private:
 	Application& m_application;
-	LauncherState m_state;
+	GUIState m_state;
 	ProjectSelection m_projectSelection;
 	ProjectCreation m_projectCreation;
 	ProjectImporting m_projectImporting;

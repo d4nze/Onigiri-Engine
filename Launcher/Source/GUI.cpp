@@ -54,12 +54,12 @@ const Application& GUI::getApplication() const
 	return m_application;
 }
 
-LauncherState& GUI::getStateManager()
+GUIState& GUI::getStateManager()
 {
 	return m_state;
 }
 
-const LauncherState& GUI::getStateManager() const
+const GUIState& GUI::getStateManager() const
 {
 	return m_state;
 }

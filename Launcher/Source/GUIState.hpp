@@ -5,10 +5,10 @@
 
 #include <typeindex>
 
-class LauncherState
+class GUIState
 {
 public:
-	LauncherState(std::type_index typeID);
+	GUIState(std::type_index typeID);
 
 public:
 	template<class TState>
@@ -23,8 +23,8 @@ private:
 	std::type_index m_typeID;
 };
 
-template void LauncherState::setState<ProjectSelection>();
-template void LauncherState::setState<ProjectCreation>();
-template void LauncherState::setState<ProjectImporting>();
+template void GUIState::setState<ProjectSelection>();
+template void GUIState::setState<ProjectCreation>();
+template void GUIState::setState<ProjectImporting>();
 
-#include "LauncherState.inl"
+#include "GUIState.inl"
