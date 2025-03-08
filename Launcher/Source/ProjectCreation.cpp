@@ -74,11 +74,19 @@ void ProjectCreation::update()
     {
         if (m_step.is<ProjectNameConfiguration>())
         {
-            m_step.setStep<ProjectPathConfiguration>();
+            m_nameConfiguration.updateErrorType();
+            if (!m_nameConfiguration.hasError())
+            {
+                m_step.setStep<ProjectPathConfiguration>();
+            }
         }
         else
         {
-            m_gui.getApplication().getWindow().close();
+            m_pathConfiguration.updateErrorType();
+            if (!m_pathConfiguration.hasError())
+            {
+                m_gui.getApplication().getWindow().close();
+            }
         }
     }
     if (nextStepDisabled)
