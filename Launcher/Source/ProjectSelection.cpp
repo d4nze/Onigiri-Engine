@@ -20,11 +20,7 @@ void ProjectSelection::update()
     ImGui::SameLine();
     if (ImGui::Button("Import Project"))
     {
-        std::filesystem::path path = BrowseWindow::selectFolder();
-        if (!path.empty())
-        {
-            m_gui.getApplication().getWindow().close();
-        }
+        m_gui.getStateManager().setState<ProjectImporting>();
     }
     m_projectsHolder.update();
 }

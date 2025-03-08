@@ -6,6 +6,7 @@ LauncherGUI::LauncherGUI(LauncherApplication& application)
 	, m_state(typeid(ProjectSelection))
 	, m_projectSelection(*this)
 	, m_projectCreation(*this)
+	, m_projectImporting(*this)
 	, m_mainFont(nullptr)
 {
 	ImGuiIO& io = ImGui::GetIO();
@@ -36,6 +37,10 @@ void LauncherGUI::update()
 	else if (m_state.is<ProjectCreation>())
 	{
 		m_projectCreation.update();
+	}
+	else if (m_state.is<ProjectImporting>())
+	{
+		m_projectImporting.update();
 	}
 }
 

@@ -29,5 +29,6 @@ private:
 	LauncherState m_state;
 	ProjectSelection m_projectSelection;
 	ProjectCreation m_projectCreation;
+	ProjectImporting m_projectImporting;
 	ImFont* m_mainFont;
 };

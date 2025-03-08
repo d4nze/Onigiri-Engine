@@ -1,6 +1,7 @@
 #pragma once
 #include "ProjectCreation.hpp"
 #include "ProjectSelection.hpp"
+#include "ProjectImporting.hpp"
 
 #include <typeindex>
 
@@ -24,5 +25,6 @@ private:
 
 template void LauncherState::setState<ProjectSelection>();
 template void LauncherState::setState<ProjectCreation>();
+template void LauncherState::setState<ProjectImporting>();
 
 #include "LauncherState.inl"
