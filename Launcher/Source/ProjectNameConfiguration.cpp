@@ -1,6 +1,7 @@
 #include "ProjectNameConfiguration.hpp"
 #include "ProjectCreation.hpp"
 #include "Application/LetterChecker.hpp"
+#include "ProjectPathConfiguration.hpp"
 
 #include <imgui.h>
 
@@ -23,6 +24,7 @@ void ProjectNameConfiguration::update()
 	if (ImGui::InputText("##Project Name Input", m_nameBuffer, m_bufferSize))
 	{
 		updateErrorLog();
+		m_projectCreation.getPathConfiguration().updateErrorLog();
 	}
 	if (m_error != ErrorVariation::noError)
 	{
