@@ -1,5 +1,9 @@
 #include "Project.hpp"
 #include "Application/MessageWindow.hpp"
+#include "ProjectsHolder.hpp"
+#include "ProjectSelection.hpp"
+#include "LauncherGUI.hpp"
+#include "LauncherApplication.hpp"
 
 #include <filesystem>
 #include <imgui.h>
@@ -23,7 +27,7 @@ void Project::update()
         std::filesystem::path path = m_path + "\\" + m_name;
         if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
         {
-
+            m_holder->getProjectSelection().getGUI().getApplication().getWindow().close();
         }
         else
         {
