@@ -82,7 +82,7 @@ void ProjectPathConfiguration::updateErrorLog()
 	else
 	{
 		path += "\\";
-		path += m_projectCreation.getName();
+		path += m_projectCreation.getNameConfiguration().getName();
 		if (std::filesystem::exists(path))
 		{
 			m_error = ErrorVariation::projectExists;

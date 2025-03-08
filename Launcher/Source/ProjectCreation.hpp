@@ -15,10 +15,10 @@ public:
 	LauncherGUI& getGUI();
 	const LauncherGUI& getGUI() const;
 
-	std::string getName();
-	std::string getPath();
-	const std::string getName() const;
-	const std::string getPath() const;
+	ProjectNameConfiguration& getNameConfiguration();
+	ProjectPathConfiguration& getPathConfiguration();
+	const ProjectNameConfiguration& getNameConfiguration() const;
+	const ProjectPathConfiguration& getPathConfiguration() const;
 
 private:
 	LauncherGUI& m_gui;

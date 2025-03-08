@@ -99,22 +99,22 @@ const LauncherGUI& ProjectCreation::getGUI() const
     return m_gui;
 }
 
-std::string ProjectCreation::getName()
+ProjectNameConfiguration& ProjectCreation::getNameConfiguration()
 {
-    return m_nameConfiguration.getName();
+    return m_nameConfiguration;
 }
 
-std::string ProjectCreation::getPath()
+ProjectPathConfiguration& ProjectCreation::getPathConfiguration()
 {
-    return m_pathConfiguration.getPath();
+    return m_pathConfiguration;
 }
 
-const std::string ProjectCreation::getName() const
+const ProjectNameConfiguration& ProjectCreation::getNameConfiguration() const
 {
-    return m_nameConfiguration.getName();
+    return m_nameConfiguration;
 }
 
-const std::string ProjectCreation::getPath() const
+const ProjectPathConfiguration& ProjectCreation::getPathConfiguration() const
 {
-    return m_pathConfiguration.getPath();
+    return m_pathConfiguration;
 }
