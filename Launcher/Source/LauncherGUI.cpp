@@ -1,7 +1,7 @@
 #include "LauncherGUI.hpp"
 #include <imgui-sfml.h>
 
-LauncherGUI::LauncherGUI(LauncherApplication& application)
+LauncherGUI::LauncherGUI(Application& application)
 	: m_application(application)
 	, m_state(typeid(ProjectSelection))
 	, m_projectSelection(*this)
@@ -44,12 +44,12 @@ void LauncherGUI::update()
 	}
 }
 
-LauncherApplication& LauncherGUI::getApplication()
+Application& LauncherGUI::getApplication()
 {
 	return m_application;
 }
 
-const LauncherApplication& LauncherGUI::getApplication() const
+const Application& LauncherGUI::getApplication() const
 {
 	return m_application;
 }

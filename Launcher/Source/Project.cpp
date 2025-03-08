@@ -3,7 +3,7 @@
 #include "ProjectsHolder.hpp"
 #include "ProjectSelection.hpp"
 #include "LauncherGUI.hpp"
-#include "LauncherApplication.hpp"
+#include "Application.hpp"
 
 #include <filesystem>
 #include <imgui.h>

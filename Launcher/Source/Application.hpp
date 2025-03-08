@@ -4,10 +4,10 @@
 
 #include <imgui.h>
 
-class LauncherApplication : public ApplicationCore::Application
+class Application : public ApplicationCore::Application
 {
 public:
-	LauncherApplication();
+	Application();
 
 private:
 	void update() override;

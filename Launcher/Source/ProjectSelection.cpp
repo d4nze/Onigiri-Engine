@@ -2,7 +2,7 @@
 #include "LauncherGUI.hpp"
 #include "ProjectCreation.hpp"
 #include "ApplicationCore/BrowseWindow.hpp"
-#include "LauncherApplication.hpp"
+#include "Application.hpp"
 
 #include <imgui.h>
 

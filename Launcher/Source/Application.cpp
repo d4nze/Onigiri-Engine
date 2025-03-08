@@ -1,9 +1,9 @@
-#include "LauncherApplication.hpp"
+#include "Application.hpp"
 
 #include <imgui.h>
 #include <vector>
 
-LauncherApplication::LauncherApplication()
+Application::Application()
     : ApplicationCore::Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
     , m_imGuiIO(ImGui::GetIO())
     , m_gui(*this)
@@ -12,7 +12,7 @@ LauncherApplication::LauncherApplication()
     m_imGuiIO.IniFilename = "Launcher.ini";
 }
 
-void LauncherApplication::update()
+void Application::update()
 {
     ImVec2 windowSize = m_imGuiIO.DisplaySize;
     ImGui::SetNextWindowPos(ImVec2(0, 0));
