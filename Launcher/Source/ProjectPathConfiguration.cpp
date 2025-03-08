@@ -6,15 +6,11 @@
 
 #include <imgui.h>
 
-const char* ProjectPathConfiguration::ErrorVariation::noError = "";
-const char* ProjectPathConfiguration::ErrorVariation::empty = "Please select project folder";
-const char* ProjectPathConfiguration::ErrorVariation::relativePath = "Path must be absolute";
-const char* ProjectPathConfiguration::ErrorVariation::projectExists = "There is an already exiting project with this name";
-const char* ProjectPathConfiguration::ErrorVariation::invalidPath = "Invalid path";
-
 ProjectPathConfiguration::ProjectPathConfiguration(ProjectCreation& projectCreation)
 	: m_projectCreation(projectCreation)
 	, m_error(ErrorVariation::noError)
+	, m_previousError(ErrorVariation::noError)
+	, m_errorText("")
 	, m_bufferSize(256)
 	, m_pathBuffer("\0")
 {
@@ -26,7 +22,7 @@ void ProjectPathConfiguration::update()
 	ImGui::TextUnformatted("Choose folder for project");
 	if (ImGui::InputTextWithHint("##Project Name Input", "Path here...", m_pathBuffer, m_bufferSize))
 	{
-		updateErrorLog();
+		updateErrorType();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Browse", ImVec2(80, 0)))
@@ -36,13 +32,17 @@ void ProjectPathConfiguration::update()
 		{
 			std::string sPath = path.string();
 			std::strncpy(m_pathBuffer, sPath.c_str(), m_bufferSize);
-			updateErrorLog();
+			updateErrorType();
 		}
 	}
 	if (m_error != ErrorVariation::noError)
 	{
+		if (m_error != m_previousError)
+		{
+			updateErrorText();
+		}
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 0.f, 0.f, 1.f));
-		ImGui::Text(m_error.c_str());
+		ImGui::Text(m_errorText.c_str());
 		ImGui::PopStyleColor();
 	}
 }
@@ -54,17 +54,21 @@ void ProjectPathConfiguration::reset()
 	{
 		Project lastProject = *projects.begin();
 		std::strncpy(m_pathBuffer, lastProject.getPath().c_str(), m_bufferSize);
-		m_error = "";
+		m_error = ErrorVariation::noError;
 	}
 	else
 	{
 		std::strncpy(m_pathBuffer, "\0", m_bufferSize);
-		m_error = "Please select";
+		m_error = ErrorVariation::empty;
 	}
 }
 
-void ProjectPathConfiguration::updateErrorLog()
+void ProjectPathConfiguration::updateErrorType()
 {
+	if (m_error != ErrorVariation::noError)
+	{
+		m_previousError = m_error;
+	}
 	m_error = ErrorVariation::noError;
 	std::filesystem::path path = m_pathBuffer;
 	if (m_pathBuffer[0] == '\0')
@@ -87,6 +91,26 @@ void ProjectPathConfiguration::updateErrorLog()
 		{
 			m_error = ErrorVariation::projectExists;
 		}
+	}
+}
+
+void ProjectPathConfiguration::updateErrorText()
+{
+	m_previousError = m_error;
+	switch (m_error)
+	{
+	case ErrorVariation::empty:
+		m_errorText = "Please select project folder";
+		break;
+	case ErrorVariation::relativePath:
+		m_errorText = "Path must be absolute";
+		break;
+	case ErrorVariation::projectExists:
+		m_errorText = "There is an already existing project with this name";
+		break;
+	case ErrorVariation::invalidPath:
+		m_errorText = "Invalid path";
+		break;
 	}
 }
 

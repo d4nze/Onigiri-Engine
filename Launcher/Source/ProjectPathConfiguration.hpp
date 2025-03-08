@@ -11,7 +11,8 @@ public:
 public:
 	void update();
 	void reset();
-	void updateErrorLog();
+	void updateErrorType();
+	void updateErrorText();
 
 	std::string getPath();
 	const std::string getPath() const;
@@ -19,19 +20,20 @@ public:
 	bool hasError() const;
 
 private:
-	class ErrorVariation
+	enum class ErrorVariation
 	{
-	public:
-		static const char* noError;
-		static const char* empty;
-		static const char* relativePath;
-		static const char* projectExists;
-		static const char* invalidPath;
+		noError,
+		empty,
+		relativePath,
+		projectExists,
+		invalidPath
 	};
 
 private:
 	ProjectCreation& m_projectCreation;
-	std::string m_error;
+	ErrorVariation m_error;
+	ErrorVariation m_previousError;
+	std::string m_errorText;
 	const std::int32_t m_bufferSize;
 	char m_pathBuffer[256];
 };
