@@ -1,5 +1,5 @@
 #include "ProjectPathConfiguration.hpp"
-#include "Application/BrowseWindow.hpp"
+#include "ApplicationCore/BrowseWindow.hpp"
 #include "ProjectCreation.hpp"
 #include "LauncherGUI.hpp"
 #include "LauncherApplication.hpp"

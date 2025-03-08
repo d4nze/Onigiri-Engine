@@ -1,6 +1,6 @@
 #include "ProjectNameConfiguration.hpp"
 #include "ProjectCreation.hpp"
-#include "Application/LetterChecker.hpp"
+#include "ApplicationCore/LetterChecker.hpp"
 #include "ProjectPathConfiguration.hpp"
 
 #include <imgui.h>

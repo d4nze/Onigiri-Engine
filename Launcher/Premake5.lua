@@ -19,12 +19,12 @@ project "Launcher"
     includedirs {
 		"Source",
 		"../Core/Source",
-		"../Application/Source",
+		"../ApplicationCore/Source",
 		"../Dependencies/JSON",
 		"../Dependencies/ImGui/include"
 	}
 	libdirs {}
-    links { "Core", "Application", "opengl32.lib" }
+    links { "Core", "ApplicationCore", "opengl32.lib" }
 	postbuildcommands {
 		copyFile("%{wks.location}Launcher\\Source\\vcrosdmonorus_vhsicons.ttf")
 	}

@@ -1,7 +1,7 @@
 #include "ProjectSelection.hpp"
 #include "LauncherGUI.hpp"
 #include "ProjectCreation.hpp"
-#include "Application/BrowseWindow.hpp"
+#include "ApplicationCore/BrowseWindow.hpp"
 #include "LauncherApplication.hpp"
 
 #include <imgui.h>

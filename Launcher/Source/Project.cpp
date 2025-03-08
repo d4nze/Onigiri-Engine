@@ -1,5 +1,5 @@
 #include "Project.hpp"
-#include "Application/MessageWindow.hpp"
+#include "ApplicationCore/MessageWindow.hpp"
 #include "ProjectsHolder.hpp"
 #include "ProjectSelection.hpp"
 #include "LauncherGUI.hpp"

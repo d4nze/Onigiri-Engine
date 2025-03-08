@@ -1,5 +1,5 @@
 #pragma once
-#include "Application/Application.hpp"
+#include "ApplicationCore/Application.hpp"
 #include "LauncherGUI.hpp"
 
 #include <imgui.h>
