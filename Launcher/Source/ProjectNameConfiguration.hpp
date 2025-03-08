@@ -14,6 +14,8 @@ public:
 	void updateErrorLog();
 
 	std::string getName();
+	const std::string getName() const;
+
 	bool hasError() const;
 
 private:
