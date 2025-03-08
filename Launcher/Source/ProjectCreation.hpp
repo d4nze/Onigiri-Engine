@@ -15,6 +15,11 @@ public:
 	LauncherGUI& getGUI();
 	const LauncherGUI& getGUI() const;
 
+	std::string getName();
+	std::string getPath();
+	const std::string getName() const;
+	const std::string getPath() const;
+
 private:
 	LauncherGUI& m_gui;
 	ProjectCreationStep m_step;

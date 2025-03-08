@@ -98,3 +98,23 @@ const LauncherGUI& ProjectCreation::getGUI() const
 {
     return m_gui;
 }
+
+std::string ProjectCreation::getName()
+{
+    return m_nameConfiguration.getName();
+}
+
+std::string ProjectCreation::getPath()
+{
+    return m_pathConfiguration.getPath();
+}
+
+const std::string ProjectCreation::getName() const
+{
+    return m_nameConfiguration.getName();
+}
+
+const std::string ProjectCreation::getPath() const
+{
+    return m_pathConfiguration.getPath();
+}
