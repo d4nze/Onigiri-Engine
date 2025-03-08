@@ -1,10 +1,13 @@
 #pragma once
 #include <string>
 
+class ProjectsHolder;
+
 class Project
 {
 public:
-	Project(const std::string& name, const std::string& path);
+	Project();
+	Project(ProjectsHolder& holder, const std::string& name, const std::string& path);
 
 public:
 	void update();
@@ -15,6 +18,7 @@ public:
 	const std::string& getPath() const;
 
 private:
+	ProjectsHolder* m_holder;
 	std::string m_name;
 	std::string m_path;
 };

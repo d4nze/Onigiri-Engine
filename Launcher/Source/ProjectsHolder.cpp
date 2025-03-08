@@ -14,7 +14,7 @@ ProjectsHolder::ProjectsHolder()
 
 		for (const nlohmann::json& projectData : projectsData["projects"])
 		{
-			m_projects.push_back(Project(projectData["name"], projectData["path"]));
+			m_projects.push_back(Project(*this, projectData["name"], projectData["path"]));
 		}
 	}
 }

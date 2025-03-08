@@ -4,8 +4,15 @@
 #include <filesystem>
 #include <imgui.h>
 
-Project::Project(const std::string& name, const std::string& path)
-	: m_name(name)
+Project::Project()
+    : m_holder(nullptr)
+    , m_name("")
+    , m_path("")
+{}
+
+Project::Project(ProjectsHolder& holder, const std::string& name, const std::string& path)
+	: m_holder(&holder)
+    , m_name(name)
 	, m_path(path)
 {}
 
