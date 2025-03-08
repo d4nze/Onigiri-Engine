@@ -56,10 +56,15 @@ void ProjectCreation::update()
 
     ImGui::SameLine();
     const char* nextStepText = "Next";
-    bool nextStepDisabled = m_nameConfiguration.hasError();
+    bool nextStepDisabled = false;
     if (m_step.is<ProjectPathConfiguration>())
     {
         nextStepText = "Finish";
+        nextStepDisabled = m_pathConfiguration.hasError();
+    }
+    else
+    {
+        nextStepDisabled = m_nameConfiguration.hasError();
     }
     if (nextStepDisabled)
     {
