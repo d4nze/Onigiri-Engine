@@ -58,9 +58,9 @@ void ProjectNameConfiguration::updateErrorType()
 		m_error = ErrorVariation::space;
 		return;
 	}
-	if (fisrtLetter != '_' && !LetterChecker::isLatin(fisrtLetter))
+	if (fisrtLetter != '_' && !ApplicationCore::LetterChecker::isLatin(fisrtLetter))
 	{
-		if (!LetterChecker::isNumerical(fisrtLetter))
+		if (!ApplicationCore::LetterChecker::isNumerical(fisrtLetter))
 		{
 			m_error = ErrorVariation::unsupportedCharacter;
 			return;
@@ -81,8 +81,8 @@ void ProjectNameConfiguration::updateErrorType()
 			return;
 		}
 		if (letter != '_' &&
-			!LetterChecker::isLatin(letter) &&
-			!LetterChecker::isNumerical(letter))
+			!ApplicationCore::LetterChecker::isLatin(letter) &&
+			!ApplicationCore::LetterChecker::isNumerical(letter))
 		{
 			m_error = ErrorVariation::unsupportedCharacter;
 			return;

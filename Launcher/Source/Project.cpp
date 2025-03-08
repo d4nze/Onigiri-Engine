@@ -31,10 +31,10 @@ void Project::update()
         }
         else
         {
-            MessageWindow::PressedButton result = MessageWindow::show("Can't open project",
-                                                                      "No project in directory:\n" + m_path,
-                                                                      MessageWindow::Buttons::Ok,
-                                                                      MessageWindow::Icon::Error);
+            ApplicationCore::MessageWindow::PressedButton result = ApplicationCore::MessageWindow::show("Can't open project",
+                                                                                                        "No project in directory:\n" + m_path,
+                                                                                                        ApplicationCore::MessageWindow::Buttons::Ok,
+                                                                                                        ApplicationCore::MessageWindow::Icon::Error);
         }
     }
     if (ImGui::IsItemClicked(ImGuiMouseButton_Right))

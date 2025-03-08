@@ -4,6 +4,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 
+namespace ApplicationCore
+{
 class APPLICATION_API Application
 {
 public:
@@ -24,3 +26,4 @@ protected:
 	sf::RenderWindow m_window;
 	sf::Clock m_deltaClock;
 };
+}

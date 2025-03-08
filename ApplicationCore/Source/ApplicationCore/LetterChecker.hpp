@@ -1,5 +1,7 @@
 #pragma once
 
+namespace ApplicationCore
+{
 class LetterChecker
 {
 public:
@@ -9,3 +11,4 @@ public:
 	static bool isNumerical(char letter);
 	static bool isLatin(char letter);
 };
+}

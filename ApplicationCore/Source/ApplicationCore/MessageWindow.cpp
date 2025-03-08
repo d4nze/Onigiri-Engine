@@ -1,11 +1,11 @@
 #include "MessageWindow.hpp"
 #include <Windows.h>
 
-MessageWindow::PressedButton MessageWindow::show(const std::string& title,
-												 const std::string& message,
-												 Buttons buttons,
-												 Icon icon,
-												 DefaultButton defaultButton)
+ApplicationCore::MessageWindow::PressedButton ApplicationCore::MessageWindow::show(const std::string& title,
+																				   const std::string& message,
+																				   Buttons buttons,
+																				   Icon icon,
+																				   DefaultButton defaultButton)
 {
 	std::int32_t result = MessageBoxA(nullptr,
 									  message.c_str(),

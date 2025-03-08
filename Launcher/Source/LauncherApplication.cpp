@@ -4,7 +4,7 @@
 #include <vector>
 
 LauncherApplication::LauncherApplication()
-    : Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
+    : ApplicationCore::Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
     , m_imGuiIO(ImGui::GetIO())
     , m_gui(*this)
 {

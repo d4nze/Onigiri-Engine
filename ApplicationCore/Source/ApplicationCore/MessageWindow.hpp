@@ -2,6 +2,8 @@
 #include "ApplicationAPI.hpp"
 #include <string>
 
+namespace ApplicationCore
+{
 class MessageWindow
 {
 public:
@@ -54,3 +56,4 @@ public:
 							  Icon icon,
 							  DefaultButton defaultButton = DefaultButton::First);
 };
+}

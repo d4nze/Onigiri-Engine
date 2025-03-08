@@ -27,7 +27,7 @@ void ProjectPathConfiguration::update()
 	ImGui::SameLine();
 	if (ImGui::Button("Browse", ImVec2(80, 0)))
 	{
-		std::filesystem::path path = BrowseWindow::selectFolder();
+		std::filesystem::path path = ApplicationCore::BrowseWindow::selectFolder();
 		if (!path.empty())
 		{
 			std::string sPath = path.string();

@@ -2,7 +2,7 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 
-Application::Application(const sf::VideoMode& windowResolution, const std::string& windowTitle)
+ApplicationCore::Application::Application(const sf::VideoMode& windowResolution, const std::string& windowTitle)
 	: m_window(windowResolution, windowTitle.c_str())
 	, m_deltaClock()
 {
@@ -12,12 +12,12 @@ Application::Application(const sf::VideoMode& windowResolution, const std::strin
 	}
 }
 
-Application::~Application()
+ApplicationCore::Application::~Application()
 {
 	ImGui::SFML::Shutdown();
 }
 
-void Application::run()
+void ApplicationCore::Application::run()
 {
 	while (m_window.isOpen())
 	{
@@ -30,17 +30,17 @@ void Application::run()
 	}
 }
 
-sf::RenderWindow& Application::getWindow()
+sf::RenderWindow& ApplicationCore::Application::getWindow()
 {
 	return m_window;
 }
 
-const sf::RenderWindow& Application::getWindow() const
+const sf::RenderWindow& ApplicationCore::Application::getWindow() const
 {
 	return m_window;
 }
 
-void Application::handleEvent(const std::optional<sf::Event> event)
+void ApplicationCore::Application::handleEvent(const std::optional<sf::Event> event)
 {
 	ImGui::SFML::ProcessEvent(m_window, *event);
 	if (event->is<sf::Event::Closed>())

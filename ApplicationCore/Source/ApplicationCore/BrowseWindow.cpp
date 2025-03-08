@@ -1,7 +1,7 @@
 #include "BrowseWindow.hpp"
 #include <shobjidl.h>
 
-std::filesystem::path BrowseWindow::selectFolder()
+std::filesystem::path ApplicationCore::BrowseWindow::selectFolder()
 {
     std::filesystem::path folderPath;
     HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);

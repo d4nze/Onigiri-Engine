@@ -4,7 +4,7 @@
 
 #include <imgui.h>
 
-class LauncherApplication : public Application
+class LauncherApplication : public ApplicationCore::Application
 {
 public:
 	LauncherApplication();
