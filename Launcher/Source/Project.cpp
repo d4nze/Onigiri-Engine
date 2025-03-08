@@ -1,4 +1,7 @@
 #include "Project.hpp"
+#include "Application/MessageWindow.hpp"
+
+#include <filesystem>
 #include <imgui.h>
 
 Project::Project(const std::string& name, const std::string& path)
@@ -8,7 +11,21 @@ Project::Project(const std::string& name, const std::string& path)
 
 void Project::update()
 {
-    if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)));
+    if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)))
+    {
+        std::filesystem::path path = m_path + "\\" + m_name;
+        if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
+        {
+
+        }
+        else
+        {
+            MessageWindow::PressedButton result = MessageWindow::show("Can't open project",
+                                                                      "No project in directory:\n" + m_path,
+                                                                      MessageWindow::Buttons::Ok,
+                                                                      MessageWindow::Icon::Error);
+        }
+    }
     if (ImGui::IsItemClicked(ImGuiMouseButton_Right))
     {
         ImGui::OpenPopup(("ProjectMenuPopup"));
