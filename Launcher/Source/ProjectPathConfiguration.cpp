@@ -87,6 +87,11 @@ std::string ProjectPathConfiguration::getPath()
 	return std::string(m_pathBuffer);
 }
 
+const std::string ProjectPathConfiguration::getPath() const
+{
+	return std::string(m_pathBuffer);
+}
+
 bool ProjectPathConfiguration::hasError() const
 {
 	return m_error != ErrorVariation::noError;

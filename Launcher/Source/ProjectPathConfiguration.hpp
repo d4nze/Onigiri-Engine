@@ -14,6 +14,8 @@ public:
 	void updateErrorLog();
 
 	std::string getPath();
+	const std::string getPath() const;
+
 	bool hasError() const;
 
 private:
