@@ -79,7 +79,15 @@ void ProjectPathConfiguration::updateErrorLog()
 	{
 		m_error = ErrorVariation::invalidPath;
 	}
-	// else if (std::filesystem::exists(m_projectCreation.getName())) { ... }
+	else
+	{
+		path += "\\";
+		path += m_projectCreation.getName();
+		if (std::filesystem::exists(path))
+		{
+			m_error = ErrorVariation::projectExists;
+		}
+	}
 }
 
 std::string ProjectPathConfiguration::getPath()
