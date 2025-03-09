@@ -1,4 +1,4 @@
-workspace "Sandbox Engine"
+workspace "Onigiri Engine"
     startproject "Launcher"
 	configurations {
 		"Debug",
