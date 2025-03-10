@@ -1,6 +1,9 @@
 #include "FrameController.hpp"
 
-ApplicationCore::FrameController::FrameController(Frame& mainFrame) : m_currentFrame(&mainFrame) {}
+ApplicationCore::FrameController::FrameController(Frame& mainFrame, Application& application)
+	: m_application(application)
+	, m_currentFrame(&mainFrame)
+{}
 
 ApplicationCore::FrameController::~FrameController()
 {
@@ -21,4 +24,14 @@ void ApplicationCore::FrameController::setCurrentFrame(Frame* frame)
 		return;
 	}
 	m_currentFrame = frame;
+}
+
+ApplicationCore::Application& ApplicationCore::FrameController::getApplication()
+{
+	return m_application;
+}
+
+const ApplicationCore::Application& ApplicationCore::FrameController::getApplication() const
+{
+	return m_application;
 }
