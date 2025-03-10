@@ -3,7 +3,7 @@
 
 namespace ApplicationCore
 {
-class APPLICATION_API FrameController
+class APPLICATION_CORE_API FrameController
 {
 public:
 	FrameController(Frame& mainFrame);

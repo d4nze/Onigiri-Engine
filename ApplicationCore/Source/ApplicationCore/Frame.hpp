@@ -6,9 +6,9 @@
 
 namespace ApplicationCore
 {
-class APPLICATION_API FrameController;
+class APPLICATION_CORE_API FrameController;
 
-class APPLICATION_API Frame
+class APPLICATION_CORE_API Frame
 {
 public:
 	Frame(FrameController& controller);
