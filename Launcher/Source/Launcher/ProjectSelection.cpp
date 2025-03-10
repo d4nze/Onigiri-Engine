@@ -6,6 +6,16 @@ Launcher::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& f
 	, m_projectsViewer(*this)
 {}
 
+Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView()
+{
+	return m_projectsViewer;
+}
+
+const Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView() const
+{
+	return m_projectsViewer;
+}
+
 void Launcher::ProjectSelection::show()
 {
 	ImGui::Button("Create Project");
