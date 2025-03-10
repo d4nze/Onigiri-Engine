@@ -3,10 +3,6 @@
 
 GUI::GUI(Application& application)
 	: m_application(application)
-	, m_state(typeid(ProjectSelection))
-	, m_projectSelection(*this)
-	, m_projectCreation(*this)
-	, m_projectImporting(*this)
 	, m_mainFont(nullptr)
 {
 	ImGuiIO& io = ImGui::GetIO();
@@ -30,18 +26,6 @@ GUI::GUI(Application& application)
 
 void GUI::update()
 {
-	if (m_state.is<ProjectSelection>())
-	{
-		m_projectSelection.update();
-	}
-	else if (m_state.is<ProjectCreation>())
-	{
-		m_projectCreation.update();
-	}
-	else if (m_state.is<ProjectImporting>())
-	{
-		m_projectImporting.update();
-	}
 }
 
 Application& GUI::getApplication()
@@ -52,34 +36,4 @@ Application& GUI::getApplication()
 const Application& GUI::getApplication() const
 {
 	return m_application;
-}
-
-GUIState& GUI::getStateManager()
-{
-	return m_state;
-}
-
-const GUIState& GUI::getStateManager() const
-{
-	return m_state;
-}
-
-ProjectSelection& GUI::getProjectSelection()
-{
-	return m_projectSelection;
-}
-
-const ProjectSelection& GUI::getProjectSelection() const
-{
-	return m_projectSelection;
-}
-
-ProjectCreation& GUI::getProjectCreation()
-{
-	return m_projectCreation;
-}
-
-const ProjectCreation& GUI::getProjectCreation() const
-{
-	return m_projectCreation;
 }
