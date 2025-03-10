@@ -1,7 +1,7 @@
 #include "GUI.hpp"
 #include <imgui-sfml.h>
 
-GUI::GUI(Application& application)
+Launcher::GUI::GUI(Application& application)
 	: m_application(application)
 	, m_imGuiIO(ImGui::GetIO())
 	, m_mainFont(nullptr)
@@ -26,7 +26,7 @@ GUI::GUI(Application& application)
 	}
 }
 
-void GUI::update()
+void Launcher::GUI::update()
 {
 	ImVec2 windowSize = m_imGuiIO.DisplaySize;
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
@@ -39,12 +39,12 @@ void GUI::update()
 	ImGui::End();
 }
 
-Application& GUI::getApplication()
+Launcher::Application& Launcher::GUI::getApplication()
 {
 	return m_application;
 }
 
-const Application& GUI::getApplication() const
+const Launcher::Application& Launcher::GUI::getApplication() const
 {
 	return m_application;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <imgui.h>
 
+namespace Launcher
+{
 class Application;
 
 class GUI
@@ -19,3 +21,4 @@ private:
 	ImGuiIO& m_imGuiIO;
 	ImFont* m_mainFont;
 };
+}

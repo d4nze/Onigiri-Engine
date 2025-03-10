@@ -5,7 +5,7 @@
 
 std::int32_t main()
 {
-	Application application;
+	Launcher::Application application;
 	try
 	{
 		application.run();

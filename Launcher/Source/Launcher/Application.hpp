@@ -4,6 +4,8 @@
 
 #include <imgui.h>
 
+namespace Launcher
+{
 class Application : public ApplicationCore::Application
 {
 public:
@@ -15,3 +17,4 @@ private:
 private:
 	GUI m_gui;
 };
+}
