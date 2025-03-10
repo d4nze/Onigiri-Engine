@@ -1,8 +1,6 @@
 #include "Main.hpp"
 #include "Application.hpp"
 
-#include <shobjidl.h>
-
 std::int32_t main()
 {
 	Launcher::Application application;
