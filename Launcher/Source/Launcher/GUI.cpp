@@ -3,8 +3,10 @@
 
 GUI::GUI(Application& application)
 	: m_application(application)
+	, m_imGuiIO(ImGui::GetIO())
 	, m_mainFont(nullptr)
 {
+	m_imGuiIO.IniFilename = "Launcher.ini";
 	ImGuiIO& io = ImGui::GetIO();
 	static const ImWchar glyphRanges[] = {
 		0x0020, 0x00FF,
@@ -26,6 +28,15 @@ GUI::GUI(Application& application)
 
 void GUI::update()
 {
+	ImVec2 windowSize = m_imGuiIO.DisplaySize;
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(windowSize);
+	ImGui::Begin("Launcher", nullptr,
+				 ImGuiWindowFlags_NoCollapse |
+				 ImGuiWindowFlags_NoResize |
+				 ImGuiWindowFlags_NoMove |
+				 ImGuiWindowFlags_NoTitleBar);
+	ImGui::End();
 }
 
 Application& GUI::getApplication()

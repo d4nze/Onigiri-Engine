@@ -16,5 +16,6 @@ public:
 
 private:
 	Application& m_application;
+	ImGuiIO& m_imGuiIO;
 	ImFont* m_mainFont;
 };

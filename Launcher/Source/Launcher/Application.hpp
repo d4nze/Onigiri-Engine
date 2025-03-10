@@ -13,6 +13,5 @@ private:
 	void update() override;
 
 private:
-	ImGuiIO& m_imGuiIO;
 	GUI m_gui;
 };
