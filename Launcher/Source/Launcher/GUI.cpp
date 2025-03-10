@@ -8,7 +8,7 @@ Launcher::GUI::GUI(Application& application)
 	, m_imGuiIO(ImGui::GetIO())
 	, m_mainFont(nullptr)
 	, m_mainFrame(new ProjectSelection(m_frameController))
-	, m_frameController(*m_mainFrame)
+	, m_frameController(*m_mainFrame, (ApplicationCore::Application&)m_application)
 {
 	m_imGuiIO.IniFilename = "Launcher.ini";
 	ImGuiIO& io = ImGui::GetIO();
