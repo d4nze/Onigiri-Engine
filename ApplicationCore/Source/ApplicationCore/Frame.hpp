@@ -16,7 +16,7 @@ public:
 
 public:
 	template<typename TFrame>
-	bool moveDown();
+	bool moveTo();
 
 	FrameController& getController();
 	const FrameController& getController() const;
@@ -33,7 +33,7 @@ protected:
 	bool addNeighbour(Frame* frame);
 
 private:
-	bool moveDown(std::type_index frameIDType);
+	bool moveTo(std::type_index frameIDType);
 	Frame* getNeighbour(std::type_index frameIDType);
 	const Frame* getNeighbour(std::type_index frameIDType) const;
 	bool addNeighbour(Frame* frame, std::type_index frameIDType);

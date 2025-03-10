@@ -1,9 +1,9 @@
 #include "Frame.hpp"
 
 template<typename TFrame>
-inline bool ApplicationCore::Frame::moveDown()
+inline bool ApplicationCore::Frame::moveTo()
 {
-	return moveDown(typeid(TFrame));
+	return moveTo(typeid(TFrame));
 }
 
 template<typename TFrame>

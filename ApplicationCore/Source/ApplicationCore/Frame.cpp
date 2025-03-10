@@ -14,7 +14,7 @@ const ApplicationCore::FrameController& ApplicationCore::Frame::getController() 
 	return m_controller;
 }
 
-bool ApplicationCore::Frame::moveDown(std::type_index frameIDType)
+bool ApplicationCore::Frame::moveTo(std::type_index frameIDType)
 {
 	if (m_neighbours.find(frameIDType) == m_neighbours.end())
 	{
