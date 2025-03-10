@@ -19,6 +19,6 @@ end
 group "Linkers"
 	include "SFMLLinker"
 group ""
-	include "Core"
+	include "ScriptCore"
 	include "ApplicationCore"
 	include "Launcher"

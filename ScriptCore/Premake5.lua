@@ -1,4 +1,4 @@
-project "Core"
+project "ScriptCore"
 	language "C++"
 	kind "SharedLib"
     cppdialect "C++17"
