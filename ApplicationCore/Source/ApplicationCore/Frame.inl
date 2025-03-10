@@ -19,15 +19,15 @@ inline const TFrame* ApplicationCore::Frame::getParent() const
 }
 
 template<typename TFrame>
-inline TFrame* ApplicationCore::Frame::getChild()
+inline TFrame* ApplicationCore::Frame::getNeighbour()
 {
-	return getChild(typeid(TFrame));
+	return getNeighbour(typeid(TFrame));
 }
 
 template<typename TFrame>
-inline const TFrame* ApplicationCore::Frame::getChild() const
+inline const TFrame* ApplicationCore::Frame::getNeighbour() const
 {
-	return getChild(typeid(TFrame));
+	return getNeighbour(typeid(TFrame));
 }
 
 template<typename TFrame>
@@ -37,7 +37,7 @@ inline bool ApplicationCore::Frame::setParent(Frame* frame)
 }
 
 template<typename TFrame>
-inline bool ApplicationCore::Frame::addChildren(Frame* frame)
+inline bool ApplicationCore::Frame::addNeighbour(Frame* frame)
 {
-	return addChildren(frame, typeid(TFrame));
+	return addNeighbour(frame, typeid(TFrame));
 }

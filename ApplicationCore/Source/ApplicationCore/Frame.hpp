@@ -28,9 +28,9 @@ public:
 	const TFrame* getParent() const;
 
 	template<typename TFrame>
-	TFrame* getChild();
+	TFrame* getNeighbour();
 	template<typename TFrame>
-	const TFrame* getChild() const;
+	const TFrame* getNeighbour() const;
 
 protected:
 	virtual void show() {};
@@ -38,20 +38,20 @@ protected:
 	template<typename TFrame>
 	bool setParent(Frame* frame);
 	template<typename TFrame>
-	bool addChildren(Frame* frame);
+	bool addNeighbour(Frame* frame);
 
 private:
 	bool moveDown(std::type_index frameIDType);
 	Frame* getParent(std::type_index frameIDType) const;
-	Frame* getChild(std::type_index frameIDType);
-	const Frame* getChild(std::type_index frameIDType) const;
+	Frame* getNeighbour(std::type_index frameIDType);
+	const Frame* getNeighbour(std::type_index frameIDType) const;
 	bool setParent(Frame* frame, std::type_index frameIDType);
-	bool addChildren(Frame* frame, std::type_index frameIDType);
+	bool addNeighbour(Frame* frame, std::type_index frameIDType);
 
 private:
 	FrameController& m_controller;
 	std::pair<Frame*, std::type_index> m_parent;
-	std::map<std::type_index, Frame*> m_children;
+	std::map<std::type_index, Frame*> m_neighbours;
 
 	friend FrameController;
 };
