@@ -8,7 +8,7 @@ namespace ApplicationCore
 {
 class APPLICATION_CORE_API FrameController;
 
-class APPLICATION_CORE_API Frame
+class Frame
 {
 public:
 	Frame(FrameController& controller);
@@ -30,7 +30,7 @@ public:
 	const TFrame* getChild() const;
 
 protected:
-	virtual void show() = 0;
+	virtual void show() {};
 
 	template<typename TFrame>
 	bool setParent(Frame* frame);
