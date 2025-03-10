@@ -6,6 +6,8 @@
 #include <vector>
 #include <queue>
 
+namespace ScriptCore
+{
 class CORE_API StepComponent;
 
 class CORE_API Scene
@@ -49,3 +51,4 @@ private:
 	friend class Instance;
 	friend class MainApplication;
 };
+}

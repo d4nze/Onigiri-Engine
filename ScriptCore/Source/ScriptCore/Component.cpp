@@ -1,21 +1,21 @@
 #include "Component.hpp"
 
-Component::Component() : m_instance(nullptr) {}
+ScriptCore::Component::Component() : m_instance(nullptr) {}
 
-void Component::create() {}
+void ScriptCore::Component::create() {}
 
-void Component::destroy() {}
+void ScriptCore::Component::destroy() {}
 
-void Component::save(nlohmann::json& data) {}
+void ScriptCore::Component::save(nlohmann::json& data) {}
 
-void Component::load(nlohmann::json& data) {}
+void ScriptCore::Component::load(nlohmann::json& data) {}
 
-Instance& Component::getInstance()
+ScriptCore::Instance& ScriptCore::Component::getInstance()
 {
 	return *m_instance;
 }
 
-const Instance& Component::getInstance() const
+const ScriptCore::Instance& ScriptCore::Component::getInstance() const
 {
 	return *m_instance;
 }

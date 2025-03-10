@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.hpp"
 
+namespace ScriptCore
+{
 class CORE_API StepComponent : public Component
 {
 public:
@@ -18,3 +20,4 @@ private:
 	std::int32_t m_instancePriority;
 	std::int32_t m_scenePriority;
 };
+}

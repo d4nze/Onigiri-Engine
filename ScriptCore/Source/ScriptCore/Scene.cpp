@@ -2,10 +2,10 @@
 #include "Instance.hpp"
 #include "StepComponent.hpp"
 
-Scene::Scene(sf::RenderTarget& renderTarget) : m_renderTarget(renderTarget)
+ScriptCore::Scene::Scene(sf::RenderTarget& renderTarget) : m_renderTarget(renderTarget)
 {}
 
-Scene::~Scene()
+ScriptCore::Scene::~Scene()
 {
     for (Instance* instance : m_instances)
     {
@@ -17,32 +17,32 @@ Scene::~Scene()
     }
 }
 
-sf::RenderTarget& Scene::getRenderTarget()
+sf::RenderTarget& ScriptCore::Scene::getRenderTarget()
 {
     return m_renderTarget;
 }
 
-const sf::RenderTarget& Scene::getRenderTarget() const
+const sf::RenderTarget& ScriptCore::Scene::getRenderTarget() const
 {
     return m_renderTarget;
 }
 
-Instance* Scene::createInstance(const std::string& instanceName)
+ScriptCore::Instance* ScriptCore::Scene::createInstance(const std::string& instanceName)
 {
     return createInstance(instanceName, nullptr);
 }
 
-Instance* Scene::getInstance(const std::string& instanceName, std::uint32_t depth)
+ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instanceName, std::uint32_t depth)
 {
     return getInstance(instanceName, nullptr, depth);
 }
 
-const Instance* Scene::getInstance(const std::string& instanceName, std::uint32_t depth) const
+const ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instanceName, std::uint32_t depth) const
 {
     return getInstance(instanceName, nullptr, depth);
 }
 
-bool Scene::destroyInstance(Instance* instance)
+bool ScriptCore::Scene::destroyInstance(Instance* instance)
 {
     for (std::vector<Instance*>::iterator it = m_instances.begin(); it != m_instances.end(); it++)
     {
@@ -56,34 +56,34 @@ bool Scene::destroyInstance(Instance* instance)
     return false;
 }
 
-InstanceIterator Scene::begin()
+ScriptCore::InstanceIterator ScriptCore::Scene::begin()
 {
     return begin(nullptr);
 }
 
-InstanceIterator Scene::end()
+ScriptCore::InstanceIterator ScriptCore::Scene::end()
 {
     return end(nullptr);
 }
 
-const InstanceIterator Scene::begin() const
+const ScriptCore::InstanceIterator ScriptCore::Scene::begin() const
 {
     return begin(nullptr);
 }
 
-const InstanceIterator Scene::end() const
+const ScriptCore::InstanceIterator ScriptCore::Scene::end() const
 {
     return end(nullptr);
 }
 
-Instance* Scene::createInstance(const std::string& instanceName, Instance* instanceParent)
+ScriptCore::Instance* ScriptCore::Scene::createInstance(const std::string& instanceName, Instance* instanceParent)
 {
     Instance* instance = new Instance(*this, instanceName, instanceParent);
     m_instances.push_back(instance);
     return instance;
 }
 
-Instance* Scene::getInstance(const std::string& instanceName, Instance* startingPoint, std::uint32_t depth) const
+ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instanceName, Instance* startingPoint, std::uint32_t depth) const
 {
     std::vector<Instance*> instances = m_instances;
     for (std::uint32_t i = 0; i <= depth && !instances.empty(); i++)
@@ -105,7 +105,7 @@ Instance* Scene::getInstance(const std::string& instanceName, Instance* starting
     return nullptr;
 }
 
-void Scene::step()
+void ScriptCore::Scene::step()
 {
     while (!m_createComponents.empty())
     {
@@ -183,22 +183,22 @@ void Scene::step()
     }
 }
 
-InstanceIterator Scene::begin(Instance* parent)
+ScriptCore::InstanceIterator ScriptCore::Scene::begin(Instance* parent)
 {
     return InstanceIterator(parent, m_instances);
 }
 
-InstanceIterator Scene::end(Instance* parent)
+ScriptCore::InstanceIterator ScriptCore::Scene::end(Instance* parent)
 {
     return InstanceIterator(parent, m_instances, m_instances.size());
 }
 
-const InstanceIterator Scene::begin(const Instance* parent) const
+const ScriptCore::InstanceIterator ScriptCore::Scene::begin(const Instance* parent) const
 {
     return InstanceIterator(parent, m_instances);
 }
 
-const InstanceIterator Scene::end(const Instance* parent) const
+const ScriptCore::InstanceIterator ScriptCore::Scene::end(const Instance* parent) const
 {
     return InstanceIterator(parent, m_instances, m_instances.size());
 }

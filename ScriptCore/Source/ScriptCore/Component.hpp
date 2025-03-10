@@ -2,6 +2,8 @@
 #include "CoreAPI.hpp"
 #include <nlohmann/json.hpp>
 
+namespace ScriptCore
+{
 class CORE_API Instance;
 
 class CORE_API Component
@@ -24,3 +26,4 @@ private:
 	Instance* m_instance;
 	friend Instance;
 };
+}

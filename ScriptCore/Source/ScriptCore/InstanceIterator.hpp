@@ -2,6 +2,8 @@
 #include "CoreAPI.hpp"
 #include <vector>
 
+namespace ScriptCore
+{
 class CORE_API Instance;
 
 class CORE_API InstanceIterator
@@ -30,3 +32,4 @@ private:
 
 	friend class CORE_API Scene;
 };
+}

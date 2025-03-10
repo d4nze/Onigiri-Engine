@@ -5,6 +5,8 @@
 #include <string>
 #include <typeindex>
 
+namespace ScriptCore
+{
 class CORE_API Scene;
 
 class CORE_API Instance
@@ -49,5 +51,6 @@ private:
 
 	friend Scene;
 };
+}
 
 #include "Instance.inl"
