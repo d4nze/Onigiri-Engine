@@ -12,7 +12,7 @@ class Frame
 {
 public:
 	Frame(FrameController& controller);
-	virtual ~Frame();
+	virtual ~Frame() = default;
 
 public:
 	template<typename TFrame>

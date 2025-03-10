@@ -4,14 +4,6 @@
 ApplicationCore::Frame::Frame(FrameController& controller) : m_controller(controller)
 {}
 
-ApplicationCore::Frame::~Frame()
-{
-	for (std::pair<std::type_index, Frame*> neighbour : m_neighbours)
-	{
-		delete neighbour.second;
-	}
-}
-
 ApplicationCore::FrameController& ApplicationCore::Frame::getController()
 {
 	return m_controller;
