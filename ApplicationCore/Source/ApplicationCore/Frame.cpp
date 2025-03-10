@@ -24,6 +24,16 @@ bool ApplicationCore::Frame::moveUp()
 	return true;
 }
 
+ApplicationCore::FrameController& ApplicationCore::Frame::getController()
+{
+	return m_controller;
+}
+
+const ApplicationCore::FrameController& ApplicationCore::Frame::getController() const
+{
+	return m_controller;
+}
+
 bool ApplicationCore::Frame::moveDown(std::type_index frameIDType)
 {
 	if (m_children.find(frameIDType) == m_children.end())

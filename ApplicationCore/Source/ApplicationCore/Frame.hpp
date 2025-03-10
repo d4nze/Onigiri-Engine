@@ -19,6 +19,9 @@ public:
 	bool moveDown();
 	bool moveUp();
 
+	FrameController& getController();
+	const FrameController& getController() const;
+
 	template<typename TFrame>
 	TFrame* getParent();
 	template<typename TFrame>
