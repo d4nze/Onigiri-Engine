@@ -28,6 +28,8 @@ public:
 	template<class TFrame>
 	TFrame* addFrame(Frame* frame);
 	template<class TFrame>
+	bool hasFrame() const;
+	template<class TFrame>
 	TFrame* getFrame();
 	template<class TFrame>
 	const TFrame* getFrame() const;
@@ -46,6 +48,7 @@ private:
 	bool isCurrentFrame(std::type_index frameTypeID) const;
 
 	Frame* addFrame(Frame* frame, std::type_index frameTypeID);
+	bool hasFrame(std::type_index frameTypeID) const;
 	Frame* getFrame(std::type_index frameTypeID) const;
 
 	bool addNeighbour(Frame* frame, std::type_index neighbourTypeID);

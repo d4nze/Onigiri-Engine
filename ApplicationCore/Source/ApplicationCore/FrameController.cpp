@@ -36,12 +36,12 @@ const ApplicationCore::Application& ApplicationCore::FrameController::getApplica
 
 bool ApplicationCore::FrameController::setCurrentFrame(std::type_index frameTypeID)
 {
-	if (m_frames.find(frameTypeID) == m_frames.end())
+	if (hasFrame(frameTypeID))
 	{
-		return false;
+		m_currentFrame = m_frames.at(frameTypeID);
+		return true;
 	}
-	m_currentFrame = m_frames.at(frameTypeID);
-	return true;
+	return false;
 }
 
 bool ApplicationCore::FrameController::isCurrentFrame(std::type_index frameTypeID) const
@@ -56,22 +56,27 @@ bool ApplicationCore::FrameController::isCurrentFrame(std::type_index frameTypeI
 
 ApplicationCore::Frame* ApplicationCore::FrameController::addFrame(Frame* frame, std::type_index frameTypeID)
 {
-	if (m_frames.find(frameTypeID) == m_frames.end())
+	if (hasFrame(frameTypeID))
 	{
-		m_frames[frameTypeID] = frame;
-		return frame;
+		delete frame;
+		return nullptr;
 	}
-	delete frame;
-	return nullptr;
+	m_frames[frameTypeID] = frame;
+	return frame;
+}
+
+bool ApplicationCore::FrameController::hasFrame(std::type_index frameTypeID) const
+{
+	return m_frames.find(frameTypeID) != m_frames.end();
 }
 
 ApplicationCore::Frame* ApplicationCore::FrameController::getFrame(std::type_index frameTypeID) const
 {
-	if (m_frames.find(frameTypeID) == m_frames.end())
+	if (hasFrame(frameTypeID))
 	{
-		return nullptr;
+		return m_frames.at(frameTypeID);
 	}
-	return m_frames.at(frameTypeID);
+	return nullptr;
 }
 
 bool ApplicationCore::FrameController::addNeighbour(Frame* frame, std::type_index neighbourTypeID)
