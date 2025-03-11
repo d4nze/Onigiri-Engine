@@ -9,13 +9,13 @@ inline bool ApplicationCore::Frame::moveTo()
 template<typename TFrame>
 inline TFrame* ApplicationCore::Frame::getNeighbour()
 {
-	return getNeighbour(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
 }
 
 template<typename TFrame>
 inline const TFrame* ApplicationCore::Frame::getNeighbour() const
 {
-	return getNeighbour(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
 }
 
 template<typename TFrame>
