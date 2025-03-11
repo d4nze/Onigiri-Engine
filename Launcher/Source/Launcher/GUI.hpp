@@ -21,7 +21,6 @@ private:
 	Application& m_application;
 	ImGuiIO& m_imGuiIO;
 	ImFont* m_mainFont;
-	ApplicationCore::Frame* m_mainFrame;
 	ApplicationCore::FrameController m_frameController;
 };
 }

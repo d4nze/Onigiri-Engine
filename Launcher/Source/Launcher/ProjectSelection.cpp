@@ -1,10 +1,17 @@
 #include "ProjectSelection.hpp"
+#include "ProjectCreation.hpp"
+
 #include <imgui.h>
 
 Launcher::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
 	, m_projectsViewer(*this)
-{}
+{
+	if (frameController.addFrame<ProjectCreation>(new ProjectCreation(frameController)) != nullptr)
+	{
+		frameController.addNeighbour<ProjectCreation>(this);
+	}
+}
 
 Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView()
 {
@@ -18,7 +25,10 @@ const Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView() co
 
 void Launcher::ProjectSelection::show()
 {
-	ImGui::Button("Create Project");
+	if (ImGui::Button("Create Project"))
+	{
+		moveToNeighbour<ProjectCreation>();
+	}
 	ImGui::SameLine();
 	ImGui::Button("Import Project");
 	m_projectsViewer.show();

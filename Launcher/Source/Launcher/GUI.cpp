@@ -7,9 +7,14 @@ Launcher::GUI::GUI(Application& application)
 	: m_application(application)
 	, m_imGuiIO(ImGui::GetIO())
 	, m_mainFont(nullptr)
-	, m_mainFrame(new ProjectSelection(m_frameController))
-	, m_frameController(*m_mainFrame, (ApplicationCore::Application&)m_application)
+	, m_frameController((ApplicationCore::Application&)m_application)
 {
+	if (m_frameController.addFrame<ProjectSelection>(new ProjectSelection(m_frameController)) == nullptr
+		|| !m_frameController.setCurrentFrame<ProjectSelection>())
+	{
+		throw std::exception("Error initializing main frame");
+	}
+
 	m_imGuiIO.IniFilename = "Launcher.ini";
 	ImGuiIO& io = ImGui::GetIO();
 	static const ImWchar glyphRanges[] = {

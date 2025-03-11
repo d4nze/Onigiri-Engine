@@ -1,25 +1,7 @@
 #include "Frame.hpp"
 
-template<typename TFrame>
-inline bool ApplicationCore::Frame::moveTo()
+template<class TFrame>
+inline bool ApplicationCore::Frame::moveToNeighbour()
 {
-	return moveTo(typeid(TFrame));
-}
-
-template<typename TFrame>
-inline TFrame* ApplicationCore::Frame::getNeighbour()
-{
-	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
-}
-
-template<typename TFrame>
-inline const TFrame* ApplicationCore::Frame::getNeighbour() const
-{
-	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
-}
-
-template<typename TFrame>
-inline bool ApplicationCore::Frame::addNeighbour(Frame* frame)
-{
-	return addNeighbour(frame, typeid(TFrame));
+	return moveToNeighbour(typeid(TFrame));
 }

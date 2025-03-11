@@ -1,12 +1,12 @@
 #pragma once
 #include "ApplicationAPI.hpp"
 
-#include <map>
 #include <typeindex>
+#include <set>
 
 namespace ApplicationCore
 {
-class APPLICATION_CORE_API FrameController;
+class FrameController;
 
 class Frame
 {
@@ -15,32 +15,21 @@ public:
 	virtual ~Frame() = default;
 
 public:
-	template<typename TFrame>
-	bool moveTo();
+	template<class TFrame>
+	bool moveToNeighbour();
 
 	FrameController& getController();
 	const FrameController& getController() const;
 
-	template<typename TFrame>
-	TFrame* getNeighbour();
-	template<typename TFrame>
-	const TFrame* getNeighbour() const;
-
 protected:
-	virtual void show() {};
-
-	template<typename TFrame>
-	bool addNeighbour(Frame* frame);
+	virtual void show() = 0;
 
 private:
-	bool moveTo(std::type_index frameIDType);
-	Frame* getNeighbour(std::type_index frameIDType);
-	const Frame* getNeighbour(std::type_index frameIDType) const;
-	bool addNeighbour(Frame* frame, std::type_index frameIDType);
+	bool moveToNeighbour(std::type_index neighbourTypeID);
 
 private:
 	FrameController& m_controller;
-	std::map<std::type_index, Frame*> m_neighbours;
+	std::set<std::type_index> m_neighbours;
 
 	friend FrameController;
 };

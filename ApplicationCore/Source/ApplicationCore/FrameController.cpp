@@ -3,48 +3,25 @@
 #include <algorithm>
 #include <vector>
 
-ApplicationCore::FrameController::FrameController(Frame& mainFrame, Application& application)
+ApplicationCore::FrameController::FrameController(Application& application)
 	: m_application(application)
-	, m_currentFrame(&mainFrame)
+	, m_currentFrame(nullptr)
 {}
 
 ApplicationCore::FrameController::~FrameController()
 {
-	std::vector<Frame*> totalCollection = { m_currentFrame };
-	std::vector<Frame*> selected = totalCollection;
-
-	while (!selected.empty())
+	for (std::pair<std::type_index, Frame*> frameHolder : m_frames)
 	{
-		Frame* current = selected.front();
-		for (std::pair<std::type_index, Frame*> neighbour : current->m_neighbours)
-		{
-			if (std::find(totalCollection.begin(), totalCollection.end(), neighbour.second) != totalCollection.end())
-			{
-				totalCollection.push_back(neighbour.second);
-				selected.push_back(neighbour.second);
-			}
-		}
-		selected.erase(selected.begin());
-	}
-
-	for (Frame* current : totalCollection)
-	{
-		delete current;
+		delete frameHolder.second;
 	}
 }
 
 void ApplicationCore::FrameController::show()
 {
-	m_currentFrame->show();
-}
-
-void ApplicationCore::FrameController::setCurrentFrame(Frame* frame)
-{
-	if (frame == nullptr)
+	if (m_currentFrame != nullptr)
 	{
-		return;
+		m_currentFrame->show();
 	}
-	m_currentFrame = frame;
 }
 
 ApplicationCore::Application& ApplicationCore::FrameController::getApplication()
@@ -55,4 +32,83 @@ ApplicationCore::Application& ApplicationCore::FrameController::getApplication()
 const ApplicationCore::Application& ApplicationCore::FrameController::getApplication() const
 {
 	return m_application;
+}
+
+bool ApplicationCore::FrameController::setCurrentFrame(std::type_index frameTypeID)
+{
+	if (m_frames.find(frameTypeID) == m_frames.end())
+	{
+		return false;
+	}
+	m_currentFrame = m_frames.at(frameTypeID);
+	return true;
+}
+
+bool ApplicationCore::FrameController::isCurrentFrame(std::type_index frameTypeID) const
+{
+	std::map<std::type_index, Frame*>::const_iterator it = m_frames.find(frameTypeID);
+	if (it == m_frames.end())
+	{
+		return false;
+	}
+	return it->second == m_currentFrame;
+}
+
+ApplicationCore::Frame* ApplicationCore::FrameController::addFrame(Frame* frame, std::type_index frameTypeID)
+{
+	if (m_frames.find(frameTypeID) == m_frames.end())
+	{
+		m_frames[frameTypeID] = frame;
+		return frame;
+	}
+	delete frame;
+	return nullptr;
+}
+
+ApplicationCore::Frame* ApplicationCore::FrameController::getFrame(std::type_index frameTypeID) const
+{
+	if (m_frames.find(frameTypeID) == m_frames.end())
+	{
+		return nullptr;
+	}
+	return m_frames.at(frameTypeID);
+}
+
+bool ApplicationCore::FrameController::addNeighbour(Frame* frame, std::type_index neighbourTypeID)
+{
+	if (hasNeighbour(frame, neighbourTypeID))
+	{
+		return false;
+	}
+	frame->m_neighbours.insert(neighbourTypeID);
+	return true;
+}
+
+bool ApplicationCore::FrameController::hasNeighbour(Frame* frame, std::type_index neighbourTypeID) const
+{
+	if (m_frames.find(neighbourTypeID) == m_frames.end())
+	{
+		return false;
+	}
+	for (std::pair<std::type_index, Frame*> frameHolder : m_frames)
+	{
+		if (frameHolder.second == frame)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+ApplicationCore::Frame* ApplicationCore::FrameController::getNeighbour(Frame* frame, std::type_index neighbourTypeID) const
+{
+	if (hasNeighbour(frame, neighbourTypeID))
+	{
+		if (frame->m_neighbours.find(neighbourTypeID) != frame->m_neighbours.end())
+		{
+			return m_frames.at(neighbourTypeID);
+		}
+		return nullptr;
+	}
+	return nullptr;
 }
