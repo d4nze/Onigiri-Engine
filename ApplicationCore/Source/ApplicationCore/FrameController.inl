@@ -24,6 +24,12 @@ inline TFrame* ApplicationCore::FrameController::addFrame(Frame* frame)
 }
 
 template<class TFrame>
+inline bool ApplicationCore::FrameController::hasFrame() const
+{
+	return hasFrame(typeid(TFrame));
+}
+
+template<class TFrame>
 inline TFrame* ApplicationCore::FrameController::getFrame()
 {
 	return getFrame(typeid(TFrame));
