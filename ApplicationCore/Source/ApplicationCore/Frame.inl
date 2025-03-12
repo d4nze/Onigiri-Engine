@@ -21,11 +21,11 @@ inline bool ApplicationCore::Frame::hasNeighbour() const
 template<class TFrame>
 inline TFrame* ApplicationCore::Frame::getNeighbour()
 {
-	return reinterpret_cast<TFrame*>getNeighbour(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
 }
 
 template<class TFrame>
 inline const TFrame* ApplicationCore::Frame::getNeighbour() const
 {
-	return reinterpret_cast<TFrame*>getNeighbour(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getNeighbour(typeid(TFrame)));
 }
