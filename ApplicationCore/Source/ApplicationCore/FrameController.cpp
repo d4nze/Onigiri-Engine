@@ -72,6 +72,7 @@ ApplicationCore::Frame* ApplicationCore::FrameController::addFrame(Frame* frame,
 		return nullptr;
 	}
 	m_frames[frameTypeID] = frame;
+	m_typeIDs[frame] = frameTypeID;
 	return frame;
 }
 

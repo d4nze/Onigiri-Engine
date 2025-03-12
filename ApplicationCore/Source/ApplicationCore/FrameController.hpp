@@ -2,6 +2,7 @@
 #include "Frame.hpp"
 
 #include <map>
+#include <optional>
 #include <vector>
 
 namespace ApplicationCore
@@ -61,6 +62,7 @@ private:
 	Application& m_application;
 	Frame* m_currentFrame;
 	std::map<std::type_index, Frame*> m_frames;
+	std::map<Frame*, std::optional<std::type_index>> m_typeIDs;
 
 	friend Frame;
 };
