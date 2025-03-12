@@ -6,12 +6,7 @@
 Launcher::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
 	, m_projectsViewer(*this)
-{
-	if (frameController.addFrame<ProjectCreation::ProjectCreation>(new ProjectCreation::ProjectCreation(frameController)) != nullptr)
-	{
-		frameController.addNeighbour<ProjectCreation::ProjectCreation>(this);
-	}
-}
+{}
 
 Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView()
 {

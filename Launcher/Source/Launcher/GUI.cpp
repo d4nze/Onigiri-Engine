@@ -1,5 +1,6 @@
 #include "GUI.hpp"
 #include "ProjectSelection.hpp"
+#include "ProjectCreation/ProjectCreation.hpp"
 
 #include <imgui-sfml.h>
 
@@ -9,10 +10,24 @@ Launcher::GUI::GUI(Application& application)
 	, m_mainFont(nullptr)
 	, m_frameController((ApplicationCore::Application&)m_application)
 {
-	if (m_frameController.addFrame<ProjectSelection>(new ProjectSelection(m_frameController)) == nullptr
-		|| !m_frameController.setCurrentFrame<ProjectSelection>())
+	ApplicationCore::Frame* projectSelection = m_frameController.addFrame<ProjectSelection>(new ProjectSelection(m_frameController));
+	if (projectSelection == nullptr || !m_frameController.setCurrentFrame<ProjectSelection>())
 	{
-		throw std::exception("Error initializing main frame");
+		throw std::exception("Error initializing ProjectSelection");
+	}
+	ApplicationCore::Frame* projectCreation = m_frameController.addFrame<ProjectCreation::ProjectCreation>(new ProjectCreation::ProjectCreation(m_frameController));
+	if (projectCreation == nullptr)
+	{
+		throw std::exception("Error initializing ProjectCreation");
+	}
+
+	if (!projectSelection->addNeighbour<ProjectCreation::ProjectCreation>())
+	{
+		throw std::exception("Error setting up connection: 'ProjectSelection -> ProjectCreation'");
+	}
+	if (!projectCreation->addNeighbour<ProjectSelection>())
+	{
+		throw std::exception("Error setting up connection: 'ProjectCreation -> ProjectSelection'");
 	}
 
 	m_imGuiIO.IniFilename = "Launcher.ini";

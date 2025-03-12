@@ -40,27 +40,3 @@ inline const TFrame* ApplicationCore::FrameController::getFrame() const
 {
 	return getFrame(typeid(TFrame));
 }
-
-template<class TFrame>
-inline bool ApplicationCore::FrameController::addNeighbour(Frame* frame)
-{
-	return addNeighbour(frame, typeid(TFrame));
-}
-
-template<class TFrame>
-inline bool ApplicationCore::FrameController::hasNeighbour(Frame* frame) const
-{
-	return addNeighbour(frame, typeid(TFrame));
-}
-
-template<class TFrame>
-inline TFrame* ApplicationCore::FrameController::getNeighbour(Frame* frame)
-{
-	return reinterpret_cast<TFrame*>(getNeighbour(frame, typeid(TFrame)));
-}
-
-template<class TFrame>
-inline const TFrame* ApplicationCore::FrameController::getNeighbour(Frame* frame) const
-{
-	return reinterpret_cast<TFrame*>(getNeighbour(frame, typeid(TFrame)));
-}

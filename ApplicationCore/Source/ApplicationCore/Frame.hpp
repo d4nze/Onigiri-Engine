@@ -17,6 +17,14 @@ public:
 public:
 	template<class TFrame>
 	bool moveToNeighbour();
+	template<class TFrame>
+	bool addNeighbour();
+	template<class TFrame>
+	bool hasNeighbour() const;
+	template<class TFrame>
+	TFrame* getNeighbour();
+	template<class TFrame>
+	const TFrame* getNeighbour() const;
 
 	FrameController& getController();
 	const FrameController& getController() const;
@@ -26,10 +34,12 @@ protected:
 
 private:
 	bool moveToNeighbour(std::type_index neighbourTypeID);
+	bool addNeighbour(std::type_index neighbourTypeID);
+	bool hasNeighbour(std::type_index neighbourTypeID) const;
+	Frame* getNeighbour(std::type_index neighbourTypeID) const;
 
 private:
 	FrameController& m_controller;
-	std::set<std::type_index> m_neighbours;
 
 	friend FrameController;
 };

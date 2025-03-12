@@ -9,11 +9,12 @@ Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::Fra
 	, m_createController(frameController.getApplication())
 	, m_buttonWidth(80.f)
 {
-	frameController.addNeighbour<ProjectSelection>(this);
-	if (m_createController.addFrame<NameConfiguration>(new NameConfiguration(m_createController)) != nullptr)
+	Frame* nameConfiguration = m_createController.addFrame<NameConfiguration>(new NameConfiguration(m_createController));
+	if (nameConfiguration == nullptr)
 	{
-		m_createController.setCurrentFrame<NameConfiguration>();
+		throw std::exception("Error creating NameConfiguratin");
 	}
+
 }
 
 void Launcher::ProjectCreation::ProjectCreation::show()

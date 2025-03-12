@@ -3,6 +3,7 @@
 
 #include <map>
 #include <optional>
+#include <set>
 #include <vector>
 
 namespace ApplicationCore
@@ -37,15 +38,6 @@ public:
 	template<class TFrame>
 	const TFrame* getFrame() const;
 
-	template<class TFrame>
-	bool addNeighbour(Frame* frame);
-	template<class TFrame>
-	bool hasNeighbour(Frame* frame) const;
-	template<class TFrame>
-	TFrame* getNeighbour(Frame* frame);
-	template<class TFrame>
-	const TFrame* getNeighbour(Frame* frame) const;
-
 private:
 	bool setCurrentFrame(std::type_index frameTypeID);
 	bool isCurrentFrame(std::type_index frameTypeID) const;
@@ -54,15 +46,12 @@ private:
 	bool hasFrame(std::type_index frameTypeID) const;
 	Frame* getFrame(std::type_index frameTypeID) const;
 
-	bool addNeighbour(Frame* frame, std::type_index neighbourTypeID);
-	bool hasNeighbour(Frame* frame, std::type_index neighbourTypeID) const;
-	Frame* getNeighbour(Frame* frame, std::type_index neighbourTypeID) const;
-
 private:
 	Application& m_application;
 	Frame* m_currentFrame;
 	std::map<std::type_index, Frame*> m_frames;
 	std::map<Frame*, std::optional<std::type_index>> m_typeIDs;
+	std::set<std::pair<std::type_index, std::type_index>> m_connections;
 
 	friend Frame;
 };
