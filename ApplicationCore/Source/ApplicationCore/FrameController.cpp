@@ -24,6 +24,16 @@ void ApplicationCore::FrameController::show()
 	}
 }
 
+ApplicationCore::Frame* ApplicationCore::FrameController::getCurrentFrame()
+{
+	return m_currentFrame;
+}
+
+const ApplicationCore::Frame* ApplicationCore::FrameController::getCurrentFrame() const
+{
+	return m_currentFrame;
+}
+
 ApplicationCore::Application& ApplicationCore::FrameController::getApplication()
 {
 	return m_application;

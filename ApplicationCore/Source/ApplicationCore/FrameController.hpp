@@ -21,6 +21,8 @@ public:
 	bool setCurrentFrame();
 	template<class TFrame>
 	bool isCurrentFrame() const;
+	Frame* getCurrentFrame();
+	const Frame* getCurrentFrame() const;
 
 	Application& getApplication();
 	const Application& getApplication() const;
