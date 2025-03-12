@@ -1,5 +1,7 @@
 #pragma once
 #include "ApplicationCore/FrameController.hpp"
+#include "IStep.hpp"
+
 #include <string>
 
 namespace Launcher
@@ -21,6 +23,7 @@ private:
 private:
 	ApplicationCore::FrameController m_createController;
 	const float m_buttonWidth;
+	IStep* m_currentStep;
 };
 }
 }

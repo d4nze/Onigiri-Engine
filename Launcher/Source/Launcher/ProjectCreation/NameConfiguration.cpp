@@ -1,4 +1,5 @@
 #include "NameConfiguration.hpp"
+#include "PathConfiguration.hpp"
 #include "ApplicationCore/LetterChecker.hpp"
 
 #include <imgui.h>
@@ -16,7 +17,9 @@ Launcher::ProjectCreation::NameConfiguration::NameConfiguration(ApplicationCore:
 
 void Launcher::ProjectCreation::NameConfiguration::reset()
 {
-    m_name = std::string(m_bufferSize, '0');
+    m_name = std::string(m_bufferSize, '\0');
+	m_errorType = ErrorType::NoError;
+	m_previousErrorType = m_errorType;
 }
 
 void Launcher::ProjectCreation::NameConfiguration::updateErrorType()
@@ -74,6 +77,11 @@ bool Launcher::ProjectCreation::NameConfiguration::hasError()
 	return m_errorType != ErrorType::NoError;
 }
 
+bool Launcher::ProjectCreation::NameConfiguration::moveNext()
+{
+	return moveToNeighbour<PathConfiguration>();
+}
+
 const std::string& Launcher::ProjectCreation::NameConfiguration::getName() const
 {
     return m_name;
@@ -90,7 +98,10 @@ void Launcher::ProjectCreation::NameConfiguration::show()
 	if (ImGui::InputText("##Project Name Input", m_name.data(), m_bufferSize))
 	{
 		updateErrorType();
-		// call PathConfiguration::updateErrorType();
+		if (PathConfiguration* pathConfiguration = getNeighbour<PathConfiguration>())
+		{
+			pathConfiguration->updateErrorType();
+		}
 	}
 	if (m_errorType != ErrorType::NoError)
 	{

@@ -8,19 +8,19 @@ namespace Launcher
 {
 namespace ProjectCreation
 {
-class NameConfiguration : public ApplicationCore::Frame, public IStep
+class PathConfiguration : public ApplicationCore::Frame, public IStep
 {
 public:
-	NameConfiguration(ApplicationCore::FrameController& createController);
+	PathConfiguration(ApplicationCore::FrameController& createController);
 
 public:
 	enum class ErrorType
 	{
 		NoError,
 		Empty,
-		FirstLetter,
-		Space,
-		UnsupportedCharacter
+		RelativePath,
+		ProjectExists,
+		InvalidPath
 	};
 
 public:
@@ -28,10 +28,10 @@ public:
 	void updateErrorType();
 
 	bool hasError() override;
-	bool moveBack() override { return false; }
-	bool moveNext() override;
+	bool moveBack() override;
+	bool moveNext() override { return false; };
 
-	const std::string& getName() const;
+	const std::string& getPath() const;
 	ErrorType getError() const;
 
 protected:
@@ -43,7 +43,7 @@ private:
 
 private:
 	const std::int32_t m_bufferSize;
-	std::string m_name;
+	std::string m_path;
 	ErrorType m_errorType;
 	ErrorType m_previousErrorType;
 	std::string m_errorText;

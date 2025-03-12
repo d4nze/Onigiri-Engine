@@ -1,5 +1,6 @@
 #include "ProjectCreation.hpp"
 #include "NameConfiguration.hpp"
+#include "PathConfiguration.hpp"
 #include "../ProjectSelection.hpp"
 
 #include <imgui.h>
@@ -8,13 +9,24 @@ Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::Fra
 	: ApplicationCore::Frame(frameController)
 	, m_createController(frameController.getApplication())
 	, m_buttonWidth(80.f)
+	, m_currentStep(nullptr)
 {
 	Frame* nameConfiguration = m_createController.addFrame<NameConfiguration>(new NameConfiguration(m_createController));
 	if (nameConfiguration == nullptr)
 	{
-		throw std::exception("Error creating NameConfiguratin");
+		throw std::exception("Error creating NameConfiguration");
+	}
+	Frame* pathConfiguration = m_createController.addFrame<PathConfiguration>(new PathConfiguration(m_createController));
+	if (pathConfiguration == nullptr)
+	{
+		throw std::exception("Error creating Configuration");
 	}
 
+	m_createController.setCurrentFrame<NameConfiguration>();
+	m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+
+	nameConfiguration->addNeighbour<PathConfiguration>();
+	pathConfiguration->addNeighbour<NameConfiguration>();
 }
 
 void Launcher::ProjectCreation::ProjectCreation::show()
@@ -44,7 +56,11 @@ void Launcher::ProjectCreation::ProjectCreation::showBackButton()
 	{
 		ImGui::BeginDisabled();
 	}
-	if (ImGui::Button("Back", ImVec2(m_buttonWidth, 0))) {}
+	if (ImGui::Button("Back", ImVec2(m_buttonWidth, 0)))
+	{
+		m_currentStep->moveBack();
+		m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+	}
 	if (disabled)
 	{
 		ImGui::EndDisabled();
@@ -54,12 +70,9 @@ void Launcher::ProjectCreation::ProjectCreation::showBackButton()
 void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 {
 	bool disabled = false;
-	if (IStep* currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame()))
-	{
-		disabled = currentStep->hasError();
-	}
+	disabled = m_currentStep->hasError();
 	const char* m_nextButtonText = "Next";
-	if (m_createController.isCurrentFrame<NameConfiguration>()) // Change later
+	if (m_createController.isCurrentFrame<PathConfiguration>()) // Change later
 	{
 		m_nextButtonText = "Finish";
 	}
@@ -67,7 +80,11 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	{
 		ImGui::BeginDisabled();
 	}
-	if (ImGui::Button(m_nextButtonText, ImVec2(m_buttonWidth, 0))) {}
+	if (ImGui::Button(m_nextButtonText, ImVec2(m_buttonWidth, 0)))
+	{
+		m_currentStep->moveNext();
+		m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+	}
 	if (disabled)
 	{
 		ImGui::EndDisabled();
