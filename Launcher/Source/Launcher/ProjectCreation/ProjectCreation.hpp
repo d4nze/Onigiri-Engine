@@ -4,6 +4,8 @@
 
 namespace Launcher
 {
+namespace ProjectCreation
+{
 class ProjectCreation : public ApplicationCore::Frame
 {
 public:
@@ -11,5 +13,14 @@ public:
 
 protected:
 	void show() override;
+
+private:
+	void showBackButton();
+	void showNextButton();
+
+private:
+	ApplicationCore::FrameController m_createController;
+	const float m_buttonWidth;
 };
+}
 }
