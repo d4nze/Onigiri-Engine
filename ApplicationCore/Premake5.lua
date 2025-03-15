@@ -17,7 +17,7 @@ project "ApplicationCore"
     }
     
     includedirs {
-		"Source",
+		"Source/%{prj.name}",
 		"../Dependencies/ImGui/include"
 	}
 	libdirs {}

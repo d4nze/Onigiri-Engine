@@ -17,7 +17,7 @@ project "ScriptCore"
     }
     
     includedirs {
-		"Source",
+		"Source/%{prj.name}",
 		"../Dependencies/JSON"
 	}
 	libdirs {}

@@ -4,7 +4,7 @@
 #include "PathConfiguration.hpp"
 #include "ApplicationCore/Application.hpp"
 #include "ApplicationCore/FrameController.hpp"
-#include "../ProjectSelection/ProjectSelection.hpp"
+#include "ProjectSelection/ProjectSelection.hpp"
 
 #include <imgui.h>
 
