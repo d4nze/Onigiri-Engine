@@ -9,9 +9,9 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-const char* Launcher::ProjectsViewer::m_saveFileName = "Project List.json";
+const char* Launcher::ProjectSelection::ProjectsViewer::m_saveFileName = "Project List.json";
 
-Launcher::ProjectsViewer::ProjectsViewer(ProjectSelection& projectSelection)
+Launcher::ProjectSelection::ProjectsViewer::ProjectsViewer(ProjectSelection& projectSelection)
 	: m_projectSelection(projectSelection)
 	, m_imGuiIO(ImGui::GetIO())
 {
@@ -29,7 +29,7 @@ std::ifstream saveFile(m_saveFileName);
 	}
 }
 
-Launcher::ProjectsViewer::~ProjectsViewer()
+Launcher::ProjectSelection::ProjectsViewer::~ProjectsViewer()
 {
 	std::ofstream file(m_saveFileName);
 	if (file.is_open())
@@ -45,7 +45,7 @@ Launcher::ProjectsViewer::~ProjectsViewer()
 	}
 }
 
-void Launcher::ProjectsViewer::show()
+void Launcher::ProjectSelection::ProjectsViewer::show()
 {
 	if (empty())
 	{
@@ -57,7 +57,7 @@ void Launcher::ProjectsViewer::show()
 	}
 }
 
-void Launcher::ProjectsViewer::showEmpty()
+void Launcher::ProjectSelection::ProjectsViewer::showEmpty()
 {
 	ImVec2 childSize = ImGui::GetWindowSize();
 	ImVec2 textSize = ImGui::CalcTextSize("No projects");
@@ -69,7 +69,7 @@ void Launcher::ProjectsViewer::showEmpty()
 	ImGui::PopStyleColor();
 }
 
-void Launcher::ProjectsViewer::showProjects()
+void Launcher::ProjectSelection::ProjectsViewer::showProjects()
 {
 	ImGui::BeginChild("Project List", ImVec2(0, m_imGuiIO.DisplaySize.y - 40), true);
 	for (std::vector<Project*>::iterator it = begin(); it != end(); it++)
@@ -86,7 +86,7 @@ void Launcher::ProjectsViewer::showProjects()
 	ImGui::EndChild();
 }
 
-void Launcher::ProjectsViewer::showProject(Project* project)
+void Launcher::ProjectSelection::ProjectsViewer::showProject(Project* project)
 {
 	if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)))
 	{
@@ -118,7 +118,7 @@ void Launcher::ProjectsViewer::showProject(Project* project)
 	ImGui::Separator();
 }
 
-void Launcher::ProjectsViewer::showProjectPopup(std::vector<Project*>::iterator& iterator)
+void Launcher::ProjectSelection::ProjectsViewer::showProjectPopup(std::vector<Project*>::iterator& iterator)
 {
 	if (ImGui::MenuItem("Delete"))
 	{

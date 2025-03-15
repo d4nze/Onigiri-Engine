@@ -52,7 +52,7 @@ void Launcher::ProjectCreation::ProjectCreation::show()
 
 	if (ImGui::Button("Cancel", ImVec2(m_buttonWidth, 0)))
 	{
-		moveToNeighbour<ProjectSelection>();
+		moveToNeighbour<ProjectSelection::ProjectSelection>();
 	}
 	ImGui::SameLine(windowWidth - totalButtonsWidth - ImGui::GetStyle().ItemSpacing.x);
 	showBackButton();

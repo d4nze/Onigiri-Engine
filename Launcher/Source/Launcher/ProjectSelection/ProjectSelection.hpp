@@ -4,6 +4,8 @@
 
 namespace Launcher
 {
+namespace ProjectSelection
+{
 class ProjectSelection : public ApplicationCore::Frame
 {
 public:
@@ -19,4 +21,5 @@ protected:
 private:
 	ProjectsViewer m_projectsViewer;
 };
+}
 }

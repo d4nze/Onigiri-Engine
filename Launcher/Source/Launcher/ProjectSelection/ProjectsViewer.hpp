@@ -5,6 +5,8 @@
 
 namespace Launcher
 {
+namespace ProjectSelection
+{
 class ProjectSelection;
 
 struct Project
@@ -33,4 +35,5 @@ private:
 	ImGuiIO& m_imGuiIO;
 	static const char* m_saveFileName;
 };
+}
 }

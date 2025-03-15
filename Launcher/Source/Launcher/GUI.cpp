@@ -10,8 +10,8 @@ Launcher::GUI::GUI(Application& application)
 	, m_mainFont(nullptr)
 	, m_frameController((ApplicationCore::Application&)m_application)
 {
-	ApplicationCore::Frame* projectSelection = m_frameController.addFrame<ProjectSelection>(new ProjectSelection(m_frameController));
-	if (projectSelection == nullptr || !m_frameController.setCurrentFrame<ProjectSelection>())
+	ApplicationCore::Frame* projectSelection = m_frameController.addFrame<ProjectSelection::ProjectSelection>(new ProjectSelection::ProjectSelection(m_frameController));
+	if (projectSelection == nullptr || !m_frameController.setCurrentFrame<ProjectSelection::ProjectSelection>())
 	{
 		throw std::exception("Error initializing ProjectSelection");
 	}
@@ -25,7 +25,7 @@ Launcher::GUI::GUI(Application& application)
 	{
 		throw std::exception("Error setting up connection: 'ProjectSelection -> ProjectCreation'");
 	}
-	if (!projectCreation->addNeighbour<ProjectSelection>())
+	if (!projectCreation->addNeighbour<ProjectSelection::ProjectSelection>())
 	{
 		throw std::exception("Error setting up connection: 'ProjectCreation -> ProjectSelection'");
 	}

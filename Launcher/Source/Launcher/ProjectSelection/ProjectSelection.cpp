@@ -3,22 +3,22 @@
 
 #include <imgui.h>
 
-Launcher::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& frameController)
+Launcher::ProjectSelection::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
 	, m_projectsViewer(*this)
 {}
 
-Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView()
+Launcher::ProjectSelection::ProjectsViewer& Launcher::ProjectSelection::ProjectSelection::getProjectsView()
 {
 	return m_projectsViewer;
 }
 
-const Launcher::ProjectsViewer& Launcher::ProjectSelection::getProjectsView() const
+const Launcher::ProjectSelection::ProjectsViewer& Launcher::ProjectSelection::ProjectSelection::getProjectsView() const
 {
 	return m_projectsViewer;
 }
 
-void Launcher::ProjectSelection::show()
+void Launcher::ProjectSelection::ProjectSelection::show()
 {
 	if (ImGui::Button("Create Project"))
 	{
