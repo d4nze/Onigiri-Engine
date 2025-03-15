@@ -31,7 +31,7 @@ public:
 	bool moveBack() override { return false; }
 	bool moveNext() override;
 
-	const std::string& getName() const;
+	std::string getName() const;
 	ErrorType getError() const;
 
 protected:

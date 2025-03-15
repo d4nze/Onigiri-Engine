@@ -82,9 +82,9 @@ bool Launcher::ProjectCreation::NameConfiguration::moveNext()
 	return moveToNeighbour<PathConfiguration>();
 }
 
-const std::string& Launcher::ProjectCreation::NameConfiguration::getName() const
+std::string Launcher::ProjectCreation::NameConfiguration::getName() const
 {
-    return m_name;
+    return m_name.c_str();
 }
 
 Launcher::ProjectCreation::NameConfiguration::ErrorType Launcher::ProjectCreation::NameConfiguration::getError() const
