@@ -24,7 +24,5 @@ void Launcher::ProjectSelection::ProjectSelection::show()
 	{
 		moveToNeighbour<ProjectCreation::ProjectCreation>();
 	}
-	ImGui::SameLine();
-	ImGui::Button("Import Project");
 	m_projectsViewer.show();
 }
