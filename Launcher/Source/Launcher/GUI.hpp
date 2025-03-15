@@ -1,7 +1,9 @@
 #pragma once
-#include "GUIState.hpp"
+#include "ApplicationCore/FrameController.hpp"
 #include <imgui.h>
 
+namespace Launcher
+{
 class Application;
 
 class GUI
@@ -15,20 +17,10 @@ public:
 	Application& getApplication();
 	const Application& getApplication() const;
 
-	GUIState& getStateManager();
-	const GUIState& getStateManager() const;
-
-	ProjectSelection& getProjectSelection();
-	const ProjectSelection& getProjectSelection() const;
-
-	ProjectCreation& getProjectCreation();
-	const ProjectCreation& getProjectCreation() const;
-
 private:
 	Application& m_application;
-	GUIState m_state;
-	ProjectSelection m_projectSelection;
-	ProjectCreation m_projectCreation;
-	ProjectImporting m_projectImporting;
+	ImGuiIO& m_imGuiIO;
 	ImFont* m_mainFont;
+	ApplicationCore::FrameController m_frameController;
 };
+}

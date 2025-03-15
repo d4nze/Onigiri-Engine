@@ -17,7 +17,7 @@ project "Launcher"
     }
     
     includedirs {
-		"Source",
+		"Source/%{prj.name}",
 		"../ScriptCore/Source",
 		"../ApplicationCore/Source",
 		"../Dependencies/JSON",

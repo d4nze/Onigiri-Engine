@@ -1,14 +1,36 @@
 #include "GUI.hpp"
+#include "ProjectSelection/ProjectSelection.hpp"
+#include "ProjectCreation/ProjectCreation.hpp"
+
 #include <imgui-sfml.h>
 
-GUI::GUI(Application& application)
+Launcher::GUI::GUI(Application& application)
 	: m_application(application)
-	, m_state(typeid(ProjectSelection))
-	, m_projectSelection(*this)
-	, m_projectCreation(*this)
-	, m_projectImporting(*this)
+	, m_imGuiIO(ImGui::GetIO())
 	, m_mainFont(nullptr)
+	, m_frameController((ApplicationCore::Application&)m_application)
 {
+	ApplicationCore::Frame* projectSelection = m_frameController.addFrame<ProjectSelection::ProjectSelection>(new ProjectSelection::ProjectSelection(m_frameController));
+	if (projectSelection == nullptr || !m_frameController.setCurrentFrame<ProjectSelection::ProjectSelection>())
+	{
+		throw std::exception("Error initializing ProjectSelection");
+	}
+	ApplicationCore::Frame* projectCreation = m_frameController.addFrame<ProjectCreation::ProjectCreation>(new ProjectCreation::ProjectCreation(m_frameController));
+	if (projectCreation == nullptr)
+	{
+		throw std::exception("Error initializing ProjectCreation");
+	}
+
+	if (!projectSelection->addNeighbour<ProjectCreation::ProjectCreation>())
+	{
+		throw std::exception("Error setting up connection: 'ProjectSelection -> ProjectCreation'");
+	}
+	if (!projectCreation->addNeighbour<ProjectSelection::ProjectSelection>())
+	{
+		throw std::exception("Error setting up connection: 'ProjectCreation -> ProjectSelection'");
+	}
+
+	m_imGuiIO.IniFilename = "Launcher.ini";
 	ImGuiIO& io = ImGui::GetIO();
 	static const ImWchar glyphRanges[] = {
 		0x0020, 0x00FF,
@@ -28,58 +50,26 @@ GUI::GUI(Application& application)
 	}
 }
 
-void GUI::update()
+void Launcher::GUI::update()
 {
-	if (m_state.is<ProjectSelection>())
-	{
-		m_projectSelection.update();
-	}
-	else if (m_state.is<ProjectCreation>())
-	{
-		m_projectCreation.update();
-	}
-	else if (m_state.is<ProjectImporting>())
-	{
-		m_projectImporting.update();
-	}
+	ImVec2 windowSize = m_imGuiIO.DisplaySize;
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(windowSize);
+	ImGui::Begin("Launcher", nullptr,
+				 ImGuiWindowFlags_NoCollapse |
+				 ImGuiWindowFlags_NoResize |
+				 ImGuiWindowFlags_NoMove |
+				 ImGuiWindowFlags_NoTitleBar);
+	m_frameController.show();
+	ImGui::End();
 }
 
-Application& GUI::getApplication()
+Launcher::Application& Launcher::GUI::getApplication()
 {
 	return m_application;
 }
 
-const Application& GUI::getApplication() const
+const Launcher::Application& Launcher::GUI::getApplication() const
 {
 	return m_application;
-}
-
-GUIState& GUI::getStateManager()
-{
-	return m_state;
-}
-
-const GUIState& GUI::getStateManager() const
-{
-	return m_state;
-}
-
-ProjectSelection& GUI::getProjectSelection()
-{
-	return m_projectSelection;
-}
-
-const ProjectSelection& GUI::getProjectSelection() const
-{
-	return m_projectSelection;
-}
-
-ProjectCreation& GUI::getProjectCreation()
-{
-	return m_projectCreation;
-}
-
-const ProjectCreation& GUI::getProjectCreation() const
-{
-	return m_projectCreation;
 }

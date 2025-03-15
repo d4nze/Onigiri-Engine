@@ -6,7 +6,7 @@
 
 namespace ApplicationCore
 {
-class APPLICATION_API Application
+class APPLICATION_CORE_API Application
 {
 public:
 	Application(const sf::VideoMode& windowResolution, const std::string& windowTitle);

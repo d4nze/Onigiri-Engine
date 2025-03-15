@@ -17,7 +17,7 @@ project "ApplicationCore"
     }
     
     includedirs {
-		"Source",
+		"Source/%{prj.name}",
 		"../Dependencies/ImGui/include"
 	}
 	libdirs {}
@@ -74,4 +74,4 @@ project "ApplicationCore"
 		libdirs "../Dependencies/ImGui/lib/Release/Win64"
 		links "ImGui.lib"
 	filter {}
-		defines "APPLICATION_EXPORTS"
+		defines "APPLICATION_CORE_EXPORTS"

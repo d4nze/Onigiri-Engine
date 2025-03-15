@@ -4,6 +4,8 @@
 
 #include <imgui.h>
 
+namespace Launcher
+{
 class Application : public ApplicationCore::Application
 {
 public:
@@ -13,6 +15,6 @@ private:
 	void update() override;
 
 private:
-	ImGuiIO& m_imGuiIO;
 	GUI m_gui;
 };
+}
