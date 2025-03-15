@@ -1,6 +1,9 @@
 #include "ProjectCreation.hpp"
+#include "Finalization.hpp"
 #include "NameConfiguration.hpp"
 #include "PathConfiguration.hpp"
+#include "ApplicationCore/Application.hpp"
+#include "ApplicationCore/FrameController.hpp"
 #include "../ProjectSelection.hpp"
 
 #include <imgui.h>
@@ -19,7 +22,12 @@ Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::Fra
 	Frame* pathConfiguration = m_createController.addFrame<PathConfiguration>(new PathConfiguration(m_createController));
 	if (pathConfiguration == nullptr)
 	{
-		throw std::exception("Error creating Configuration");
+		throw std::exception("Error creating PathConfiguration");
+	}
+	Frame* finalization = m_createController.addFrame<Finalization>(new Finalization(m_createController));
+	if (finalization == nullptr)
+	{
+		throw std::exception("Error creating Finalization");
 	}
 
 	m_createController.setCurrentFrame<NameConfiguration>();
@@ -27,6 +35,9 @@ Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::Fra
 
 	nameConfiguration->addNeighbour<PathConfiguration>();
 	pathConfiguration->addNeighbour<NameConfiguration>();
+	pathConfiguration->addNeighbour<Finalization>();
+	finalization->addNeighbour<PathConfiguration>();
+	finalization->addNeighbour<NameConfiguration>();
 }
 
 void Launcher::ProjectCreation::ProjectCreation::show()
@@ -72,7 +83,7 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	bool disabled = false;
 	disabled = m_currentStep->hasError();
 	const char* m_nextButtonText = "Next";
-	if (m_createController.isCurrentFrame<PathConfiguration>()) // Change later
+	if (m_createController.isCurrentFrame<Finalization>())
 	{
 		m_nextButtonText = "Finish";
 	}
@@ -82,8 +93,15 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	}
 	if (ImGui::Button(m_nextButtonText, ImVec2(m_buttonWidth, 0)))
 	{
-		m_currentStep->moveNext();
-		m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+		if (m_createController.isCurrentFrame<Finalization>())
+		{
+			// *Create project files*
+			getController().getApplication().getWindow().close();
+		}
+		if (m_currentStep->moveNext())
+		{
+			m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+		}
 	}
 	if (disabled)
 	{

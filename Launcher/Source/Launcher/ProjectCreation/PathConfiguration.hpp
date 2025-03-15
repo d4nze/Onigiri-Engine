@@ -29,9 +29,9 @@ public:
 
 	bool hasError() override;
 	bool moveBack() override;
-	bool moveNext() override { return false; };
+	bool moveNext() override;
 
-	const std::string& getPath() const;
+	std::string getPath() const;
 	ErrorType getError() const;
 
 protected:

@@ -1,5 +1,6 @@
 #include "PathConfiguration.hpp"
 #include "NameConfiguration.hpp"
+#include "Finalization.hpp"
 #include "ApplicationCore/BrowseWindow.hpp"
 
 #include <filesystem>
@@ -59,9 +60,14 @@ bool Launcher::ProjectCreation::PathConfiguration::moveBack()
     return moveToNeighbour<NameConfiguration>();
 }
 
-const std::string& Launcher::ProjectCreation::PathConfiguration::getPath() const
+bool Launcher::ProjectCreation::PathConfiguration::moveNext()
 {
-    return m_path;
+	return moveToNeighbour<Finalization>();
+}
+
+std::string Launcher::ProjectCreation::PathConfiguration::getPath() const
+{
+    return m_path.c_str();
 }
 
 Launcher::ProjectCreation::PathConfiguration::ErrorType Launcher::ProjectCreation::PathConfiguration::getError() const
