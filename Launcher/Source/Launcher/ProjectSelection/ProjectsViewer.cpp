@@ -82,6 +82,10 @@ void Launcher::ProjectSelection::ProjectsViewer::showProjects()
 			showProjectPopup(it);
 		}
 		ImGui::PopID();
+		if (it == end())
+		{
+			break;
+		}
 	}
 	ImGui::EndChild();
 }
