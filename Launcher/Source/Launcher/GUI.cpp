@@ -1,5 +1,5 @@
 #include "GUI.hpp"
-#include "ProjectSelection.hpp"
+#include "ProjectSelection/ProjectSelection.hpp"
 #include "ProjectCreation/ProjectCreation.hpp"
 
 #include <imgui-sfml.h>
