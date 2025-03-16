@@ -32,11 +32,11 @@ inline bool ApplicationCore::FrameController::hasFrame() const
 template<class TFrame>
 inline TFrame* ApplicationCore::FrameController::getFrame()
 {
-	return getFrame(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getFrame(typeid(TFrame)));
 }
 
 template<class TFrame>
 inline const TFrame* ApplicationCore::FrameController::getFrame() const
 {
-	return getFrame(typeid(TFrame));
+	return reinterpret_cast<TFrame*>(getFrame(typeid(TFrame)));
 }
