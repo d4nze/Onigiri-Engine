@@ -1,4 +1,5 @@
 #include "ProjectCreation.hpp"
+#include "FileGeneration.hpp"
 #include "Finalization.hpp"
 #include "NameConfiguration.hpp"
 #include "PathConfiguration.hpp"
@@ -95,8 +96,19 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	{
 		if (m_createController.isCurrentFrame<Finalization>())
 		{
-			// *Create project files*
-			getController().getApplication().getWindow().close();
+			NameConfiguration* nameConfiguration = m_createController.getFrame<NameConfiguration>();
+			PathConfiguration* pathConfiguration = m_createController.getFrame<PathConfiguration>();
+			if (nameConfiguration != nullptr && pathConfiguration != nullptr)
+			{
+				FileGeneration fileGenerator(nameConfiguration->getName(), pathConfiguration->getPath());
+				ProjectSelection::ProjectSelection* projectSelection = getController().getFrame<ProjectSelection::ProjectSelection>();
+				if (projectSelection != nullptr)
+				{
+					ProjectSelection::ProjectsViewer& projectsViewer = projectSelection->getProjectsView();
+					projectsViewer.push_back(new ProjectSelection::Project{ nameConfiguration->getName(), pathConfiguration->getPath() });
+				}
+				getController().getApplication().getWindow().close();
+			}
 		}
 		if (m_currentStep->moveNext())
 		{

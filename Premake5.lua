@@ -10,14 +10,22 @@ workspace "Onigiri Engine"
 	}
 
 config = "%{cfg.buildcfg}-%{cfg.platform}"
-outputdir = "..//Build/%{config}"
+output_dir = "%{wks.location}/Build/%{config}"
+dependencies_dir = "%{wks.location}/Dependencies"
 
-function copyFile(sourcePath)
-    return string.format("{COPYFILE} \"%s\" \"%%{wks.location}Build\\%%{config}\"", sourcePath)
-end
+include "Premake5/copy.lua"
+include "Premake5/copy_sfml_dlls.lua"
 
-group "Linkers"
-	include "SFMLLinker"
+include "Premake5/include_imgui.lua"
+include "Premake5/include_json.lua"
+include "Premake5/include_sfml.lua"
+
+include "Premake5/link_imgui.lua"
+include "Premake5/link_sfml.lua"
+
+include "Premake5/project_base.lua"
+include "Premake5/setup_app_kind.lua"
+
 group ""
 	include "ScriptCore"
 	include "ApplicationCore"

@@ -1,5 +1,5 @@
-#ifdef CORE_EXPORTS
-#define CORE_API __declspec(dllexport)
+#ifdef SCRIPT_CORE_EXPORTS
+#define SCRIPT_CORE_API __declspec(dllexport)
 #else
-#define CORE_API __declspec(dllimport)
+#define SCRIPT_CORE_API __declspec(dllimport)
 #endif

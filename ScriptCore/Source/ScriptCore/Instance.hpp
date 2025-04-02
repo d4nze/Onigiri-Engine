@@ -7,9 +7,9 @@
 
 namespace ScriptCore
 {
-class CORE_API Scene;
+class SCRIPT_CORE_API Scene;
 
-class CORE_API Instance
+class SCRIPT_CORE_API Instance
 {
 private:
 	Instance(Scene& scene, const std::string& name, Instance* parent = nullptr);

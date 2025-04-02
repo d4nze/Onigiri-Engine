@@ -4,9 +4,9 @@
 
 namespace ScriptCore
 {
-class CORE_API Instance;
+class SCRIPT_CORE_API Instance;
 
-class CORE_API InstanceIterator
+class SCRIPT_CORE_API InstanceIterator
 {
 private:
 	InstanceIterator(const Instance* parent, const std::vector<Instance*>& instances, std::int32_t startingPoint = 0);
@@ -30,6 +30,6 @@ private:
 	const std::vector<Instance*>& m_instances;
 	mutable std::size_t m_index;
 
-	friend class CORE_API Scene;
+	friend class SCRIPT_CORE_API Scene;
 };
 }

@@ -4,9 +4,9 @@
 
 namespace ScriptCore
 {
-class CORE_API Component;
+class SCRIPT_CORE_API Component;
 
-struct CORE_API ComponentHolder
+struct SCRIPT_CORE_API ComponentHolder
 {
 	Component* component;
 	std::type_index typeID;

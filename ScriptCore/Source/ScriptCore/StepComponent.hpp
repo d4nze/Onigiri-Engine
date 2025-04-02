@@ -3,7 +3,7 @@
 
 namespace ScriptCore
 {
-class CORE_API StepComponent : public Component
+class SCRIPT_CORE_API StepComponent : public Component
 {
 public:
 	StepComponent(std::int32_t instancePriority = 0, std::int32_t scenePriority = 0);

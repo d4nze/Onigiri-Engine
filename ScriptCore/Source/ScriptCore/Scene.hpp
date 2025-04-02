@@ -8,9 +8,9 @@
 
 namespace ScriptCore
 {
-class CORE_API StepComponent;
+class SCRIPT_CORE_API StepComponent;
 
-class CORE_API Scene
+class SCRIPT_CORE_API Scene
 {
 private:
 	Scene(sf::RenderTarget& renderTarget);

@@ -4,9 +4,9 @@
 
 namespace ScriptCore
 {
-class CORE_API Instance;
+class SCRIPT_CORE_API Instance;
 
-class CORE_API Component
+class SCRIPT_CORE_API Component
 {
 public:
 	Component();
