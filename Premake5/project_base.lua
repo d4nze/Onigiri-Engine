@@ -4,7 +4,8 @@ function project_base()
     
 	location "Source/"
 	targetdir "%{output_dir}/"
-	objdir "%{output_dir}/%{prj.name}/obj/"
+	objdir "%{output_dir}/Obj/%{prj.name}/"
+    debugdir "%{output_dir}/"
 	
 	files {
 		"Source/**.h",
