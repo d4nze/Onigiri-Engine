@@ -9,13 +9,13 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-const char* Launcher::ProjectSelection::ProjectsViewer::m_saveFileName = "Project List.json";
+const char* Launcher::ProjectSelection::ProjectsViewer::mSaveFileName = "Project List.json";
 
 Launcher::ProjectSelection::ProjectsViewer::ProjectsViewer(ProjectSelection& projectSelection)
-	: m_projectSelection(projectSelection)
-	, m_imGuiIO(ImGui::GetIO())
+	: mProjectSelection(projectSelection)
+	, mImGuiIO(ImGui::GetIO())
 {
-std::ifstream saveFile(m_saveFileName);
+std::ifstream saveFile(mSaveFileName);
 	if (saveFile.is_open())
 	{
 		nlohmann::json projectsData;
@@ -31,7 +31,7 @@ std::ifstream saveFile(m_saveFileName);
 
 Launcher::ProjectSelection::ProjectsViewer::~ProjectsViewer()
 {
-	std::ofstream file(m_saveFileName);
+	std::ofstream file(mSaveFileName);
 	if (file.is_open())
 	{
 		nlohmann::json projectsData;
@@ -71,7 +71,7 @@ void Launcher::ProjectSelection::ProjectsViewer::showEmpty()
 
 void Launcher::ProjectSelection::ProjectsViewer::showProjects()
 {
-	ImGui::BeginChild("Project List", ImVec2(0, m_imGuiIO.DisplaySize.y - 40), true);
+	ImGui::BeginChild("Project List", ImVec2(0, mImGuiIO.DisplaySize.y - 40), true);
 	for (std::vector<Project*>::iterator it = begin(); it != end(); it++)
 	{
 		Project* project = *it;
@@ -97,7 +97,7 @@ void Launcher::ProjectSelection::ProjectsViewer::showProject(Project* project)
 		std::filesystem::path path = project->path + "\\" + project->name;
 		if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
 		{
-			m_projectSelection.getController().getApplication().getWindow().close();
+			mProjectSelection.getController().getApplication().getWindow().close();
 		}
 		else
 		{

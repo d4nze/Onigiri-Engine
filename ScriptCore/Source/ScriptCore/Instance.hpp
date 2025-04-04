@@ -45,9 +45,9 @@ private:
 	Component* getComponent(std::type_index typeID);
 
 private:
-	Scene& m_scene;
-	std::string m_name;
-	Instance* m_parent;
+	Scene& mScene;
+	std::string mName;
+	Instance* mParent;
 
 	friend Scene;
 };

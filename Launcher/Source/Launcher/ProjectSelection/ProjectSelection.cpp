@@ -5,17 +5,17 @@
 
 Launcher::ProjectSelection::ProjectSelection::ProjectSelection(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
-	, m_projectsViewer(*this)
+	, mProjectsViewer(*this)
 {}
 
 Launcher::ProjectSelection::ProjectsViewer& Launcher::ProjectSelection::ProjectSelection::getProjectsView()
 {
-	return m_projectsViewer;
+	return mProjectsViewer;
 }
 
 const Launcher::ProjectSelection::ProjectsViewer& Launcher::ProjectSelection::ProjectSelection::getProjectsView() const
 {
-	return m_projectsViewer;
+	return mProjectsViewer;
 }
 
 void Launcher::ProjectSelection::ProjectSelection::show()
@@ -24,5 +24,5 @@ void Launcher::ProjectSelection::ProjectSelection::show()
 	{
 		moveToNeighbour<ProjectCreation::ProjectCreation>();
 	}
-	m_projectsViewer.show();
+	mProjectsViewer.show();
 }

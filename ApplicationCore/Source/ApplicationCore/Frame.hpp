@@ -39,7 +39,7 @@ private:
 	Frame* getNeighbour(std::type_index neighbourTypeID) const;
 
 private:
-	FrameController& m_controller;
+	FrameController& mController;
 
 	friend FrameController;
 };

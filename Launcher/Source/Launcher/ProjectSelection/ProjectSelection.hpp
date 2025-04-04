@@ -19,7 +19,7 @@ protected:
 	void show() override;
 
 private:
-	ProjectsViewer m_projectsViewer;
+	ProjectsViewer mProjectsViewer;
 };
 }
 }

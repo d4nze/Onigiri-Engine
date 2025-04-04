@@ -2,16 +2,16 @@
 #include "Instance.hpp"
 #include "StepComponent.hpp"
 
-ScriptCore::Scene::Scene(sf::RenderTarget& renderTarget) : m_renderTarget(renderTarget)
+ScriptCore::Scene::Scene(sf::RenderTarget& renderTarget) : mRenderTarget(renderTarget)
 {}
 
 ScriptCore::Scene::~Scene()
 {
-    for (Instance* instance : m_instances)
+    for (Instance* instance : mInstances)
     {
         delete instance;
     }
-    for (ComponentHolder componentHolder : m_components)
+    for (ComponentHolder componentHolder : mComponents)
     {
         delete componentHolder.component;
     }
@@ -19,12 +19,12 @@ ScriptCore::Scene::~Scene()
 
 sf::RenderTarget& ScriptCore::Scene::getRenderTarget()
 {
-    return m_renderTarget;
+    return mRenderTarget;
 }
 
 const sf::RenderTarget& ScriptCore::Scene::getRenderTarget() const
 {
-    return m_renderTarget;
+    return mRenderTarget;
 }
 
 ScriptCore::Instance* ScriptCore::Scene::createInstance(const std::string& instanceName)
@@ -44,12 +44,12 @@ const ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& in
 
 bool ScriptCore::Scene::destroyInstance(Instance* instance)
 {
-    for (std::vector<Instance*>::iterator it = m_instances.begin(); it != m_instances.end(); it++)
+    for (std::vector<Instance*>::iterator it = mInstances.begin(); it != mInstances.end(); it++)
     {
         if (*it == instance)
         {
             delete instance;
-            m_instances.erase(it);
+            mInstances.erase(it);
             return true;
         }
     }
@@ -79,13 +79,13 @@ const ScriptCore::InstanceIterator ScriptCore::Scene::end() const
 ScriptCore::Instance* ScriptCore::Scene::createInstance(const std::string& instanceName, Instance* instanceParent)
 {
     Instance* instance = new Instance(*this, instanceName, instanceParent);
-    m_instances.push_back(instance);
+    mInstances.push_back(instance);
     return instance;
 }
 
 ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instanceName, Instance* startingPoint, std::uint32_t depth) const
 {
-    std::vector<Instance*> instances = m_instances;
+    std::vector<Instance*> instances = mInstances;
     for (std::uint32_t i = 0; i <= depth && !instances.empty(); i++)
     {
         std::vector<Instance*> nextDepth;
@@ -93,7 +93,7 @@ ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instance
         {
             if (instance->getParent() == startingPoint)
             {
-                if (instance->m_name == instanceName)
+                if (instance->mName == instanceName)
                 {
                     return instance;
                 }
@@ -107,12 +107,12 @@ ScriptCore::Instance* ScriptCore::Scene::getInstance(const std::string& instance
 
 void ScriptCore::Scene::step()
 {
-    while (!m_createComponents.empty())
+    while (!mCreateComponents.empty())
     {
-        ComponentHolder componentHolder = m_createComponents.front();
-        m_createComponents.pop();
+        ComponentHolder componentHolder = mCreateComponents.front();
+        mCreateComponents.pop();
         componentHolder.component->create();
-        m_components.push_back(componentHolder);
+        mComponents.push_back(componentHolder);
         StepComponent* stepComponent = dynamic_cast<StepComponent*>(componentHolder.component);
         if (stepComponent == nullptr)
         {
@@ -121,19 +121,19 @@ void ScriptCore::Scene::step()
 
         Instance* componentInstance = &componentHolder.component->getInstance();
         std::size_t instanceIndex = 0;
-        for (; instanceIndex < m_instances.size() && m_instances[instanceIndex] != componentInstance; instanceIndex++);
+        for (; instanceIndex < mInstances.size() && mInstances[instanceIndex] != componentInstance; instanceIndex++);
 
         std::size_t insertIndex = 0;
-        for (; insertIndex < m_stepComponents.size(); insertIndex++)
+        for (; insertIndex < mStepComponents.size(); insertIndex++)
         {
-            StepComponent* otherStepComponent = m_stepComponents[insertIndex];
+            StepComponent* otherStepComponent = mStepComponents[insertIndex];
             if (otherStepComponent->getScenePriority() < stepComponent->getScenePriority())
             {
                 break;
             }
             std::size_t otherInstanceIndex = 0;
-            for (; otherInstanceIndex < m_instances.size()
-                 && m_instances[otherInstanceIndex] != m_instances[insertIndex];
+            for (; otherInstanceIndex < mInstances.size()
+                 && mInstances[otherInstanceIndex] != mInstances[insertIndex];
                  otherInstanceIndex++);
             if (otherInstanceIndex >= instanceIndex)
             {
@@ -148,33 +148,33 @@ void ScriptCore::Scene::step()
                 break;
             }
         }
-        m_stepComponents.insert(m_stepComponents.begin() + insertIndex, stepComponent);
+        mStepComponents.insert(mStepComponents.begin() + insertIndex, stepComponent);
     }
 
-    for (StepComponent* stepComponent : m_stepComponents)
+    for (StepComponent* stepComponent : mStepComponents)
     {
         stepComponent->step();
     }
 
-    while (!m_destroyComponents.empty())
+    while (!mDestroyComponents.empty())
     {
-        Component* component = m_destroyComponents.front();
+        Component* component = mDestroyComponents.front();
         component->destroy();
-        for (std::vector<ComponentHolder>::iterator it = m_components.begin(); it != m_components.end(); it++)
+        for (std::vector<ComponentHolder>::iterator it = mComponents.begin(); it != mComponents.end(); it++)
         {
             if (it->component == component)
             {
-                m_components.erase(it);
+                mComponents.erase(it);
                 break;
             }
         }
         if (StepComponent* stepComponent = dynamic_cast<StepComponent*>(component))
         {
-            for (std::vector<StepComponent*>::iterator it = m_stepComponents.begin(); it != m_stepComponents.end(); it++)
+            for (std::vector<StepComponent*>::iterator it = mStepComponents.begin(); it != mStepComponents.end(); it++)
             {
                 if (*it == stepComponent)
                 {
-                    m_stepComponents.erase(it);
+                    mStepComponents.erase(it);
                     break;
                 }
             }
@@ -185,20 +185,20 @@ void ScriptCore::Scene::step()
 
 ScriptCore::InstanceIterator ScriptCore::Scene::begin(Instance* parent)
 {
-    return InstanceIterator(parent, m_instances);
+    return InstanceIterator(parent, mInstances);
 }
 
 ScriptCore::InstanceIterator ScriptCore::Scene::end(Instance* parent)
 {
-    return InstanceIterator(parent, m_instances, m_instances.size());
+    return InstanceIterator(parent, mInstances, mInstances.size());
 }
 
 const ScriptCore::InstanceIterator ScriptCore::Scene::begin(const Instance* parent) const
 {
-    return InstanceIterator(parent, m_instances);
+    return InstanceIterator(parent, mInstances);
 }
 
 const ScriptCore::InstanceIterator ScriptCore::Scene::end(const Instance* parent) const
 {
-    return InstanceIterator(parent, m_instances, m_instances.size());
+    return InstanceIterator(parent, mInstances, mInstances.size());
 }

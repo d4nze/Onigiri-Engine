@@ -15,6 +15,6 @@ private:
 	void update() override;
 
 private:
-	GUI m_gui;
+	GUI mGUI;
 };
 }

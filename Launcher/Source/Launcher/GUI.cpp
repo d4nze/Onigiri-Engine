@@ -5,17 +5,17 @@
 #include <imgui-sfml.h>
 
 Launcher::GUI::GUI(Application& application)
-	: m_application(application)
-	, m_imGuiIO(ImGui::GetIO())
-	, m_mainFont(nullptr)
-	, m_frameController((ApplicationCore::Application&)m_application)
+	: mApplication(application)
+	, mImGuiIO(ImGui::GetIO())
+	, mMainFont(nullptr)
+	, mFrameController((ApplicationCore::Application&)mApplication)
 {
-	ApplicationCore::Frame* projectSelection = m_frameController.addFrame<ProjectSelection::ProjectSelection>(new ProjectSelection::ProjectSelection(m_frameController));
-	if (projectSelection == nullptr || !m_frameController.setCurrentFrame<ProjectSelection::ProjectSelection>())
+	ApplicationCore::Frame* projectSelection = mFrameController.addFrame<ProjectSelection::ProjectSelection>(new ProjectSelection::ProjectSelection(mFrameController));
+	if (projectSelection == nullptr || !mFrameController.setCurrentFrame<ProjectSelection::ProjectSelection>())
 	{
 		throw std::exception("Error initializing ProjectSelection");
 	}
-	ApplicationCore::Frame* projectCreation = m_frameController.addFrame<ProjectCreation::ProjectCreation>(new ProjectCreation::ProjectCreation(m_frameController));
+	ApplicationCore::Frame* projectCreation = mFrameController.addFrame<ProjectCreation::ProjectCreation>(new ProjectCreation::ProjectCreation(mFrameController));
 	if (projectCreation == nullptr)
 	{
 		throw std::exception("Error initializing ProjectCreation");
@@ -30,7 +30,7 @@ Launcher::GUI::GUI(Application& application)
 		throw std::exception("Error setting up connection: 'ProjectCreation -> ProjectSelection'");
 	}
 
-	m_imGuiIO.IniFilename = "Launcher.ini";
+	mImGuiIO.IniFilename = "Launcher.ini";
 	ImGuiIO& io = ImGui::GetIO();
 	static const ImWchar glyphRanges[] = {
 		0x0020, 0x00FF,
@@ -38,12 +38,12 @@ Launcher::GUI::GUI(Application& application)
 		0
 	};
 
-	m_mainFont = io.Fonts->AddFontFromFileTTF("vcrosdmonorus_vhsicons.ttf", 14.0f, nullptr, glyphRanges);
-	if (!m_mainFont)
+	mMainFont = io.Fonts->AddFontFromFileTTF("vcrosdmonorus_vhsicons.ttf", 14.0f, nullptr, glyphRanges);
+	if (!mMainFont)
 	{
 		throw std::exception("Error initializing font");
 	}
-	io.FontDefault = m_mainFont;
+	io.FontDefault = mMainFont;
 	if (!ImGui::SFML::UpdateFontTexture())
 	{
 		throw std::exception("Error updating font's texture");
@@ -52,7 +52,7 @@ Launcher::GUI::GUI(Application& application)
 
 void Launcher::GUI::update()
 {
-	ImVec2 windowSize = m_imGuiIO.DisplaySize;
+	ImVec2 windowSize = mImGuiIO.DisplaySize;
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
 	ImGui::SetNextWindowSize(windowSize);
 	ImGui::Begin("Launcher", nullptr,
@@ -60,16 +60,16 @@ void Launcher::GUI::update()
 				 ImGuiWindowFlags_NoResize |
 				 ImGuiWindowFlags_NoMove |
 				 ImGuiWindowFlags_NoTitleBar);
-	m_frameController.show();
+	mFrameController.show();
 	ImGui::End();
 }
 
 Launcher::Application& Launcher::GUI::getApplication()
 {
-	return m_application;
+	return mApplication;
 }
 
 const Launcher::Application& Launcher::GUI::getApplication() const
 {
-	return m_application;
+	return mApplication;
 }

@@ -17,7 +17,7 @@ public:
 	std::int32_t getScenePriority() const;
 
 private:
-	std::int32_t m_instancePriority;
-	std::int32_t m_scenePriority;
+	std::int32_t mInstancePriority;
+	std::int32_t mScenePriority;
 };
 }

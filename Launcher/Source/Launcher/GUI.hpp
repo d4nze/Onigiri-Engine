@@ -18,9 +18,9 @@ public:
 	const Application& getApplication() const;
 
 private:
-	Application& m_application;
-	ImGuiIO& m_imGuiIO;
-	ImFont* m_mainFont;
-	ApplicationCore::FrameController m_frameController;
+	Application& mApplication;
+	ImGuiIO& mImGuiIO;
+	ImFont* mMainFont;
+	ApplicationCore::FrameController mFrameController;
 };
 }

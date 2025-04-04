@@ -41,12 +41,12 @@ private:
 	const InstanceIterator end(const Instance* parent) const;
 
 private:
-	sf::RenderTarget& m_renderTarget;
-	std::vector<Instance*> m_instances;
-	std::vector<ComponentHolder> m_components;
-	std::vector<StepComponent*> m_stepComponents;
-	std::queue<ComponentHolder> m_createComponents;
-	std::queue<Component*> m_destroyComponents;
+	sf::RenderTarget& mRenderTarget;
+	std::vector<Instance*> mInstances;
+	std::vector<ComponentHolder> mComponents;
+	std::vector<StepComponent*> mStepComponents;
+	std::queue<ComponentHolder> mCreateComponents;
+	std::queue<Component*> mDestroyComponents;
 
 	friend class Instance;
 	friend class MainApplication;

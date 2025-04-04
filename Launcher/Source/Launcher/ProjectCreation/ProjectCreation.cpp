@@ -11,28 +11,28 @@
 
 Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
-	, m_createController(frameController.getApplication())
-	, m_buttonWidth(80.f)
-	, m_currentStep(nullptr)
+	, mCreateController(frameController.getApplication())
+	, mButtonWidth(80.f)
+	, mCurrentStep(nullptr)
 {
-	Frame* nameConfiguration = m_createController.addFrame<NameConfiguration>(new NameConfiguration(m_createController));
+	Frame* nameConfiguration = mCreateController.addFrame<NameConfiguration>(new NameConfiguration(mCreateController));
 	if (nameConfiguration == nullptr)
 	{
 		throw std::exception("Error creating NameConfiguration");
 	}
-	Frame* pathConfiguration = m_createController.addFrame<PathConfiguration>(new PathConfiguration(m_createController));
+	Frame* pathConfiguration = mCreateController.addFrame<PathConfiguration>(new PathConfiguration(mCreateController));
 	if (pathConfiguration == nullptr)
 	{
 		throw std::exception("Error creating PathConfiguration");
 	}
-	Frame* finalization = m_createController.addFrame<Finalization>(new Finalization(m_createController));
+	Frame* finalization = mCreateController.addFrame<Finalization>(new Finalization(mCreateController));
 	if (finalization == nullptr)
 	{
 		throw std::exception("Error creating Finalization");
 	}
 
-	m_createController.setCurrentFrame<NameConfiguration>();
-	m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+	mCreateController.setCurrentFrame<NameConfiguration>();
+	mCurrentStep = dynamic_cast<IStep*>(mCreateController.getCurrentFrame());
 
 	nameConfiguration->addNeighbour<PathConfiguration>();
 	pathConfiguration->addNeighbour<NameConfiguration>();
@@ -44,14 +44,14 @@ Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::Fra
 void Launcher::ProjectCreation::ProjectCreation::show()
 {
 	ImGui::BeginChild("Project List", ImVec2(0, ImGui::GetContentRegionAvail().y - 25), true);
-	m_createController.show();
+	mCreateController.show();
 	ImGui::EndChild();
 
 	const float spacing = 10.f;
 	const float windowWidth = ImGui::GetWindowWidth();
-	const float totalButtonsWidth = m_buttonWidth * 2.f + spacing;
+	const float totalButtonsWidth = mButtonWidth * 2.f + spacing;
 
-	if (ImGui::Button("Cancel", ImVec2(m_buttonWidth, 0)))
+	if (ImGui::Button("Cancel", ImVec2(mButtonWidth, 0)))
 	{
 		moveToNeighbour<ProjectSelection::ProjectSelection>();
 	}
@@ -63,15 +63,15 @@ void Launcher::ProjectCreation::ProjectCreation::show()
 
 void Launcher::ProjectCreation::ProjectCreation::showBackButton()
 {
-	bool disabled = m_createController.isCurrentFrame<NameConfiguration>();
+	bool disabled = mCreateController.isCurrentFrame<NameConfiguration>();
 	if (disabled)
 	{
 		ImGui::BeginDisabled();
 	}
-	if (ImGui::Button("Back", ImVec2(m_buttonWidth, 0)))
+	if (ImGui::Button("Back", ImVec2(mButtonWidth, 0)))
 	{
-		m_currentStep->moveBack();
-		m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+		mCurrentStep->moveBack();
+		mCurrentStep = dynamic_cast<IStep*>(mCreateController.getCurrentFrame());
 	}
 	if (disabled)
 	{
@@ -82,9 +82,9 @@ void Launcher::ProjectCreation::ProjectCreation::showBackButton()
 void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 {
 	bool disabled = false;
-	disabled = m_currentStep->hasError();
+	disabled = mCurrentStep->hasError();
 	const char* m_nextButtonText = "Next";
-	if (m_createController.isCurrentFrame<Finalization>())
+	if (mCreateController.isCurrentFrame<Finalization>())
 	{
 		m_nextButtonText = "Finish";
 	}
@@ -92,12 +92,12 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	{
 		ImGui::BeginDisabled();
 	}
-	if (ImGui::Button(m_nextButtonText, ImVec2(m_buttonWidth, 0)))
+	if (ImGui::Button(m_nextButtonText, ImVec2(mButtonWidth, 0)))
 	{
-		if (m_createController.isCurrentFrame<Finalization>())
+		if (mCreateController.isCurrentFrame<Finalization>())
 		{
-			NameConfiguration* nameConfiguration = m_createController.getFrame<NameConfiguration>();
-			PathConfiguration* pathConfiguration = m_createController.getFrame<PathConfiguration>();
+			NameConfiguration* nameConfiguration = mCreateController.getFrame<NameConfiguration>();
+			PathConfiguration* pathConfiguration = mCreateController.getFrame<PathConfiguration>();
 			if (nameConfiguration != nullptr && pathConfiguration != nullptr)
 			{
 				FileGeneration fileGenerator(nameConfiguration->getName(), pathConfiguration->getPath());
@@ -110,9 +110,9 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 				getController().getApplication().getWindow().close();
 			}
 		}
-		if (m_currentStep->moveNext())
+		if (mCurrentStep->moveNext())
 		{
-			m_currentStep = dynamic_cast<IStep*>(m_createController.getCurrentFrame());
+			mCurrentStep = dynamic_cast<IStep*>(mCreateController.getCurrentFrame());
 		}
 	}
 	if (disabled)

@@ -23,7 +23,7 @@ protected:
 	virtual void handleEvent(const std::optional<sf::Event> event);
 
 protected:
-	sf::RenderWindow m_window;
-	sf::Clock m_deltaClock;
+	sf::RenderWindow mWindow;
+	sf::Clock mDeltaClock;
 };
 }

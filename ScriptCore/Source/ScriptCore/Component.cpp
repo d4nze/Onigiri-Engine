@@ -1,6 +1,6 @@
 #include "Component.hpp"
 
-ScriptCore::Component::Component() : m_instance(nullptr) {}
+ScriptCore::Component::Component() : mInstance(nullptr) {}
 
 void ScriptCore::Component::create() {}
 
@@ -12,10 +12,10 @@ void ScriptCore::Component::load(nlohmann::json& data) {}
 
 ScriptCore::Instance& ScriptCore::Component::getInstance()
 {
-	return *m_instance;
+	return *mInstance;
 }
 
 const ScriptCore::Instance& ScriptCore::Component::getInstance() const
 {
-	return *m_instance;
+	return *mInstance;
 }

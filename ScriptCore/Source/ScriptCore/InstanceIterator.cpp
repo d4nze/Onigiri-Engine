@@ -2,11 +2,11 @@
 #include "Instance.hpp"
 
 ScriptCore::InstanceIterator::InstanceIterator(const Instance* parent, const std::vector<Instance*>& instances, std::int32_t startingPoint)
-    : m_parent(parent)
-    , m_instances(instances)
-    , m_index(startingPoint)
+    : mParent(parent)
+    , mInstances(instances)
+    , mIndex(startingPoint)
 {
-    if (m_index < m_instances.size())
+    if (mIndex < mInstances.size())
     {
         moveToNextComponent();
     }
@@ -14,33 +14,33 @@ ScriptCore::InstanceIterator::InstanceIterator(const Instance* parent, const std
 
 ScriptCore::Instance* ScriptCore::InstanceIterator::operator*()
 {
-    return m_instances[m_index];
+    return mInstances[mIndex];
 }
 
 const ScriptCore::Instance* ScriptCore::InstanceIterator::operator*() const
 {
-    return m_instances[m_index + 1];
+    return mInstances[mIndex + 1];
 }
 
 ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator++()
 {
-    m_index++;
+    mIndex++;
     moveToNextComponent();
     return *this;
 }
 
 const ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator++() const
 {
-    m_index++;
+    mIndex++;
     moveToNextComponent();
     return *this;
 }
 
 ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator--()
 {
-    if (m_index != -1)
+    if (mIndex != -1)
     {
-        m_index--;
+        mIndex--;
         moveToPreviusComponent();
     }
     return *this;
@@ -48,9 +48,9 @@ ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator--()
 
 const ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator--() const
 {
-    if (m_index != -1)
+    if (mIndex != -1)
     {
-        m_index--;
+        mIndex--;
         moveToPreviusComponent();
     }
     return *this;
@@ -58,20 +58,20 @@ const ScriptCore::InstanceIterator& ScriptCore::InstanceIterator::operator--() c
 
 bool ScriptCore::InstanceIterator::operator==(const InstanceIterator& other) const
 {
-    return m_index == other.m_index;
+    return mIndex == other.mIndex;
 }
 
 bool ScriptCore::InstanceIterator::operator!=(const InstanceIterator& other) const
 {
-    return m_index != other.m_index;
+    return mIndex != other.mIndex;
 }
 
 void ScriptCore::InstanceIterator::moveToNextComponent() const
 {
-    for (; m_index < m_instances.size() && m_instances[m_index]->getParent() != m_parent; m_index++);
+    for (; mIndex < mInstances.size() && mInstances[mIndex]->getParent() != mParent; mIndex++);
 }
 
 void ScriptCore::InstanceIterator::moveToPreviusComponent() const
 {
-    for (; m_instances[m_index]->getParent() != m_parent && m_index > 0; m_index--);
+    for (; mInstances[mIndex]->getParent() != mParent && mIndex > 0; mIndex--);
 }

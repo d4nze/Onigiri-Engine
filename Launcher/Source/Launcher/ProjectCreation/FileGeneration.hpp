@@ -22,13 +22,13 @@ private:
 	bool generatePremakeFiles();
 
 private:
-	std::string m_name;
-	std::string m_path;
-	std::string m_rootPath;
-	std::string m_scriptsPath;
-	std::string m_mainScriptsPath;
-	std::string m_inspectorScriptsPath;
-	std::string m_editorScriptsPath;
+	std::string mName;
+	std::string mPath;
+	std::string mRootPath;
+	std::string mScriptsPath;
+	std::string mMainScriptsPath;
+	std::string mInspectorScriptsPath;
+	std::string mEditorScriptsPath;
 };
 }
 }

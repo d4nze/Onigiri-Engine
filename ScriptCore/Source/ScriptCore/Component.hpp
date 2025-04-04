@@ -23,7 +23,7 @@ public:
 	const Instance& getInstance() const;
 
 private:
-	Instance* m_instance;
+	Instance* mInstance;
 	friend Instance;
 };
 }

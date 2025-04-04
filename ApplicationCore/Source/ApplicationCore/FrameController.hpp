@@ -47,11 +47,11 @@ private:
 	Frame* getFrame(std::type_index frameTypeID) const;
 
 private:
-	Application& m_application;
-	Frame* m_currentFrame;
-	std::map<std::type_index, Frame*> m_frames;
-	std::map<Frame*, std::optional<std::type_index>> m_typeIDs;
-	std::set<std::pair<std::type_index, std::type_index>> m_connections;
+	Application& mApplication;
+	Frame* mCurrentFrame;
+	std::map<std::type_index, Frame*> mFrames;
+	std::map<Frame*, std::optional<std::type_index>> mTypeIDs;
+	std::set<std::pair<std::type_index, std::type_index>> mConnections;
 
 	friend Frame;
 };

@@ -21,9 +21,9 @@ private:
 	void showNextButton();
 
 private:
-	ApplicationCore::FrameController m_createController;
-	const float m_buttonWidth;
-	IStep* m_currentStep;
+	ApplicationCore::FrameController mCreateController;
+	const float mButtonWidth;
+	IStep* mCurrentStep;
 };
 }
 }

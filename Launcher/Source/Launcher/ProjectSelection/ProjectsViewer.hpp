@@ -31,9 +31,9 @@ private:
 	void showProjectPopup(std::vector<Project*>::iterator& iterator);
 
 private:
-	ProjectSelection& m_projectSelection;
-	ImGuiIO& m_imGuiIO;
-	static const char* m_saveFileName;
+	ProjectSelection& mProjectSelection;
+	ImGuiIO& mImGuiIO;
+	static const char* mSaveFileName;
 };
 }
 }

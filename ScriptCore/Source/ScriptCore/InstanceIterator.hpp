@@ -26,9 +26,9 @@ private:
 	void moveToPreviusComponent() const;
 
 private:
-	const Instance* m_parent;
-	const std::vector<Instance*>& m_instances;
-	mutable std::size_t m_index;
+	const Instance* mParent;
+	const std::vector<Instance*>& mInstances;
+	mutable std::size_t mIndex;
 
 	friend class SCRIPT_CORE_API Scene;
 };

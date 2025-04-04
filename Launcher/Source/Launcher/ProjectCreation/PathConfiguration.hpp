@@ -42,11 +42,11 @@ private:
 	void updateErrorText();
 
 private:
-	const std::int32_t m_bufferSize;
-	std::string m_path;
-	ErrorType m_errorType;
-	ErrorType m_previousErrorType;
-	std::string m_errorText;
+	const std::int32_t mBufferSize;
+	std::string mPath;
+	ErrorType mErrorType;
+	ErrorType mPreviousErrorType;
+	std::string mErrorText;
 };
 }
 }
