@@ -5,7 +5,7 @@
 
 Launcher::ProjectEditorOpener::ProjectEditorOpener(const ProjectSelection::Project& selectedProject)
 {
-	if (std::filesystem::exists("ProjectEditorSettings.json"))
+	if (std::filesystem::exists("Project Editor Settings.json"))
 	{
 		if (!openReader())
 		{
@@ -29,7 +29,7 @@ Launcher::ProjectEditorOpener::ProjectEditorOpener(const ProjectSelection::Proje
 
 bool Launcher::ProjectEditorOpener::openReader()
 {
-	mSettingsReader.open("ProjectEditorSettings.json");
+	mSettingsReader.open("Project Editor Settings.json");
 	return mSettingsReader.is_open() && mSettingsReader.good();
 }
 
@@ -42,6 +42,6 @@ void Launcher::ProjectEditorOpener::updateProject(const ProjectSelection::Projec
 
 bool Launcher::ProjectEditorOpener::openWriter()
 {
-	mSettingsWriter.open("ProjectEditorSettings.json");
+	mSettingsWriter.open("Project Editor Settings.json");
 	return mSettingsWriter.is_open() && mSettingsWriter.good();
 }

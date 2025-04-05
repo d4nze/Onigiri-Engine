@@ -1,6 +1,7 @@
 #pragma once
 #include "ApplicationCore/Application.hpp"
 #include "GUI.hpp"
+#include "Settings.hpp"
 
 #include <imgui.h>
 
@@ -14,7 +15,14 @@ public:
 private:
 	void update() override;
 
+	Settings& getSettings();
+	const Settings& getSettings() const;
+
+	GUI& getGUI();
+	const GUI& getGUI() const;
+
 private:
+	Settings mSettings;
 	GUI mGUI;
 };
 }
