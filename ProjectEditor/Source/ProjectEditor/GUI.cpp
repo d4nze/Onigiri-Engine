@@ -1,4 +1,5 @@
 #include "GUI.hpp"
+#include "Window/Window.hpp"
 
 #include <imgui-sfml.h>
 
@@ -6,7 +7,6 @@ ProjectEditor::GUI::GUI(Application& application)
 	: mApplication(application)
 	, mImGuiIO(ImGui::GetIO())
 	, mMainFont(nullptr)
-	, mFrameController((ApplicationCore::Application&)mApplication)
 {
 	mImGuiIO.IniFilename = "ProjectEditor.ini";
 	ImGuiIO& io = ImGui::GetIO();
@@ -32,7 +32,16 @@ ProjectEditor::GUI::GUI(Application& application)
 void ProjectEditor::GUI::update()
 {
 	ImGui::DockSpaceOverViewport();
-	mFrameController.show();
+	for (auto[typeID, window] : mWindows)
+	{
+		bool open = window->isOpen();
+		if (open && ImGui::Begin(window->getTitle(), &open))
+		{
+			window->show();
+			ImGui::End();
+		}
+		window->setOpen(open);
+	}
 }
 
 ProjectEditor::Application& ProjectEditor::GUI::getApplication()
@@ -43,4 +52,13 @@ ProjectEditor::Application& ProjectEditor::GUI::getApplication()
 const ProjectEditor::Application& ProjectEditor::GUI::getApplication() const
 {
 	return mApplication;
+}
+
+ProjectEditor::Window::Window* const ProjectEditor::GUI::getWindow(std::type_index typeID) const
+{
+	if (mWindows.find(typeID) != mWindows.end())
+	{
+		return mWindows.at(typeID);
+	}
+	return nullptr;
 }
