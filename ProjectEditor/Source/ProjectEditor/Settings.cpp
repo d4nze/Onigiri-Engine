@@ -32,5 +32,5 @@ ProjectEditor::Settings::~Settings()
 
 std::filesystem::path ProjectEditor::Settings::getCurrentProjectPath() const
 {
-    return std::filesystem::path();
+    return mCurrentProjectPath;
 }
