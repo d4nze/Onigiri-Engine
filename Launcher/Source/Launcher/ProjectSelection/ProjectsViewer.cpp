@@ -1,8 +1,9 @@
 #include "ProjectsViewer.hpp"
+#include "ProjectEditorOpener.hpp"
+#include "ProjectSelection.hpp"
 #include "ApplicationCore/Application.hpp"
 #include "ApplicationCore/FrameController.hpp"
 #include "ApplicationCore/MessageWindow.hpp"
-#include "ProjectSelection.hpp"
 
 #include <imgui.h>
 #include <filesystem>
@@ -94,10 +95,12 @@ void Launcher::ProjectSelection::ProjectsViewer::showProject(Project* project)
 {
 	if (ImGui::Selectable("", false, ImGuiSelectableFlags_SpanAllColumns, ImVec2(0, 40)))
 	{
-		std::filesystem::path path = project->path + "\\" + project->name;
+		std::filesystem::path path(project->path);
+		path /= project->name;
 		if (std::filesystem::exists(path) && std::filesystem::is_directory(path))
 		{
 			mProjectSelection.getController().getApplication().getWindow().close();
+			ProjectEditorOpener projectEditorOpener(*project);
 		}
 		else
 		{

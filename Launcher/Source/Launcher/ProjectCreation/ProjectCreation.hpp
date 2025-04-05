@@ -19,6 +19,7 @@ protected:
 private:
 	void showBackButton();
 	void showNextButton();
+	void openProjectEditor();
 
 private:
 	ApplicationCore::FrameController mCreateController;

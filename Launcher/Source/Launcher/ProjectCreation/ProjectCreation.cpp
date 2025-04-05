@@ -3,11 +3,13 @@
 #include "Finalization.hpp"
 #include "NameConfiguration.hpp"
 #include "PathConfiguration.hpp"
+#include "ProjectEditorOpener.hpp"
 #include "ApplicationCore/Application.hpp"
 #include "ApplicationCore/FrameController.hpp"
 #include "ProjectSelection/ProjectSelection.hpp"
 
 #include <imgui.h>
+#include <nlohmann/json.hpp>
 
 Launcher::ProjectCreation::ProjectCreation::ProjectCreation(ApplicationCore::FrameController& frameController)
 	: ApplicationCore::Frame(frameController)
@@ -96,19 +98,7 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	{
 		if (mCreateController.isCurrentFrame<Finalization>())
 		{
-			NameConfiguration* nameConfiguration = mCreateController.getFrame<NameConfiguration>();
-			PathConfiguration* pathConfiguration = mCreateController.getFrame<PathConfiguration>();
-			if (nameConfiguration != nullptr && pathConfiguration != nullptr)
-			{
-				FileGeneration fileGenerator(nameConfiguration->getName(), pathConfiguration->getPath());
-				ProjectSelection::ProjectSelection* projectSelection = getController().getFrame<ProjectSelection::ProjectSelection>();
-				if (projectSelection != nullptr)
-				{
-					ProjectSelection::ProjectsViewer& projectsViewer = projectSelection->getProjectsView();
-					projectsViewer.push_back(new ProjectSelection::Project{ nameConfiguration->getName(), pathConfiguration->getPath() });
-				}
-				getController().getApplication().getWindow().close();
-			}
+			openProjectEditor();
 		}
 		if (mCurrentStep->moveNext())
 		{
@@ -119,4 +109,26 @@ void Launcher::ProjectCreation::ProjectCreation::showNextButton()
 	{
 		ImGui::EndDisabled();
 	}
+}
+
+void Launcher::ProjectCreation::ProjectCreation::openProjectEditor()
+{
+
+	NameConfiguration* nameConfiguration = mCreateController.getFrame<NameConfiguration>();
+	PathConfiguration* pathConfiguration = mCreateController.getFrame<PathConfiguration>();
+	if (nameConfiguration == nullptr || pathConfiguration == nullptr)
+	{
+		return;
+	}
+
+	FileGeneration fileGenerator(nameConfiguration->getName(), pathConfiguration->getPath());
+	ProjectSelection::ProjectSelection* projectSelection = getController().getFrame<ProjectSelection::ProjectSelection>();
+	if (projectSelection == nullptr)
+	{
+		return;
+	}
+	ProjectSelection::ProjectsViewer& projectsViewer = projectSelection->getProjectsView();
+	projectsViewer.push_back(new ProjectSelection::Project{nameConfiguration->getName(), pathConfiguration->getPath()});
+	getController().getApplication().getWindow().close();
+	ProjectEditorOpener projectEditorOpener(*projectsViewer.back());
 }
