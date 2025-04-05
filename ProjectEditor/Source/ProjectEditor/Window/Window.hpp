@@ -7,6 +7,7 @@ class Window
 {
 public:
 	Window(GUI& gui, const char* title, bool open = false);
+	virtual ~Window() = default;
 
 public:
 	virtual void show() = 0;

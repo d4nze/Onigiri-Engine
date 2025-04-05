@@ -18,6 +18,7 @@ class GUI
 {
 public:
 	GUI(Application& application);
+	~GUI();
 
 public:
 	void update();
@@ -31,6 +32,9 @@ public:
 	const TWindow* getWindow() const;
 
 private:
+	void initializeFont();
+	void initializeWindows();
+
 	Window::Window* const getWindow(std::type_index typeID) const;
 
 private:
