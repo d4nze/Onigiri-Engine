@@ -1,5 +1,6 @@
 #pragma once
 #include "Window.hpp"
+#include "ResourceManager.hpp"
 
 namespace ProjectEditor::Window
 {
@@ -10,5 +11,8 @@ public:
 
 public:
 	void show() override;
+
+private:
+	ResourceManager& mResourceManager;
 };
 }
