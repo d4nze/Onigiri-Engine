@@ -15,6 +15,7 @@ dependencies_dir = "%{wks.location}/Dependencies"
 
 include "Premake5/copy.lua"
 
+include "Premake5/include_filewatch.lua"
 include "Premake5/include_imgui.lua"
 include "Premake5/include_json.lua"
 include "Premake5/include_sfml.lua"

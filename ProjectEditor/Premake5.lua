@@ -4,6 +4,7 @@ project "ProjectEditor"
 
 	include_script_core()
 	include_application_core()
+	include_filewatch()
 	include_imgui()
 	include_json()
 	include_sfml()
