@@ -1,5 +1,6 @@
 #pragma once
 #include "Window/WindowHolder.hpp"
+#include "MainMenuBar.hpp"
 
 #include <map>
 #include <typeindex>
@@ -34,6 +35,7 @@ private:
 	ImGuiIO& mImGuiIO;
 	ImFont* mMainFont;
 
+	MainMenuBar mMainMenuBar;
 	Window::WindowHolder mWindowHolder;
 };
 }

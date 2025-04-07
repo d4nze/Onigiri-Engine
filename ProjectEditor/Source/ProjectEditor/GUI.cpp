@@ -8,6 +8,7 @@ ProjectEditor::GUI::GUI(Application& application)
 	: mApplication(application)
 	, mImGuiIO(ImGui::GetIO())
 	, mMainFont(nullptr)
+	, mMainMenuBar(*this)
 	, mWindowHolder(*this)
 {
 	mImGuiIO.IniFilename = "ProjectEditor.ini";
@@ -19,6 +20,7 @@ ProjectEditor::GUI::GUI(Application& application)
 void ProjectEditor::GUI::show()
 {
 	ImGui::DockSpaceOverViewport();
+	mMainMenuBar.show();
 	mWindowHolder.show();
 }
 
