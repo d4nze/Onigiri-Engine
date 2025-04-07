@@ -1,10 +1,10 @@
 #pragma once
-#include "Window.hpp"
+#include "Inspectable.hpp"
 #include "ResourceManager.hpp"
+#include "Window.hpp"
 
 #include <filesystem>
 #include <vector>
-#include <optional>
 
 namespace filewatch
 {
@@ -14,13 +14,35 @@ class FileWatch;
 
 namespace ProjectEditor::Window
 {
-class Folder
+class Folder;
+
+class File : public Inspectable
+{
+public:
+	File() = default;
+	File(const std::filesystem::path& path);
+
+public:
+	void inspect() override;
+	void show(Folder*& selectedFolder, File*& selectedFile);
+
+	void setPath(const std::filesystem::path& path);
+	std::filesystem::path& getPath();
+	const std::filesystem::path& getPath() const;
+
+private:
+	std::filesystem::path mPath;
+};
+
+class Folder : public Inspectable
 {
 public:
 	Folder() = default;
 	Folder(const std::filesystem::path& path);
 
-	void show(std::optional<std::filesystem::path>& selectedPath);
+	void inspect() override;
+
+	void show(Folder*& selectedFolder, File*& selectedFile);
 	void clear();
 
 	void setPath(const std::filesystem::path& path);
@@ -29,16 +51,16 @@ public:
 
 	std::filesystem::path& getPath();
 	std::vector<Folder>& getSubFolders();
-	std::vector<std::filesystem::path>& getFilePaths();
+	std::vector<File>& getFiles();
 
 	const std::filesystem::path& getPath() const;
 	const std::vector<Folder>& getSubFolders() const;
-	const std::vector<std::filesystem::path>& getFilePaths() const;
+	const std::vector<File>& getFiles() const;
 
 private:
 	std::filesystem::path mPath;
 	std::vector<Folder> mSubFolders;
-	std::vector<std::filesystem::path> mFilePaths;
+	std::vector<File> mFiles;
 };
 
 class AssetsBrowser : public Window
@@ -60,7 +82,8 @@ private:
 
 	Folder mAssetsFolder;
 	bool mUpdateAssetsFolder;
-	std::optional<std::filesystem::path> mSelectedPath;
+	File* mSelectedFile;
+	Folder* mSelectedFolder;
 
 	filewatch::FileWatch<std::string>* mAssetsWatcher;
 };

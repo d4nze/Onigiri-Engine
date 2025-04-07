@@ -1,5 +1,6 @@
 #pragma once
 #include "AssetsBrowser.hpp"
+#include "Inspector.hpp"
 
 namespace ProjectEditor
 {
@@ -16,11 +17,15 @@ public:
 	AssetsBrowser& getAssetsBrowser();
 	const AssetsBrowser& getAssetsBrowser() const;
 
+	Inspector& getInspector();
+	const Inspector& getInspector() const;
+
 private:
 	void showWindow(Window& window);
 
 private:
 	AssetsBrowser mAssetsBrowser;
+	Inspector mInspector;
 };
 }
 }
