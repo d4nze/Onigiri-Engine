@@ -134,6 +134,10 @@ void ProjectEditor::Window::AssetsBrowser::show()
 		updateFolder(mAssetsFolder);
 	}
 	mAssetsFolder.show(mSelectedPath);
+	if (deselect())
+	{
+		mSelectedPath = std::nullopt;
+	}
 }
 
 void ProjectEditor::Window::AssetsBrowser::initializeWatcher()
@@ -158,4 +162,17 @@ void ProjectEditor::Window::AssetsBrowser::updateFolder(Folder& folder, std::uin
 			updateFolder(folder.addSubFolder(entry.path()));
 		}
 	}
+}
+
+bool ProjectEditor::Window::AssetsBrowser::deselect() const
+{
+	if (ImGui::IsKeyPressed(ImGuiKey_Escape))
+	{
+		return true;
+	}
+	if (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered())
+	{
+		return true;
+	}
+	return false;
 }

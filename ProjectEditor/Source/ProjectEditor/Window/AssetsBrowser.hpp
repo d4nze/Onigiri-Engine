@@ -53,6 +53,7 @@ public:
 private:
 	void initializeWatcher();
 	void updateFolder(Folder& folder, std::uint32_t depth = 0);
+	bool deselect() const;
 
 private:
 	ResourceManager& mResourceManager;
