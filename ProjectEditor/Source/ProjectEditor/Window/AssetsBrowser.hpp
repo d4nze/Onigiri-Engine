@@ -14,11 +14,31 @@ class FileWatch;
 
 namespace ProjectEditor::Window
 {
-struct Folder
+class Folder
 {
-	std::filesystem::path path;
-	std::vector<std::filesystem::path> files;
-	std::vector<Folder> folders;
+public:
+	Folder() = default;
+	Folder(const std::filesystem::path& path);
+
+	void show(std::optional<std::filesystem::path>& selectedPath);
+	void clear();
+
+	void setPath(const std::filesystem::path& path);
+	Folder& addSubFolder(const std::filesystem::path& subFolderPath);
+	void addFilePath(const std::filesystem::path& filePath);
+
+	std::filesystem::path& getPath();
+	std::vector<Folder>& getSubFolders();
+	std::vector<std::filesystem::path>& getFilePaths();
+
+	const std::filesystem::path& getPath() const;
+	const std::vector<Folder>& getSubFolders() const;
+	const std::vector<std::filesystem::path>& getFilePaths() const;
+
+private:
+	std::filesystem::path mPath;
+	std::vector<Folder> mSubFolders;
+	std::vector<std::filesystem::path> mFilePaths;
 };
 
 class AssetsBrowser : public Window
@@ -33,7 +53,6 @@ public:
 private:
 	void initializeWatcher();
 	void updateFolder(Folder& folder, std::uint32_t depth = 0);
-	void renderFolder(Folder& folder);
 
 private:
 	ResourceManager& mResourceManager;
