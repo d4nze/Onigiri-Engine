@@ -14,7 +14,7 @@ ProjectEditor::Application::Application()
 
 void ProjectEditor::Application::update()
 {
-    mGUI.update();
+    mGUI.show();
 }
 
 ProjectEditor::Settings& ProjectEditor::Application::getSettings()

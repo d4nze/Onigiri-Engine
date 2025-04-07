@@ -121,13 +121,10 @@ ProjectEditor::Window::AssetsBrowser::~AssetsBrowser()
 	delete mAssetsWatcher;
 }
 
-#include <iostream>
-
 void ProjectEditor::Window::AssetsBrowser::show()
 {
 	if (mUpdateAssetsFolder)
 	{
-		std::cout << "Update called\n";
 		mUpdateAssetsFolder = false;
 		mSelectedPath = std::nullopt;
 		mAssetsFolder.clear();

@@ -1,41 +1,25 @@
 #include "GUI.hpp"
 #include "Window/AssetsBrowser.hpp"
 
+#include <imgui.h>
 #include <imgui-sfml.h>
 
 ProjectEditor::GUI::GUI(Application& application)
 	: mApplication(application)
 	, mImGuiIO(ImGui::GetIO())
 	, mMainFont(nullptr)
+	, mWindowHolder(*this)
 {
 	mImGuiIO.IniFilename = "ProjectEditor.ini";
 	mImGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	initializeFont();
-	initializeWindows();
 }
 
-ProjectEditor::GUI::~GUI()
-{
-	for (auto [typeID, window] : mWindows)
-	{
-		delete window;
-	}
-}
-
-void ProjectEditor::GUI::update()
+void ProjectEditor::GUI::show()
 {
 	ImGui::DockSpaceOverViewport();
-	for (auto[typeID, window] : mWindows)
-	{
-		bool open = window->isOpen();
-		if (open && ImGui::Begin(window->getTitle(), &open))
-		{
-			window->show();
-			ImGui::End();
-		}
-		window->setOpen(open);
-	}
+	mWindowHolder.show();
 }
 
 ProjectEditor::Application& ProjectEditor::GUI::getApplication()
@@ -43,9 +27,19 @@ ProjectEditor::Application& ProjectEditor::GUI::getApplication()
 	return mApplication;
 }
 
+ProjectEditor::Window::WindowHolder& ProjectEditor::GUI::getWindowHolder()
+{
+	return mWindowHolder;
+}
+
 const ProjectEditor::Application& ProjectEditor::GUI::getApplication() const
 {
 	return mApplication;
+}
+
+const ProjectEditor::Window::WindowHolder& ProjectEditor::GUI::getWindowHolder() const
+{
+	return mWindowHolder;
 }
 
 void ProjectEditor::GUI::initializeFont()
@@ -65,20 +59,4 @@ void ProjectEditor::GUI::initializeFont()
 	{
 		throw std::exception("Error updating font's texture");
 	}
-}
-
-void ProjectEditor::GUI::initializeWindows()
-{
-	using namespace Window;
-	AssetsBrowser* assetBrowser = new AssetsBrowser(*this, true);
-	mWindows[typeid(AssetsBrowser)] = assetBrowser;
-}
-
-ProjectEditor::Window::Window* const ProjectEditor::GUI::getWindow(std::type_index typeID) const
-{
-	if (mWindows.find(typeID) != mWindows.end())
-	{
-		return mWindows.at(typeID);
-	}
-	return nullptr;
 }

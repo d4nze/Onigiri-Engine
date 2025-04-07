@@ -1,48 +1,39 @@
 #pragma once
-#include "ApplicationCore/FrameController.hpp"
+#include "Window/WindowHolder.hpp"
 
-#include <imgui.h>
 #include <map>
 #include <typeindex>
+
+struct ImGuiIO;
+struct ImFont;
 
 namespace ProjectEditor
 {
 class Application;
 
-namespace Window
-{
-class Window;
-}
-
 class GUI
 {
 public:
 	GUI(Application& application);
-	~GUI();
 
 public:
-	void update();
+	void show();
 
 	Application& getApplication();
-	const Application& getApplication() const;
+	Window::WindowHolder& getWindowHolder();
 
-	template<class TWindow>
-	TWindow* const getWindow();
-	template<class TWindow>
-	const TWindow* getWindow() const;
+	const Application& getApplication() const;
+	const Window::WindowHolder& getWindowHolder() const;
 
 private:
 	void initializeFont();
-	void initializeWindows();
-
-	Window::Window* const getWindow(std::type_index typeID) const;
 
 private:
 	Application& mApplication;
+
 	ImGuiIO& mImGuiIO;
 	ImFont* mMainFont;
-	std::map<std::type_index, Window::Window*> mWindows;
+
+	Window::WindowHolder mWindowHolder;
 };
 }
-
-#include "GUI.inl"

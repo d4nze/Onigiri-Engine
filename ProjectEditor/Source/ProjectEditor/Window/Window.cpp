@@ -1,4 +1,5 @@
 #include "Window.hpp"
+#include "GUI.hpp"
 
 ProjectEditor::Window::Window::Window(GUI& gui, const char* title, bool open)
     : mGUI(gui)

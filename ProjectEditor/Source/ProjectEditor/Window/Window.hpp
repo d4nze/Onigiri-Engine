@@ -1,7 +1,9 @@
 #pragma once
-#include "GUI.hpp"
 
-namespace ProjectEditor::Window
+namespace ProjectEditor
+{
+class GUI;
+namespace Window
 {
 class Window
 {
@@ -26,5 +28,8 @@ private:
 	GUI& mGUI;
 	const char* mTitle;
 	bool mOpen;
+
+	friend class WindowHolder;
 };
+}
 }
