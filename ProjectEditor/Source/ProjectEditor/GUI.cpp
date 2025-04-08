@@ -1,5 +1,4 @@
 #include "GUI.hpp"
-#include "Window/AssetsBrowser.hpp"
 
 #include <imgui.h>
 #include <imgui-sfml.h>

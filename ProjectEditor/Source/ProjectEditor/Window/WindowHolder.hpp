@@ -1,5 +1,5 @@
 #pragma once
-#include "AssetsBrowser.hpp"
+#include "AssetsBrowser/AssetsBrowser.hpp"
 #include "Inspector.hpp"
 
 namespace ProjectEditor

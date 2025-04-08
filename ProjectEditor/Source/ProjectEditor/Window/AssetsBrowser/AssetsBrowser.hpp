@@ -1,7 +1,8 @@
 #pragma once
-#include "Inspectable.hpp"
+#include "../Inspectable.hpp"
+#include "../Window.hpp"
+
 #include "ResourceManager.hpp"
-#include "Window.hpp"
 
 #include <filesystem>
 #include <optional>

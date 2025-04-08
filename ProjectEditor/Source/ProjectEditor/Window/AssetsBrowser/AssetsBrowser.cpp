@@ -1,7 +1,7 @@
 #include "AssetsBrowser.hpp"
+#include "../Inspector.hpp"
 #include "Application.hpp"
 #include "GUI.hpp"
-#include "Inspector.hpp"
 
 #include <filewatch/FileWatch.hpp>
 
