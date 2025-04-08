@@ -14,8 +14,8 @@ public:
 public:
 	void show();
 
-	AssetsBrowser& getAssetsBrowser();
-	const AssetsBrowser& getAssetsBrowser() const;
+	AssetsBrowser::AssetsBrowser& getAssetsBrowser();
+	const AssetsBrowser::AssetsBrowser& getAssetsBrowser() const;
 
 	Inspector& getInspector();
 	const Inspector& getInspector() const;
@@ -24,7 +24,7 @@ private:
 	void showWindow(Window& window);
 
 private:
-	AssetsBrowser mAssetsBrowser;
+	AssetsBrowser::AssetsBrowser mAssetsBrowser;
 	Inspector mInspector;
 };
 }

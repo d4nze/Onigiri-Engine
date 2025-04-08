@@ -13,7 +13,7 @@ template<class StringType>
 class FileWatch;
 }
 
-namespace ProjectEditor::Window
+namespace ProjectEditor::Window::AssetsBrowser
 {
 class Folder;
 

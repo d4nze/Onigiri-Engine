@@ -7,9 +7,9 @@
 
 /// FILE ///
 
-ProjectEditor::Window::File::File(const std::filesystem::path& path) : mPath(path) {}
+ProjectEditor::Window::AssetsBrowser::File::File(const std::filesystem::path& path) : mPath(path) {}
 
-void ProjectEditor::Window::File::show(std::optional<std::filesystem::path>& selectedPath)
+void ProjectEditor::Window::AssetsBrowser::File::show(std::optional<std::filesystem::path>& selectedPath)
 {
 	ImGuiTreeNodeFlags fileFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 	if (selectedPath == mPath)
@@ -23,30 +23,30 @@ void ProjectEditor::Window::File::show(std::optional<std::filesystem::path>& sel
 	}
 }
 
-void ProjectEditor::Window::File::setPath(const std::filesystem::path& path)
+void ProjectEditor::Window::AssetsBrowser::File::setPath(const std::filesystem::path& path)
 {
 	mPath = path;
 }
 
-std::filesystem::path& ProjectEditor::Window::File::getPath()
+std::filesystem::path& ProjectEditor::Window::AssetsBrowser::File::getPath()
 {
 	return mPath;
 }
 
-const std::filesystem::path& ProjectEditor::Window::File::getPath() const
+const std::filesystem::path& ProjectEditor::Window::AssetsBrowser::File::getPath() const
 {
 	return mPath;
 }
 
 /// FOLDER ///
 
-ProjectEditor::Window::Folder::Folder(const std::filesystem::path& path)
+ProjectEditor::Window::AssetsBrowser::Folder::Folder(const std::filesystem::path& path)
 	: mPath(path)
 	, mSubFolders()
 	, mFiles()
 {}
 
-void ProjectEditor::Window::Folder::show(std::optional<std::filesystem::path>& selectedPath)
+void ProjectEditor::Window::AssetsBrowser::Folder::show(std::optional<std::filesystem::path>& selectedPath)
 {
 	std::string fileName = mPath.filename().string();
 	ImGui::PushID(fileName.c_str());
@@ -78,60 +78,60 @@ void ProjectEditor::Window::Folder::show(std::optional<std::filesystem::path>& s
 	ImGui::PopID();
 }
 
-void ProjectEditor::Window::Folder::clear()
+void ProjectEditor::Window::AssetsBrowser::Folder::clear()
 {
 	mSubFolders.clear();
 	mFiles.clear();
 }
 
-void ProjectEditor::Window::Folder::setPath(const std::filesystem::path& path)
+void ProjectEditor::Window::AssetsBrowser::Folder::setPath(const std::filesystem::path& path)
 {
 	mPath = path;
 }
 
-ProjectEditor::Window::Folder& ProjectEditor::Window::Folder::addSubFolder(const std::filesystem::path& subFolderPath)
+ProjectEditor::Window::AssetsBrowser::Folder& ProjectEditor::Window::AssetsBrowser::Folder::addSubFolder(const std::filesystem::path& subFolderPath)
 {
 	return mSubFolders.emplace_back(subFolderPath);
 }
 
-void ProjectEditor::Window::Folder::addFilePath(const std::filesystem::path& filePath)
+void ProjectEditor::Window::AssetsBrowser::Folder::addFilePath(const std::filesystem::path& filePath)
 {
 	mFiles.push_back(filePath);
 }
 
-std::filesystem::path& ProjectEditor::Window::Folder::getPath()
+std::filesystem::path& ProjectEditor::Window::AssetsBrowser::Folder::getPath()
 {
 	return mPath;
 }
 
-std::vector<ProjectEditor::Window::Folder>& ProjectEditor::Window::Folder::getSubFolders()
+std::vector<ProjectEditor::Window::AssetsBrowser::Folder>& ProjectEditor::Window::AssetsBrowser::Folder::getSubFolders()
 {
 	return mSubFolders;
 }
 
-std::vector<ProjectEditor::Window::File>& ProjectEditor::Window::Folder::getFiles()
+std::vector<ProjectEditor::Window::AssetsBrowser::File>& ProjectEditor::Window::AssetsBrowser::Folder::getFiles()
 {
 	return mFiles;
 }
 
-const std::filesystem::path& ProjectEditor::Window::Folder::getPath() const
+const std::filesystem::path& ProjectEditor::Window::AssetsBrowser::Folder::getPath() const
 {
 	return mPath;
 }
 
-const std::vector<ProjectEditor::Window::Folder>& ProjectEditor::Window::Folder::getSubFolders() const
+const std::vector<ProjectEditor::Window::AssetsBrowser::Folder>& ProjectEditor::Window::AssetsBrowser::Folder::getSubFolders() const
 {
 	return mSubFolders;
 }
 
-const std::vector<ProjectEditor::Window::File>& ProjectEditor::Window::Folder::getFiles() const
+const std::vector<ProjectEditor::Window::AssetsBrowser::File>& ProjectEditor::Window::AssetsBrowser::Folder::getFiles() const
 {
 	return mFiles;
 }
 
 /// INSPECTABLE FILE ///
 
-ProjectEditor::Window::InspectableFile::InspectableFile()
+ProjectEditor::Window::AssetsBrowser::InspectableFile::InspectableFile()
 	: Inspectable()
 	, File()
 	, mErrorText(std::nullopt)
@@ -140,7 +140,7 @@ ProjectEditor::Window::InspectableFile::InspectableFile()
 	, mSize(0.0f)
 {}
 
-void ProjectEditor::Window::InspectableFile::update()
+void ProjectEditor::Window::AssetsBrowser::InspectableFile::update()
 {
 	const std::filesystem::path& path = getPath();
 
@@ -161,7 +161,7 @@ void ProjectEditor::Window::InspectableFile::update()
 	mSize = static_cast<float>(std::filesystem::file_size(path)) / 1024.0f;
 }
 
-void ProjectEditor::Window::InspectableFile::inspect()
+void ProjectEditor::Window::AssetsBrowser::InspectableFile::inspect()
 {
 	ImGui::Text("File information");
 	ImGui::Separator();
@@ -178,7 +178,7 @@ void ProjectEditor::Window::InspectableFile::inspect()
 
 /// ASSETS BROWSER ///
 
-ProjectEditor::Window::AssetsBrowser::AssetsBrowser(GUI& gui, bool open)
+ProjectEditor::Window::AssetsBrowser::AssetsBrowser::AssetsBrowser(GUI& gui, bool open)
 	: Window(gui, "Assets Browser", open)
 	, mResourceManager(gui.getApplication().getResourceManager())
 	, mAssetsFolder(mResourceManager.getRootPath() / "Assets")
@@ -190,12 +190,12 @@ ProjectEditor::Window::AssetsBrowser::AssetsBrowser(GUI& gui, bool open)
 	initializeWatcher();
 }
 
-ProjectEditor::Window::AssetsBrowser::~AssetsBrowser()
+ProjectEditor::Window::AssetsBrowser::AssetsBrowser::~AssetsBrowser()
 {
 	delete mAssetsWatcher;
 }
 
-void ProjectEditor::Window::AssetsBrowser::show()
+void ProjectEditor::Window::AssetsBrowser::AssetsBrowser::show()
 {
 	if (mUpdateAssetsFolder)
 	{
@@ -223,7 +223,7 @@ void ProjectEditor::Window::AssetsBrowser::show()
 	}
 }
 
-void ProjectEditor::Window::AssetsBrowser::initializeWatcher()
+void ProjectEditor::Window::AssetsBrowser::AssetsBrowser::initializeWatcher()
 {
 	auto lambda = [this](const std::string&, const filewatch::Event)
 	{
@@ -232,7 +232,7 @@ void ProjectEditor::Window::AssetsBrowser::initializeWatcher()
 	mAssetsWatcher = new filewatch::FileWatch<std::string>(mAssetsFolder.getPath().string(), lambda);
 }
 
-void ProjectEditor::Window::AssetsBrowser::updateFolder(Folder& folder, std::uint32_t depth)
+void ProjectEditor::Window::AssetsBrowser::AssetsBrowser::updateFolder(Folder& folder, std::uint32_t depth)
 {
 	for (const auto& entry : std::filesystem::directory_iterator(folder.getPath()))
 	{
@@ -247,7 +247,7 @@ void ProjectEditor::Window::AssetsBrowser::updateFolder(Folder& folder, std::uin
 	}
 }
 
-bool ProjectEditor::Window::AssetsBrowser::doDeselected() const
+bool ProjectEditor::Window::AssetsBrowser::AssetsBrowser::doDeselected() const
 {
 	if (mSelectedPath == std::nullopt)
 	{
@@ -264,17 +264,17 @@ bool ProjectEditor::Window::AssetsBrowser::doDeselected() const
 	return false;
 }
 
-void ProjectEditor::Window::AssetsBrowser::deselect()
+void ProjectEditor::Window::AssetsBrowser::AssetsBrowser::deselect()
 {
 	mSelectedPath = std::nullopt;
 }
 
-bool ProjectEditor::Window::AssetsBrowser::doDeleteSelected() const
+bool ProjectEditor::Window::AssetsBrowser::AssetsBrowser::doDeleteSelected() const
 {
 	return mSelectedPath != std::nullopt && ImGui::IsKeyPressed(ImGuiKey_Delete);
 }
 
-void ProjectEditor::Window::AssetsBrowser::deleteSelected()
+void ProjectEditor::Window::AssetsBrowser::AssetsBrowser::deleteSelected()
 {
 	if (mSelectedPath == std::nullopt)
 	{

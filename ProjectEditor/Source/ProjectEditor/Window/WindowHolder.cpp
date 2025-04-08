@@ -12,12 +12,12 @@ void ProjectEditor::Window::WindowHolder::show()
     showWindow(mInspector);
 }
 
-ProjectEditor::Window::AssetsBrowser& ProjectEditor::Window::WindowHolder::getAssetsBrowser()
+ProjectEditor::Window::AssetsBrowser::AssetsBrowser& ProjectEditor::Window::WindowHolder::getAssetsBrowser()
 {
     return mAssetsBrowser;
 }
 
-const ProjectEditor::Window::AssetsBrowser& ProjectEditor::Window::WindowHolder::getAssetsBrowser() const
+const ProjectEditor::Window::AssetsBrowser::AssetsBrowser& ProjectEditor::Window::WindowHolder::getAssetsBrowser() const
 {
     return mAssetsBrowser;
 }

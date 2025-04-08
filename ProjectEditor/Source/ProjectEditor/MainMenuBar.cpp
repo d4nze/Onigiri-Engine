@@ -50,10 +50,15 @@ void ProjectEditor::MainMenuBar::showWindowMenu()
 	{
 		return;
 	}
-	Window::AssetsBrowser& assetsBrowser = mGUI.getWindowHolder().getAssetsBrowser();
+	Window::AssetsBrowser::AssetsBrowser& assetsBrowser = mGUI.getWindowHolder().getAssetsBrowser();
 	if (ImGui::MenuItem("Assets Browser", nullptr, assetsBrowser.isOpen()))
 	{
 		assetsBrowser.open();
+	}
+	Window::Inspector& inspector = mGUI.getWindowHolder().getInspector();
+	if (ImGui::MenuItem("Inspector", nullptr, inspector.isOpen()))
+	{
+		inspector.open();
 	}
 	ImGui::EndMenu();
 }
