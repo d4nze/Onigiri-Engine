@@ -8,8 +8,8 @@ ProjectEditor::Window::WindowHolder::WindowHolder(GUI& gui)
 
 void ProjectEditor::Window::WindowHolder::show()
 {
-    showWindow(mInspector);
     showWindow(mAssetsBrowser);
+    showWindow(mInspector);
 }
 
 ProjectEditor::Window::AssetsBrowser& ProjectEditor::Window::WindowHolder::getAssetsBrowser()

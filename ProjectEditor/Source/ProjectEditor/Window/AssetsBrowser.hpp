@@ -4,6 +4,7 @@
 #include "Window.hpp"
 
 #include <filesystem>
+#include <optional>
 #include <vector>
 
 namespace filewatch
@@ -16,15 +17,14 @@ namespace ProjectEditor::Window
 {
 class Folder;
 
-class File : public Inspectable
+class File
 {
 public:
 	File() = default;
 	File(const std::filesystem::path& path);
 
 public:
-	void inspect() override;
-	void show(Folder*& selectedFolder, File*& selectedFile);
+	void show(std::optional<std::filesystem::path>& selectedPath);
 
 	void setPath(const std::filesystem::path& path);
 	std::filesystem::path& getPath();
@@ -34,15 +34,29 @@ private:
 	std::filesystem::path mPath;
 };
 
-class Folder : public Inspectable
+class InspectableFile : public Inspectable, public File
+{
+public:
+	InspectableFile();
+
+public:
+	void update();
+	void inspect() override;
+
+private:
+	std::optional<std::string> mErrorText;
+	std::string mName;
+	std::string mExtension;
+	float mSize;
+};
+
+class Folder
 {
 public:
 	Folder() = default;
 	Folder(const std::filesystem::path& path);
 
-	void inspect() override;
-
-	void show(Folder*& selectedFolder, File*& selectedFile);
+	void show(std::optional<std::filesystem::path>& selectedPath);
 	void clear();
 
 	void setPath(const std::filesystem::path& path);
@@ -75,15 +89,21 @@ public:
 private:
 	void initializeWatcher();
 	void updateFolder(Folder& folder, std::uint32_t depth = 0);
-	bool deselect() const;
+
+	bool doDeselected() const;
+	void deselect();
+
+	bool doDeleteSelected() const;
+	void deleteSelected();
 
 private:
 	ResourceManager& mResourceManager;
 
 	Folder mAssetsFolder;
 	bool mUpdateAssetsFolder;
-	File* mSelectedFile;
-	Folder* mSelectedFolder;
+
+	std::optional<std::filesystem::path> mSelectedPath;
+	InspectableFile mSelectedFile;
 
 	filewatch::FileWatch<std::string>* mAssetsWatcher;
 };

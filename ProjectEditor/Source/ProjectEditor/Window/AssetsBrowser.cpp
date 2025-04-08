@@ -9,30 +9,17 @@
 
 ProjectEditor::Window::File::File(const std::filesystem::path& path) : mPath(path) {}
 
-void ProjectEditor::Window::File::inspect()
-{
-	ImGui::Text("File");
-	ImGui::Separator();
-	ImGui::Text("Name: %s", mPath.filename().string().c_str());
-	ImGui::Text("Size: %.2f KB", std::filesystem::file_size(mPath) / 1024.0f);
-	if (mPath.has_extension())
-	{
-		ImGui::Text("Extension: %s", mPath.extension().string().c_str());
-	}
-}
-
-void ProjectEditor::Window::File::show(Folder*& selectedFolder, File*& selectedFile)
+void ProjectEditor::Window::File::show(std::optional<std::filesystem::path>& selectedPath)
 {
 	ImGuiTreeNodeFlags fileFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-	if (selectedFile == this)
+	if (selectedPath == mPath)
 	{
 		fileFlags |= ImGuiTreeNodeFlags_Selected;
 	}
 	ImGui::TreeNodeEx(mPath.filename().string().c_str(), fileFlags);
 	if (ImGui::IsItemClicked())
 	{
-		selectedFolder = nullptr;
-		selectedFile = this;
+		selectedPath = mPath;
 	}
 }
 
@@ -59,18 +46,12 @@ ProjectEditor::Window::Folder::Folder(const std::filesystem::path& path)
 	, mFiles()
 {}
 
-void ProjectEditor::Window::Folder::inspect()
-{
-	std::string folderName = "Folder name: " + mPath.filename().string();
-	ImGui::Text(folderName.c_str());
-}
-
-void ProjectEditor::Window::Folder::show(Folder*& selectedFolder, File*& selectedFile)
+void ProjectEditor::Window::Folder::show(std::optional<std::filesystem::path>& selectedPath)
 {
 	std::string fileName = mPath.filename().string();
 	ImGui::PushID(fileName.c_str());
 	ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
-	if (selectedFolder == this)
+	if (selectedPath == mPath)
 	{
 		flags |= ImGuiTreeNodeFlags_Selected;
 	}
@@ -78,23 +59,21 @@ void ProjectEditor::Window::Folder::show(Folder*& selectedFolder, File*& selecte
 	{
 		if (ImGui::IsItemClicked())
 		{
-			selectedFolder = this;
-			selectedFile = nullptr;
+			selectedPath = mPath;
 		}
 		for (auto& subFolder : mSubFolders)
 		{
-			subFolder.show(selectedFolder, selectedFile);
+			subFolder.show(selectedPath);
 		}
 		for (auto& file : mFiles)
 		{
-			file.show(selectedFolder, selectedFile);
+			file.show(selectedPath);
 		}
 		ImGui::TreePop();
 	}
 	else if (ImGui::IsItemClicked())
 	{
-		selectedFolder = this;
-		selectedFile = nullptr;
+		selectedPath = mPath;
 	}
 	ImGui::PopID();
 }
@@ -150,6 +129,53 @@ const std::vector<ProjectEditor::Window::File>& ProjectEditor::Window::Folder::g
 	return mFiles;
 }
 
+/// INSPECTABLE FILE ///
+
+ProjectEditor::Window::InspectableFile::InspectableFile()
+	: Inspectable()
+	, File()
+	, mErrorText(std::nullopt)
+	, mName()
+	, mExtension()
+	, mSize(0.0f)
+{}
+
+void ProjectEditor::Window::InspectableFile::update()
+{
+	const std::filesystem::path& path = getPath();
+
+	mErrorText = std::nullopt;
+	if (!std::filesystem::exists(path))
+	{
+		mErrorText = "File does not exist";
+		return;
+	}
+	if (!std::filesystem::is_regular_file(path))
+	{
+		mErrorText = "Path does not correspond to a regular file: " + path.string();
+		return;
+	}
+
+	mName = path.stem().string();
+	mExtension = path.extension().string();
+	mSize = static_cast<float>(std::filesystem::file_size(path)) / 1024.0f;
+}
+
+void ProjectEditor::Window::InspectableFile::inspect()
+{
+	ImGui::Text("File information");
+	ImGui::Separator();
+	if (mErrorText != std::nullopt)
+	{
+		ImGui::Text(mErrorText.value().c_str());
+		return;
+	}
+	ImGui::Text("Name: %s", mName.c_str());
+	ImGui::Text("Extension: %s", mExtension.c_str());
+	ImGui::Text("Size: %.2f KB", mSize);
+	ImGui::Text("Path: %s", getPath().string().c_str());
+}
+
 /// ASSETS BROWSER ///
 
 ProjectEditor::Window::AssetsBrowser::AssetsBrowser(GUI& gui, bool open)
@@ -157,8 +183,8 @@ ProjectEditor::Window::AssetsBrowser::AssetsBrowser(GUI& gui, bool open)
 	, mResourceManager(gui.getApplication().getResourceManager())
 	, mAssetsFolder(mResourceManager.getRootPath() / "Assets")
 	, mUpdateAssetsFolder(true)
-	, mSelectedFile(nullptr)
-	, mSelectedFolder(nullptr)
+	, mSelectedPath(std::nullopt)
+	, mSelectedFile()
 	, mAssetsWatcher(nullptr)
 {
 	initializeWatcher();
@@ -174,30 +200,26 @@ void ProjectEditor::Window::AssetsBrowser::show()
 	if (mUpdateAssetsFolder)
 	{
 		mUpdateAssetsFolder = false;
-		mSelectedFile = nullptr;
-		mSelectedFolder = nullptr;
+		deselect();
+		mSelectedFile.update();
 		mAssetsFolder.clear();
 		updateFolder(mAssetsFolder);
 	}
-	const Folder* prevFolder = mSelectedFolder;
-	const File* prevFile = mSelectedFile;
-	mAssetsFolder.show(mSelectedFolder, mSelectedFile);
-	if (deselect())
+	const auto oldSelectedPath = mSelectedPath;
+	mAssetsFolder.show(mSelectedPath);
+	if (oldSelectedPath != mSelectedPath && !std::filesystem::is_directory(mSelectedPath.value()))
 	{
-		mSelectedFile = nullptr;
-		mSelectedFolder = nullptr;
+		mSelectedFile.setPath(mSelectedPath.value());
+		mSelectedFile.update();
+		getGUI().getWindowHolder().getInspector().setInspectable(&mSelectedFile);
 	}
-	else if (mSelectedFolder != prevFolder || mSelectedFile != prevFile)
+	if (doDeselected())
 	{
-		Inspector& inspector = getGUI().getWindowHolder().getInspector();
-		if (mSelectedFolder != nullptr)
-		{
-			inspector.setInspectable(mSelectedFolder);
-		}
-		else if (mSelectedFile != nullptr)
-		{
-			inspector.setInspectable(mSelectedFile);
-		}
+		deselect();
+	}
+	if (doDeleteSelected())
+	{
+		deleteSelected();
 	}
 }
 
@@ -212,12 +234,6 @@ void ProjectEditor::Window::AssetsBrowser::initializeWatcher()
 
 void ProjectEditor::Window::AssetsBrowser::updateFolder(Folder& folder, std::uint32_t depth)
 {
-	Inspector& inspector = getGUI().getWindowHolder().getInspector();
-	Inspectable* inspectable = inspector.getInspectable();
-	if (inspectable == mSelectedFolder || inspectable == mSelectedFile)
-	{
-		inspector.setInspectable(nullptr);
-	}
 	for (const auto& entry : std::filesystem::directory_iterator(folder.getPath()))
 	{
 		if (std::filesystem::is_regular_file(entry.status()))
@@ -231,8 +247,12 @@ void ProjectEditor::Window::AssetsBrowser::updateFolder(Folder& folder, std::uin
 	}
 }
 
-bool ProjectEditor::Window::AssetsBrowser::deselect() const
+bool ProjectEditor::Window::AssetsBrowser::doDeselected() const
 {
+	if (mSelectedPath == std::nullopt)
+	{
+		return false;
+	}
 	if (ImGui::IsKeyPressed(ImGuiKey_Escape))
 	{
 		return true;
@@ -242,4 +262,28 @@ bool ProjectEditor::Window::AssetsBrowser::deselect() const
 		return true;
 	}
 	return false;
+}
+
+void ProjectEditor::Window::AssetsBrowser::deselect()
+{
+	mSelectedPath = std::nullopt;
+}
+
+bool ProjectEditor::Window::AssetsBrowser::doDeleteSelected() const
+{
+	return mSelectedPath != std::nullopt && ImGui::IsKeyPressed(ImGuiKey_Delete);
+}
+
+void ProjectEditor::Window::AssetsBrowser::deleteSelected()
+{
+	if (mSelectedPath == std::nullopt)
+	{
+		return;
+	}
+	std::filesystem::path selectedPath = mSelectedFile.getPath();
+	if (std::filesystem::remove(selectedPath))
+	{
+		deselect();
+	}
+	mSelectedFile.update();
 }
