@@ -11,7 +11,7 @@ ProjectEditor::Window::AssetsBrowser::AssetsBrowser::AssetsBrowser(GUI& gui, boo
 	, mAssetsFolder(mResourceManager.getRootPath() / "Assets")
 	, mUpdateAssetsFolder(true)
 	, mSelectedPath(std::nullopt)
-	, mSelectedFile()
+	, mSelectedFile(gui.getFontManager())
 	, mAssetsWatcher(nullptr)
 {
 	initializeWatcher();

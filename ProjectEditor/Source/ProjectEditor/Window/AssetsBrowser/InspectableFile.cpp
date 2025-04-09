@@ -1,10 +1,12 @@
 #include "InspectableFile.hpp"
+#include "ApplicationCore/Font/Manager.hpp"
 
 #include <imgui.h>
 
-ProjectEditor::Window::AssetsBrowser::InspectableFile::InspectableFile()
+ProjectEditor::Window::AssetsBrowser::InspectableFile::InspectableFile(ApplicationCore::Font::Manager& fontManager)
 	: Inspectable()
 	, File()
+	, mFontManager(fontManager)
 	, mErrorText(std::nullopt)
 	, mName()
 	, mExtension()
@@ -44,5 +46,8 @@ void ProjectEditor::Window::AssetsBrowser::InspectableFile::inspect()
 	ImGui::Text("Name: %s", mName.c_str());
 	ImGui::Text("Extension: %s", mExtension.c_str());
 	ImGui::Text("Size: %.2f KB", mSize);
-	ImGui::Text("Path: %s", getPath().string().c_str());
+	{
+		auto italicScope = mFontManager.createScopedStyle(ApplicationCore::Font::Style::Italic);
+		ImGui::Text("Path: %s", getPath().string().c_str());
+	}
 }

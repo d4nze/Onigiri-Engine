@@ -18,9 +18,6 @@ public:
 	void popFontStyle();
 
 private:
-	void updateFontTexture();
-
-private:
 	ImFont* mMainFont;
 	ImFont* mBoldFont;
 	ImFont* mItalicFont;

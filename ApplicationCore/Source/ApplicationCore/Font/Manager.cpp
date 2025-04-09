@@ -56,7 +56,10 @@ ApplicationCore::Font::Manager::Manager(ImGuiIO& imGuiIO)
 	}
 
 	imGuiIO.FontDefault = mMainFont;
-	updateFontTexture();
+	if (!ImGui::SFML::UpdateFontTexture())
+	{
+		throw std::exception("Error updating font's texture");
+	}
 }
 
 ApplicationCore::Font::ScopedStyle ApplicationCore::Font::Manager::createScopedStyle(Style fontStyle)
@@ -66,34 +69,28 @@ ApplicationCore::Font::ScopedStyle ApplicationCore::Font::Manager::createScopedS
 
 void ApplicationCore::Font::Manager::pushFontStyle(Style fontStyle)
 {
+	ImFont* currentFont = nullptr;
 	switch (fontStyle)
 	{
 	case Style::Normal:
-		ImGui::PushFont(mMainFont);
+		currentFont = mMainFont;
 		break;
 	case Style::Bold:
-		ImGui::PushFont(mBoldFont);
+		currentFont = mBoldFont;
 		break;
 	case Style::Italic:
-		ImGui::PushFont(mItalicFont);
+		currentFont = mItalicFont;
 		break;
 	case Style::BoldItalic:
-		ImGui::PushFont(mBoldItalicFont);
+		currentFont = mBoldItalicFont;
 		break;
+	default:
+		return;
 	}
-	updateFontTexture();
+	ImGui::PushFont(currentFont);
 }
 
 void ApplicationCore::Font::Manager::popFontStyle()
 {
 	ImGui::PopFont();
-	updateFontTexture();
-}
-
-void ApplicationCore::Font::Manager::updateFontTexture()
-{
-	if (!ImGui::SFML::UpdateFontTexture())
-	{
-		throw std::exception("Error updating font's texture");
-	}
 }
