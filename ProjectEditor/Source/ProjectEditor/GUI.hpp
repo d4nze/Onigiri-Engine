@@ -1,24 +1,19 @@
 #pragma once
+#include "ApplicationCore/GUI.hpp"
 #include "Window/WindowHolder.hpp"
 #include "MainMenuBar.hpp"
-
-#include <map>
-#include <typeindex>
-
-struct ImGuiIO;
-struct ImFont;
 
 namespace ProjectEditor
 {
 class Application;
 
-class GUI
+class GUI : public ApplicationCore::GUI
 {
 public:
 	GUI(Application& application);
 
 public:
-	void show();
+	void show() override;
 
 	Application& getApplication();
 	Window::WindowHolder& getWindowHolder();
@@ -27,13 +22,7 @@ public:
 	const Window::WindowHolder& getWindowHolder() const;
 
 private:
-	void initializeFont();
-
-private:
 	Application& mApplication;
-
-	ImGuiIO& mImGuiIO;
-	ImFont* mMainFont;
 
 	MainMenuBar mMainMenuBar;
 	Window::WindowHolder mWindowHolder;

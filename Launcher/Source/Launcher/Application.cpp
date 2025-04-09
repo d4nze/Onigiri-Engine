@@ -1,5 +1,4 @@
 #include "Application.hpp"
-#include <imgui.h>
 
 Launcher::Application::Application()
     : ApplicationCore::Application(sf::VideoMode(sf::Vector2u(800, 600)), "Launcher")
@@ -8,5 +7,5 @@ Launcher::Application::Application()
 
 void Launcher::Application::update()
 {
-    mGUI.update();
+    mGUI.show();
 }
