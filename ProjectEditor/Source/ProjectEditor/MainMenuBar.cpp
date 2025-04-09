@@ -1,6 +1,6 @@
 #include "MainMenuBar.hpp"
 
-#include "Window/AssetsBrowser.hpp"
+#include "Window/AssetsBrowser/AssetsBrowser.hpp"
 #include "Application.hpp"
 #include "GUI.hpp"
 

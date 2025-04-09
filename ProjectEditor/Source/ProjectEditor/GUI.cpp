@@ -45,12 +45,20 @@ const ProjectEditor::Window::WindowHolder& ProjectEditor::GUI::getWindowHolder()
 
 void ProjectEditor::GUI::initializeFont()
 {
-	static const ImWchar glyphRanges[] = {
-		0x0020, 0x00FF,
-		0x0400, 0x04FF,
-		0
-	};
-	mMainFont = mImGuiIO.Fonts->AddFontFromFileTTF("vcrosdmonorus_vhsicons.ttf", 14.0f, nullptr, glyphRanges);
+	ImFontGlyphRangesBuilder builder;
+	builder.AddRanges(mImGuiIO.Fonts->GetGlyphRangesDefault());
+	builder.AddRanges(mImGuiIO.Fonts->GetGlyphRangesCyrillic());
+	builder.AddChar(0x2013); // en dash
+	builder.AddChar(0x2014); // em dash
+	builder.AddChar(0x2015); // horizontal bar
+	builder.AddChar(0x2026); // ellipsis …
+	builder.AddChar(0x00AB); // «
+	builder.AddChar(0x00BB); // »
+	ImVector<ImWchar> fullGlyphRanges;
+	builder.BuildRanges(&fullGlyphRanges);
+	std::filesystem::path fontPath = "Fonts";
+	fontPath /= "consola.ttf";
+	mMainFont = mImGuiIO.Fonts->AddFontFromFileTTF(fontPath.string().c_str(), 14.0f, nullptr, fullGlyphRanges.Data);
 	if (!mMainFont)
 	{
 		throw std::exception("Error initializing font");
