@@ -1,7 +1,5 @@
 #pragma once
-
-struct ImGuiIO;
-struct ImFont;
+#include "Font/Manager.hpp"
 
 namespace ApplicationCore
 {
@@ -16,8 +14,13 @@ public:
 public:
 	virtual void show() = 0;
 
+	Font::Manager& getFontManager();
+	const Font::Manager& getFontManager() const;
+
 protected:
 	ImGuiIO& mImGuiIO;
-	ImFont* mMainFont;
+
+private:
+	Font::Manager mFontManager;
 };
 }
